@@ -11,8 +11,8 @@
   --gold-light: #E7CD8F;
   --gold-deep: #8A6B2E;
   --gold-dim: rgba(201, 162, 75, 0.32);
-  --line: rgba(201, 162, 75, 0.28);
-  --line-on-light: rgba(138, 107, 46, 0.35);
+  --line: rgba(201, 162, 75, 0.16);
+  --line-on-light: rgba(138, 107, 46, 0.22);
 
   --font-display: 'Cormorant Garamond', serif;
   --font-body: 'Jost', sans-serif;
@@ -42,11 +42,12 @@ h1, h2, h3 {
 
 .eyebrow {
   font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.32em;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
+  opacity: 0.9;
   margin: 0 0 1.1rem;
 }
 
@@ -122,13 +123,13 @@ h1, h2, h3 {
   border-radius: 50%;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0);
-  box-shadow: 0 0 12px 4px var(--gold-light);
+  box-shadow: 0 0 8px 2px var(--gold-light);
   pointer-events: none;
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .spark-hover:hover::after {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(3.2);
+  opacity: 0.8;
+  transform: translate(-50%, -50%) scale(2.2);
   transition: opacity 0.7s ease-out, transform 0.7s ease-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -146,8 +147,8 @@ h1, h2, h3 {
   justify-content: space-between;
   padding: 1.5rem 5%;
   background: rgba(13, 13, 13, 0.5);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(125%);
+  -webkit-backdrop-filter: blur(12px) saturate(125%);
   border-bottom: 1px solid var(--line);
 }
 .brand {
@@ -197,7 +198,7 @@ h1, h2, h3 {
   padding: 8rem 5% 4rem;
   overflow: hidden;
 }
-.hero-canvas { position: absolute; inset: 0; z-index: 0; opacity: 0.55; }
+.hero-canvas { position: absolute; inset: 0; z-index: 0; opacity: 0.35; }
 .hero-content { position: relative; z-index: 1; max-width: 640px; }
 .hero-content h1 {
   font-size: clamp(2.8rem, 7vw, 5.4rem);
@@ -213,7 +214,7 @@ h1, h2, h3 {
   padding: 10rem 5% 4rem;
   max-width: 900px;
 }
-.page-hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); text-transform: uppercase; letter-spacing: 0.05em; }
+.page-hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: 0.01em; font-weight: 400; }
 
 /* ===== SECTION GENERIC ===== */
 section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
@@ -226,14 +227,14 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
   padding: 2rem 2.2rem;
   margin-bottom: 1.1rem;
   align-items: start;
-  background: rgba(22, 21, 18, 0.5);
-  backdrop-filter: blur(10px) saturate(130%);
-  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  background: rgba(22, 21, 18, 0.32);
+  backdrop-filter: blur(8px) saturate(115%);
+  -webkit-backdrop-filter: blur(8px) saturate(115%);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
 .section-light .service-row {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.32);
   border-color: var(--line-on-light);
 }
 .service-icon { width: 46px; height: 46px; color: var(--gold); }
@@ -255,9 +256,9 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: rgba(22, 21, 18, 0.5);
-  backdrop-filter: blur(10px) saturate(130%);
-  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  background: rgba(22, 21, 18, 0.32);
+  backdrop-filter: blur(8px) saturate(115%);
+  -webkit-backdrop-filter: blur(8px) saturate(115%);
   border: 1px solid var(--line);
 }
 .gallery-item img {
@@ -297,9 +298,9 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 }
 .about-media {
   aspect-ratio: 4/5;
-  background: rgba(22, 21, 18, 0.5);
-  backdrop-filter: blur(10px) saturate(130%);
-  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  background: rgba(22, 21, 18, 0.32);
+  backdrop-filter: blur(8px) saturate(115%);
+  -webkit-backdrop-filter: blur(8px) saturate(115%);
   border: 1px solid var(--line);
   position: relative;
   overflow: hidden;
@@ -327,14 +328,14 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
   display: flex; align-items: center; gap: 1rem;
   padding: 1rem 1.4rem;
   margin-bottom: 0.7rem;
-  background: rgba(22, 21, 18, 0.5);
-  backdrop-filter: blur(10px) saturate(130%);
-  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  background: rgba(22, 21, 18, 0.32);
+  backdrop-filter: blur(8px) saturate(115%);
+  -webkit-backdrop-filter: blur(8px) saturate(115%);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
 .section-light .contact-info-row {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.32);
   border-color: var(--line-on-light);
 }
 .contact-info-row svg { width: 22px; height: 22px; color: var(--gold); flex-shrink: 0; }
@@ -358,15 +359,15 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
 
 #contactForm {
-  background: rgba(22, 21, 18, 0.5);
-  backdrop-filter: blur(10px) saturate(130%);
-  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  background: rgba(22, 21, 18, 0.32);
+  backdrop-filter: blur(8px) saturate(115%);
+  -webkit-backdrop-filter: blur(8px) saturate(115%);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 2.2rem 2.2rem 2.4rem;
 }
 .section-light #contactForm {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.32);
   border-color: var(--line-on-light);
 }
 
@@ -388,7 +389,7 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 .footer-copy { width: 100%; text-align: center; font-size: 0.72rem; color: var(--ink-soft); margin-top: 1rem; }
 
 .section-head { max-width: 640px; margin-bottom: 3rem; }
-.section-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); text-transform: uppercase; letter-spacing: 0.04em; }
+.section-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); letter-spacing: 0.01em; font-weight: 400; }
 
 /* ===== SECCIONES CLARAS (alternancia con el negro) ===== */
 .section-light {
@@ -408,8 +409,8 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 .section-light .btn:hover, .section-light .btn:focus-visible { color: var(--bg-light); }
 .section-light .btn-solid { background: var(--gold-deep); color: var(--bg-light); }
 .section-light .btn-solid::before { background: var(--ink-on-light); }
-.section-light .gallery-item { background: rgba(255, 255, 255, 0.5); border-color: var(--line-on-light); }
-.section-light .about-media { background: rgba(255, 255, 255, 0.5); border-color: var(--line-on-light); }
+.section-light .gallery-item { background: rgba(255, 255, 255, 0.32); border-color: var(--line-on-light); }
+.section-light .about-media { background: rgba(255, 255, 255, 0.32); border-color: var(--line-on-light); }
 .section-light .placeholder-note { color: var(--ink-on-light-soft); }
 .section-light a:not(.btn) { color: var(--gold-deep); }
 .section-light .form-field label { color: var(--ink-on-light-soft); }
