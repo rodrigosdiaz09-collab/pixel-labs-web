@@ -207,7 +207,7 @@ h1, h2, h3 {
 .hero-tag img, .hero-tag video {
   width: 100%;
   height: auto;
-  max-width: 340px;
+  max-width: 416px;
   border-radius: 4px;
   filter: drop-shadow(0 0 40px rgba(201, 162, 75, 0.18));
 }
