@@ -193,13 +193,26 @@ h1, h2, h3 {
 .hero {
   position: relative;
   min-height: 100vh;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
   align-items: center;
+  gap: 3rem;
   padding: 8rem 5% 4rem;
   overflow: hidden;
 }
 .hero-canvas { position: absolute; inset: 0; z-index: 0; opacity: 0.35; }
 .hero-content { position: relative; z-index: 1; max-width: 640px; }
+.hero-tag { position: relative; z-index: 1; display: flex; justify-content: center; }
+.hero-tag img {
+  width: 100%;
+  height: auto;
+  max-width: 320px;
+  filter: drop-shadow(0 0 40px rgba(201, 162, 75, 0.18));
+}
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; padding-top: 6rem; }
+  .hero-tag { display: none; }
+}
 .hero-content h1 {
   font-size: clamp(2.8rem, 7vw, 5.4rem);
   letter-spacing: 0.05em;
