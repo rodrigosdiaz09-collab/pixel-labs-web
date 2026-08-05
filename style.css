@@ -23,7 +23,8 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: radial-gradient(ellipse 120% 80% at 50% 0%, #1B1812 0%, #0D0D0D 55%, #060605 100%);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-body);
   font-weight: 300;
