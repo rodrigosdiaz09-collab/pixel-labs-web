@@ -145,7 +145,10 @@ h1, h2, h3 {
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem 5%;
-  background: linear-gradient(to bottom, rgba(13,13,13,0.92), transparent);
+  background: rgba(13, 13, 13, 0.5);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--line);
 }
 .brand {
   display: flex; align-items: center; gap: 0.7rem;
@@ -220,11 +223,19 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
   display: grid;
   grid-template-columns: 90px 1fr;
   gap: 2rem;
-  padding: 2.6rem 0;
-  border-top: 1px solid var(--line);
+  padding: 2rem 2.2rem;
+  margin-bottom: 1.1rem;
   align-items: start;
+  background: rgba(22, 21, 18, 0.5);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
-.service-row:last-child { border-bottom: 1px solid var(--line); }
+.section-light .service-row {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: var(--line-on-light);
+}
 .service-icon { width: 46px; height: 46px; color: var(--gold); }
 .service-row h3 { font-size: 1.7rem; margin-bottom: 0.5rem; }
 .service-row p { color: var(--ink-soft); max-width: 60ch; }
@@ -236,20 +247,19 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: 180px;
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
 }
+
 .gallery-item {
   position: relative;
-  grid-column: span 3;
-  grid-row: span 2;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: var(--bg-raised);
+  background: rgba(22, 21, 18, 0.5);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  border: 1px solid var(--line);
 }
-.gallery-item.tall { grid-row: span 3; }
-.gallery-item.wide { grid-column: span 6; }
-.gallery-item.small { grid-column: span 2; grid-row: span 1; }
 .gallery-item img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   filter: grayscale(15%) brightness(0.85);
@@ -272,8 +282,10 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 }
 
 @media (max-width: 860px) {
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px) {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .gallery-item, .gallery-item.wide, .gallery-item.small { grid-column: span 2; grid-row: span 2; }
 }
 
 /* ===== NOSOTROS ===== */
@@ -285,7 +297,9 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 }
 .about-media {
   aspect-ratio: 4/5;
-  background: var(--bg-raised);
+  background: rgba(22, 21, 18, 0.5);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
   border: 1px solid var(--line);
   position: relative;
   overflow: hidden;
@@ -309,8 +323,20 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
 }
-.contact-info-row { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--line); }
-.contact-info-row:last-child { border-bottom: 1px solid var(--line); }
+.contact-info-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.4rem;
+  margin-bottom: 0.7rem;
+  background: rgba(22, 21, 18, 0.5);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.section-light .contact-info-row {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: var(--line-on-light);
+}
 .contact-info-row svg { width: 22px; height: 22px; color: var(--gold); flex-shrink: 0; }
 
 .form-field { margin-bottom: 1.6rem; }
@@ -330,6 +356,19 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--gold); }
 .form-field textarea { resize: vertical; min-height: 100px; }
 @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+
+#contactForm {
+  background: rgba(22, 21, 18, 0.5);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 2.2rem 2.2rem 2.4rem;
+}
+.section-light #contactForm {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: var(--line-on-light);
+}
 
 /* ===== FOOTER ===== */
 .site-footer {
@@ -361,7 +400,6 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 .section-light .lede { color: var(--ink-on-light-soft); }
 .section-light .pull-quote { color: var(--gold-deep); border-left-color: var(--gold-deep); }
 .section-light .service-icon { color: var(--gold-deep); }
-.section-light .service-row { border-color: var(--line-on-light); }
 .section-light .spark-divider::before,
 .section-light .spark-divider::after { background: var(--line-on-light); }
 .section-light .spark-divider svg { color: var(--gold-deep); }
@@ -370,9 +408,8 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 .section-light .btn:hover, .section-light .btn:focus-visible { color: var(--bg-light); }
 .section-light .btn-solid { background: var(--gold-deep); color: var(--bg-light); }
 .section-light .btn-solid::before { background: var(--ink-on-light); }
-.section-light .contact-info-row { border-color: var(--line-on-light); }
-.section-light .gallery-item { background: var(--bg-light-raised); }
-.section-light .about-media { background: var(--bg-light-raised); border-color: var(--line-on-light); }
+.section-light .gallery-item { background: rgba(255, 255, 255, 0.5); border-color: var(--line-on-light); }
+.section-light .about-media { background: rgba(255, 255, 255, 0.5); border-color: var(--line-on-light); }
 .section-light .placeholder-note { color: var(--ink-on-light-soft); }
 .section-light a:not(.btn) { color: var(--gold-deep); }
 .section-light .form-field label { color: var(--ink-on-light-soft); }
