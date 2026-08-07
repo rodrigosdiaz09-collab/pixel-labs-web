@@ -310,7 +310,7 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
+  align-items: start;
 }
 .about-media {
   aspect-ratio: 4/5;
@@ -331,6 +331,9 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
   border-left: 1px solid var(--gold);
   padding-left: 1.6rem;
   margin: 2rem 0;
+}
+@media (min-width: 861px) {
+  .about-media { position: sticky; top: 110px; }
 }
 @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } }
 
