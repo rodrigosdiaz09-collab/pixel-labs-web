@@ -257,9 +257,22 @@ section { padding: 2rem 5% 6rem; max-width: 1300px; margin: 0 auto; }
 .service-row p { color: var(--ink-soft); max-width: 60ch; }
 
 /* ===== PRODUCTOS — grid editorial ===== */
-.cat-tabs { display: flex; gap: 2.2rem; margin-bottom: 3rem; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; }
-.cat-tabs button { background: none; border: none; color: var(--ink-soft); cursor: pointer; padding-bottom: 6px; border-bottom: 1px solid transparent; }
-.cat-tabs button.active, .cat-tabs button:hover { color: var(--gold); border-color: var(--gold); }
+.cat-tabs { display: flex; gap: 2.2rem; margin-bottom: 3rem; font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase; }
+.cat-tabs button {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding-bottom: 4px;
+}
+.cat-tabs button::after {
+  content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+  background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.cat-tabs button:hover, .cat-tabs button.active { color: var(--gold); }
+.cat-tabs button:hover::after, .cat-tabs button.active::after { transform: scaleX(1); }
 
 .gallery-grid {
   display: grid;
