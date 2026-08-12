@@ -75,17 +75,18 @@ if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 }
 
 // ============================================
-// PRODUCTOS — filtro por categoría
+// PRODUCTOS — filtro por categoría (secciones completas)
 // ============================================
 const catButtons = document.querySelectorAll('.cat-tabs button');
-const galleryItems = document.querySelectorAll('.gallery-item');
+const catSections = document.querySelectorAll('[data-section]');
 catButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     catButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const cat = btn.dataset.cat;
-    galleryItems.forEach(item => {
-      item.style.display = (cat === 'Todos' || item.dataset.cat === cat) ? '' : 'none';
+    catSections.forEach(section => {
+      const match = cat === 'Todos' || section.dataset.section === 'Todos' || section.dataset.section === cat;
+      section.style.display = match ? '' : 'none';
     });
   });
 });

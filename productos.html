@@ -37,7 +37,13 @@
   <p class="lede" style="margin-top:1.2rem;">SELECCIONA LO QUE TE GUSTE, O LO CREAMOS JUNTOS!, Envíos a todo el país mediante Andreani y Correo Argentino.</p>
 </div>
 
-<section>
+<div class="cat-tabs" role="tablist" aria-label="Filtrar productos por categoría">
+  <button class="active" data-cat="Todos">Todos</button>
+  <button data-cat="Deco">Deco</button>
+  <button data-cat="Mascotas">Mascotas</button>
+</div>
+
+<section data-section="Deco">
   <div class="gallery-grid">
     <article class="gallery-item" data-cat="Deco">
       <img src="images/cuadro-mujer-flores.jpg" alt="Cuadro de mujer con flores en corte láser, línea continua - Pixel Labs" loading="lazy">
@@ -177,9 +183,9 @@
   </div>
 </section>
 
-<div class="hr-divider"></div>
+<div class="hr-divider" data-section="Todos"></div>
 
-<section id="mascotas">
+<section id="mascotas" data-section="Mascotas">
   <div class="section-head">
     <p class="eyebrow">Mascotas</p>
     <h2>TU MASCOTA EN UN CUADRO</h2>
