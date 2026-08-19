@@ -1,73 +1,84 @@
-# Pixel Labs — v4
+# Pixel Labs — v5 · lista para publicar
 
-Descomprimí sobre `pixel-labs-web/`. Reemplaza 7 archivos, agrega 2 nuevos y una carpeta de imágenes.
+Descomprimí sobre `pixel-labs-web/` y reemplazá todo. Después:
 
-```
-index.html   servicios.html   productos.html   nosotros.html   contacto.html
-ideas.html   ← NUEVO          sitemap.xml      style.css       script.js
-images/probador/   ← NUEVO (8 recortes, 147 KB en total)
+```bash
+npx wrangler deploy
 ```
 
-Verificado en Chromium: 6 páginas × 3 anchos = 18 combinaciones sin scroll horizontal, sin imágenes rotas y sin errores de JavaScript.
+**Preflight verificado en Chromium:** 7 páginas × 3 anchos (390 / 768 / 1440), sin scroll horizontal, sin imágenes rotas, sin errores de JavaScript, un solo `h1` por página, todos los links internos resuelven, todas las imágenes con `alt`, y `title` + `meta description` dentro del largo que Google muestra completo.
 
 ---
 
-## Las decisiones que tomé
+## 1. Todos los productos en el probador
 
-### 1. Fuera todos los precios
+El catálogo pasó de 66 a **70 productos**: encontré 4 fotos en tu carpeta que nunca habías publicado y las sumé a Deco — Buda con Árbol de la Vida, Cruz con Rostro, Luna Mandala y Flor Mandala con Colibríes.
 
-Los saqué de todos lados: el bloque de cuatro medidas, el "desde $7.000" de la barra de confianza, los carteles de precio en Servicios, el "$1.800" de souvenirs, el schema de Google y las descripciones de cada página. **No queda un peso publicado en ningún lado.**
+De esos 70, **26 están en el probador** con recorte transparente. El probador ahora tiene su propio buscador y una grilla con scroll, y desde la vista ampliada de cualquiera de esas 26 aparece el botón **"Verla en mi pared"** que salta al probador con la pieza ya elegida.
 
-El costo de esa decisión es real: el precio filtraba visitantes y evitaba consultas de gente fuera de presupuesto. Así que lo reemplacé por algo que cumple la misma función mejor.
+**Por qué 26 y no 70.** Procesé las 70 con separación automática de fondo y control de calidad, y después revisé una por una en hojas de contacto. Las que quedan afuera es por la foto, no por el algoritmo:
 
-### 2. En su lugar: **el probador**
+- **Los retratos de mascota (23)** están fotografiados con las manos sosteniendo la pieza y la foto de referencia al lado. Al recortarlos quedan manchones negros con dedos.
+- **Los souvenirs sobre mesa (14)** tienen objetos y sombras alrededor que se pegan a la pieza.
+- **Algunas placas de catálogo** no son fotos de la pieza: son collages con texto y ambientación.
 
-Es lo que ocupa el espacio donde estaban los precios, y es la pieza central de esta versión.
+Para sumar cualquiera de esas al probador necesito **una foto de la pieza sola, apoyada o colgada sobre pared clara y lisa, de frente, sin manos ni objetos**. Con eso el recorte sale automático. Sacá cinco o seis de los retratos más vendidos y te los agrego.
 
-El visitante elige una pieza, elige el tamaño y la ve sobre una pared con **un sofá de 200 cm dibujado a escala real**. Cambiar de 25 a 50 cm duplica exacto lo que se ve en pantalla: la matemática está atada al ancho real de la escena, no es una animación decorativa. También puede arrastrar la pieza para acomodarla.
+## 2. Todo oscuro y translúcido
 
-Y puede **subir una foto de su propia pared**. Le pedimos un solo dato —cuánto mide de ancho esa pared— y con eso la escala vuelve a ser correcta. La foto se procesa en el navegador con `URL.createObjectURL`: no viaja a ningún servidor, y eso está dicho en la página.
+Saqué las tres secciones color crema (el proceso en Inicio, corporativos en Servicios, el FAQ en Contacto). En su lugar hay **secciones de vidrio**: mismo cambio de ritmo, pero con un velo dorado translúcido, desenfoque de fondo y un filo de luz arriba. El sitio no sale del negro en ningún momento.
 
-Cuando toca "Me gusta así, cotizala", te llega:
+Además subí la translucidez de todos los paneles: el desenfoque pasó de 8 a 14 px y los fondos de opacos a vidrio, así que **el plano de la Falcon2 se ve atravesando el contenido** en vez de quedar tapado. Borré 36 reglas de CSS del tema claro que quedaron sin uso.
 
-> ¡Hola Pixel Labs! Probé "Buda con árbol de la vida" en el probador de la web, en 50 × 36 cm. ¿Me pasan precio y plazo?
+La pared del probador pasó a un tono medio cálido en vez de crema. Como las piezas son negras y ahora el fondo es oscuro, les puse un filo de luz dorada para que se separen.
 
-Ese mensaje vale más que un precio publicado: te llega la pieza, la medida y una persona que ya se la imaginó en su casa.
+## 3. Backend, listo para publicar
 
-**Cómo lo armé.** Las fotos del catálogo no servían para superponer: son fotos sobre pared, muchas con manos. Generé recortes transparentes de las 8 piezas más limpias, separando la pieza del fondo con umbral de Otsu. Están en `images/probador/`. Si querés sumar más piezas, mandame cuáles y las proceso igual.
+Lo que faltaba y ahora está:
 
-### 3. Página nueva: **Ideas**
+- **`404.html`** — tu `wrangler.jsonc` declara `not_found_handling: "404-page"`, que espera ese archivo. No existía, así que cualquier link roto mostraba el 404 pelado de Cloudflare. Ahora hay uno con la marca ("Este corte no salió").
+- **`_headers`** — cabeceras de seguridad (nosniff, anti-clickjacking, HSTS, referrer, permissions) y caché: los HTML se revalidan siempre para que un cambio se vea al toque; imágenes, CSS y JS quedan cacheados.
+- **`.assetsignore`** — `assets.directory` es `"./"`, así que Cloudflare subía **todo**, incluido este archivo con tus notas internas. Ahora quedan fuera del deploy este LEEME, el README y el `wrangler.jsonc`.
+- **Canonical, `og:url`, sitemap y robots** apuntan a **workers.dev**, que es donde el sitio vive de verdad. Antes decían `pixellabs.ar`, un dominio que no existe, y eso le pedía a Google que indexara una URL rota. Hay un comentario en el `<head>` de cada página con la instrucción exacta para cambiarlo el día que conectes el dominio: un buscar-y-reemplazar.
+- **Sitemap** con las 6 páginas (faltaba `ideas`).
 
-Contenido de ventas de verdad, no relleno. Tres notas que responden las tres preguntas que frenan una compra:
+## 4. Peso
 
-- **El error de tamaño es el error caro.** La regla de los dos tercios respecto del mueble, la altura de 1,45 m, cuándo conviene un conjunto en vez de una pieza sola. Cierra empujando al probador.
-- **Qué foto sirve para un retrato de mascota.** Luz, nitidez del hocico, contraste, altura de la cámara. Y lo que arruina una foto: capturas de historias y reenvíos de WhatsApp. Esto te va a ahorrar ida y vuelta en cada pedido.
-- **Cuántos souvenirs encargar y cuándo.** La cuenta que funciona (uno por adulto + 10% + 3 para ustedes) y por qué la fecha límite no es la del evento.
+La página de productos cargaba 70 JPG de hasta 1 MB. Ahora:
 
-Esto trabaja en dos frentes: posiciona en Google por búsquedas de intención de compra ("qué tamaño de cuadro elegir"), y le contesta al cliente antes de que pregunte. Agregué "Ideas" al menú y al sitemap.
+| | Antes | Ahora |
+|---|---|---|
+| Código (HTML+CSS+JS) | — | 187 KB |
+| Imágenes de la grilla | ~10 MB en JPG | **1,6 MB en WebP** |
+| Recortes del probador | — | 343 KB |
 
-### 4. Detalle de estilo: número de corte
-
-Cada pieza del catálogo ahora muestra **"N.º de corte 001/066"** en la vista ampliada. Es un detalle chico que cambia la percepción: no es un producto de una grilla, es una pieza numerada de un taller.
+La grilla carga miniaturas WebP de 560 px y el JPG grande se pide **solo** cuando alguien abre una pieza en la vista ampliada. Los JPG originales quedan en la carpeta para eso.
 
 ---
 
-## Qué queda pendiente
+## Cuando conectes pixellabs.ar
 
-1. **Los testimonios de Inicio siguen siendo texto de relleno.** No publiques esa sección hasta poner los reales, o borrala.
+Buscar y reemplazar en los 7 HTML, en `sitemap.xml` y en `robots.txt`:
+
+```
+https://pixel-labs-web.rodrigo-s-diaz09.workers.dev   →   https://pixellabs.ar
+```
+
+Después, en Cloudflare: agregar el dominio como Custom Domain del Worker. Y avisale a Google Search Console.
+
+---
+
+## Lo que sigue pendiente
+
+1. **Los testimonios de Inicio son texto de relleno.** Es lo único que no deberías publicar así. Poné los reales o borrá la sección — está marcada con un comentario en `index.html`.
 2. **Tres respuestas del FAQ.** Buscá `[COMPLETAR` en `contacto.html`: plazo de producción, medios de pago y seña, y qué pasa si una pieza llega dañada.
-3. **El canonical apunta a `pixellabs.ar`,** que todavía no existe.
-4. **GA4 y el Píxel de Meta** están cableados pero sin ID.
-5. **El formulario no guarda el email.** Sigue siendo el agujero más caro que tenés.
-
-Nota sobre la calculadora de precios que armamos antes: **quedó fuera del sitio**, que era lo coherente con sacar los precios. Guardala como herramienta interna para cotizar rápido; el archivo lo tenés en la conversación.
-
----
+3. **GA4 y el Píxel de Meta:** el bloque comentado está en el `<head>` de cada página. Sin eso no vas a saber cuánta gente usa el probador, que es justo lo que querés medir.
+4. **El formulario no guarda el email.** Sigue siendo el agujero más caro.
+5. **Fotos para sumar piezas al probador** (ver punto 1 arriba).
 
 ## Ajustes de un renglón
 
-- **Sumar piezas al probador:** el array `PIEZAS` al principio del bloque del probador en `script.js`. Necesitan un PNG con fondo transparente en `images/probador/`.
-- **Cambiar el sofá de referencia:** el `<svg class="tryon-room">` en `productos.html` está dibujado sobre una escena de 300 cm de ancho; el sofá va de x=50 a x=250, o sea 200 cm.
-- **Fecha de la cuenta regresiva:** atributo `data-deadline` en la barra de anuncio.
+- **Fecha de la cuenta regresiva:** `data-deadline` en la barra de anuncio.
+- **Sumar una pieza al probador:** poné el PNG transparente en `images/probador/` y agregá una línea al array `PIEZAS` en `script.js`.
 - **Colores de marca:** variables en `:root`, arriba de `style.css`.
-- **Intensidad del plano de fondo:** `.blueprint svg { opacity: 0.5 }`.
+- **Intensidad del plano de fondo:** `.blueprint svg { opacity: 0.72 }`.

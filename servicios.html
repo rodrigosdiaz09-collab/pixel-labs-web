@@ -7,10 +7,13 @@
 <meta name="description" content="Grabado personalizado, corte milimétrico, diseño a medida y piezas para eventos en madera, acrílico y cuero. Regalos corporativos con tu logo. San Vicente, Buenos Aires.">
 <meta name="keywords" content="servicios corte láser, grabado personalizado madera, corte acrílico a medida, souvenirs eventos, regalos corporativos con logo, cartelería para comercios">
 <meta name="theme-color" content="#0D0D0D">
-<!-- OJO: el dominio pixellabs.ar todavía no está activo. Mientras el sitio viva
-     en workers.dev, este canonical le dice a Google que indexe una URL que no existe.
-     Conectá el dominio o cambiá estas URLs por la de workers.dev. -->
-<link rel="canonical" href="https://pixellabs.ar/servicios">
+<!-- ===== DOMINIO =====
+     Hoy apunta a workers.dev, que es donde el sitio vive de verdad.
+     Cuando conectes pixellabs.ar: buscá y reemplazá en los 6 HTML
+       https://pixel-labs-web.rodrigo-s-diaz09.workers.dev   ->   https://pixellabs.ar
+     y hacé lo mismo en sitemap.xml y robots.txt. Es un buscar-y-reemplazar y nada más. -->
+<link rel="canonical" href="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/servicios">
+<meta property="og:url" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/servicios">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -18,7 +21,7 @@
 <meta property="og:description" content="Grabado personalizado, corte milimétrico, diseño a medida y piezas para eventos en madera, acrílico y cuero. Regalos corporativos con tu logo. San Vicente, Buenos Aires.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
-<meta property="og:image" content="https://pixellabs.ar/favicon-512.png">
+<meta property="og:image" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/favicon-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,7 +216,7 @@
 
 <div class="hr-divider"></div>
 
-<section class="section-light" aria-labelledby="t-corp">
+<section class="section-glass" aria-labelledby="t-corp">
   <div class="section-head" data-reveal>
     <p class="eyebrow">Para empresas</p>
     <h2 id="t-corp" data-engrave>Regalos corporativos que no terminan en un cajón</h2>
@@ -267,6 +270,7 @@
       <p class="lb-desc" id="lbDesc"></p>
       <a class="btn btn-solid spark-hover" id="lbWa" href="#" target="_blank" rel="noopener">Cotizar esta pieza</a>
       <button class="btn spark-hover" type="button" id="lbPick">Agregar a mi selección</button>
+      <button class="btn spark-hover" type="button" id="lbTry" hidden>Verla en mi pared</button>
       <button class="btn spark-hover" type="button" id="lbShare" hidden>Compartir</button>
     </div>
   </div>

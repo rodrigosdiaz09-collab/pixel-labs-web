@@ -444,7 +444,7 @@
     function pintar() {
       var c = visibles[idx];
       var img = $('img', c);
-      lbImg.src = img.getAttribute('src');
+      lbImg.src = c.dataset.full || img.getAttribute('src');   // grilla en WebP chico, lightbox en JPG grande
       lbImg.alt = c.dataset.alt || c.dataset.name;
       lbTitle.textContent = c.dataset.name;
       var todas = $$('.gallery-item[data-name]');
@@ -454,6 +454,19 @@
       lbDesc.textContent = 'Se hace a medida: elegís tamaño, material y terminación. Contanos cuál querés y te pasamos el precio exacto.';
       lbWa.href = c.dataset.wa;
       lb._card = c;
+      var ver = $('#lbTry');
+      if (ver) {
+        // OJO: no llamar a esta variable "idx": pisa la del carrusel de arriba.
+        var iProb = (window.PROBADOR_NOMBRES || []).indexOf(c.dataset.name);
+        ver.hidden = iProb < 0;
+        ver.onclick = function () {
+          cerrar();
+          var b = document.querySelector('.tryon-thumb[data-i="' + iProb + '"]');
+          if (b) b.click();
+          var sec = document.querySelector('#probador');
+          if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+      }
       sincroPick();
     }
     function cerrar() {
@@ -558,15 +571,34 @@
   // ---------------------------------------------------------
   var stage = $('#tryStage');
   if (stage) {
+    // Generado desde el catálogo: 26 piezas con recorte transparente.
     var PIEZAS = [
-      { f: 'fases-lunares',  n: 'Fases Lunares',              r: 720 / 331 },
-      { f: 'luna-mandala',   n: 'Luna Mandala',               r: 720 / 719 },
-      { f: 'flor-colibries', n: 'Flor Mandala con Colibríes', r: 720 / 274 },
-      { f: 'buda',           n: 'Buda con árbol de la vida',  r: 720 / 513 },
-      { f: 'charly',         n: 'Charly García',              r: 443 / 720 },
-      { f: 'cruz',           n: 'Cruz con rostro',            r: 536 / 720 },
-      { f: 'vive-ama-suena', n: 'Vive, Ama, Sueña',           r: 693 / 720 },
-      { f: 'nails',          n: 'Nails',                      r: 523 / 701 }
+      { f: 'mujer-con-flores', n: "Mujer con Flores", c: 'Deco', r: 0.7371 },
+      { f: 'cuadro-para-manicuras', n: "Cuadro para Manicuras", c: 'Deco', r: 0.7581 },
+      { f: 'mate-y-signos-vitales', n: "Mate y Signos Vitales", c: 'Deco', r: 2.1831 },
+      { f: 'charly-garcia', n: "Charly García", c: 'Deco', r: 0.6145 },
+      { f: 'frase-vive-ama-suena', n: "Frase Vive, Ama, Sueña", c: 'Deco', r: 0.8177 },
+      { f: 'fases-lunares', n: "Fases Lunares", c: 'Deco', r: 2.9665 },
+      { f: 'paz-y-armonia', n: "Paz y Armonía", c: 'Deco', r: 1.2455 },
+      { f: 'detalles-que-hablan-de-vos', n: "Detalles que Hablan de Vos", c: 'Deco', r: 1.5701 },
+      { f: 'equilibrio-energia-y-paz', n: "Equilibrio, Energía y Paz", c: 'Deco', r: 2.4506 },
+      { f: 'home', n: "Home", c: 'Deco', r: 2.0858 },
+      { f: 'arbol-de-vida', n: "Árbol de Vida", c: 'Deco', r: 1.5507 },
+      { f: 'inhala-exhala', n: "Inhala Exhala", c: 'Deco', r: 0.8778 },
+      { f: 'colibri-floral', n: "Colibrí Floral", c: 'Deco', r: 1.0 },
+      { f: 'trio-butterfly', n: "Trío Butterfly", c: 'Deco', r: 2.9091 },
+      { f: 'homero-en-2-actos', n: "Homero en 2 Actos", c: 'Deco', r: 2.0317 },
+      { f: 'buda-con-arbol-de-la-vida', n: "Buda con Árbol de la Vida", c: 'Deco', r: 1.4027 },
+      { f: 'cruz-con-rostro', n: "Cruz con Rostro", c: 'Deco', r: 0.7452 },
+      { f: 'luna-mandala', n: "Luna Mandala", c: 'Deco', r: 1.0016 },
+      { f: 'flor-mandala-con-colibries', n: "Flor Mandala con Colibríes", c: 'Deco', r: 2.6271 },
+      { f: 'cartel-mis-15-con-mariposas', n: "Cartel Mis 15 con Mariposas", c: 'Souvenirs', r: 1.2039 },
+      { f: 'cartel-15-con-rosa', n: "Cartel 15 con Rosa", c: 'Souvenirs', r: 2.0946 },
+      { f: 'souvenir-mis-15-con-mariposa-3d', n: "Souvenir Mis 15 con Mariposa 3D", c: 'Souvenirs', r: 1.25 },
+      { f: 'cartel-corona-mis-15-anos', n: "Cartel Corona Mis 15 Años", c: 'Souvenirs', r: 0.9952 },
+      { f: 'cartel-luna-con-inicial', n: "Cartel Luna con Inicial", c: 'Souvenirs', r: 0.7855 },
+      { f: 'cartel-centro-psicologico', n: "Cartel Centro Psicológico", c: 'Cartelería', r: 0.6903 },
+      { f: 'logo-cartel-dental-studio', n: "Logo Cartel Dental Studio", c: 'Cartelería', r: 2.0395 }
     ];
 
     var piece = $('#tryPiece'), pieceImg = $('#tryPieceImg'), scene = $('#tryScene');
@@ -574,10 +606,25 @@
     var actual = 0, cm = 38, paredCm = 300;
     var pos = { x: 50, y: 40 };   // en % de la escena
 
-    thumbs.innerHTML = PIEZAS.map(function (p, i) {
-      return '<button class="tryon-thumb' + (i === 0 ? ' on' : '') + '" type="button" data-i="' + i + '" ' +
-             'aria-label="' + p.n + '"><img src="images/probador/' + p.f + '.png" alt="" loading="lazy"></button>';
-    }).join('');
+    function norm2(t) {
+      return (t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+    function pintarThumbs(q) {
+      q = norm2(q);
+      var visibles = 0;
+      thumbs.innerHTML = PIEZAS.map(function (p, i) {
+        if (q && norm2(p.n + ' ' + p.c).indexOf(q) < 0) return '';
+        visibles++;
+        return '<button class="tryon-thumb' + (i === actual ? ' on' : '') + '" type="button" data-i="' + i + '" ' +
+               'title="' + p.n + '" aria-label="' + p.n + '">' +
+               '<img src="images/probador/' + p.f + '.png" alt="" loading="lazy"></button>';
+      }).join('');
+      var c = $('#tryCount');
+      if (c) c.textContent = q ? '(' + visibles + ' de ' + PIEZAS.length + ')' : '(' + PIEZAS.length + ')';
+    }
+    pintarThumbs('');
+    var findEl = $('#tryFind');
+    if (findEl) findEl.addEventListener('input', function () { pintarThumbs(this.value); });
 
     function pintar() {
       var p = PIEZAS[actual];
@@ -591,6 +638,8 @@
         ? Math.round(anchoCm) + ' × ' + Math.round(anchoCm / p.r) + ' cm'
         : Math.round(anchoCm) + ' × ' + Math.round(cm) + ' cm';
       pieceImg.src = 'images/probador/' + p.f + '.png';
+      var nm = $('#tryNombre');
+      if (nm) nm.textContent = p.n;
       pieceImg.alt = p.n + ' sobre la pared';
       waBtn.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(
         '¡Hola Pixel Labs! Probé "' + p.n + '" en el probador de la web, en ' +
@@ -604,6 +653,8 @@
       b.classList.add('on');
       actual = +b.dataset.i;
       pintar();
+      var nombreSel = $('#tryNombre');
+      if (nombreSel) nombreSel.textContent = PIEZAS[actual].n;
       track('probador_pieza', { pieza: PIEZAS[actual].n });
     });
 
@@ -667,6 +718,7 @@
     });
 
     pintar();
+    window.PROBADOR_NOMBRES = PIEZAS.map(function (x) { return x.n; });
   }
 
   // ---------------------------------------------------------

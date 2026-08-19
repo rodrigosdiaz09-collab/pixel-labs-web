@@ -4,21 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pixel Labs | Grabado y Corte Láser en San Vicente, Buenos Aires</title>
-<meta name="description" content="Grabado y corte láser en madera, acrílico y cuero. Cuadros, retratos de mascotas, souvenirs y cartelería personalizada. Probá la pieza en tu pared antes de encargarla. Envíos a todo el país.">
+<meta name="description" content="Grabado y corte láser en madera, acrílico y cuero. Cuadros, retratos de mascotas y souvenirs. Probá la pieza en tu pared antes de encargarla. Envíos a todo el país.">
 <meta name="keywords" content="grabado láser San Vicente, corte láser Buenos Aires, cuadros personalizados, souvenirs para eventos, retrato de mascota, cartelería láser, regalos corporativos">
 <meta name="theme-color" content="#0D0D0D">
-<!-- OJO: el dominio pixellabs.ar todavía no está activo. Mientras el sitio viva
-     en workers.dev, este canonical le dice a Google que indexe una URL que no existe.
-     Conectá el dominio o cambiá estas URLs por la de workers.dev. -->
-<link rel="canonical" href="https://pixellabs.ar/">
+<!-- ===== DOMINIO =====
+     Hoy apunta a workers.dev, que es donde el sitio vive de verdad.
+     Cuando conectes pixellabs.ar: buscá y reemplazá en los 6 HTML
+       https://pixel-labs-web.rodrigo-s-diaz09.workers.dev   ->   https://pixellabs.ar
+     y hacé lo mismo en sitemap.xml y robots.txt. Es un buscar-y-reemplazar y nada más. -->
+<link rel="canonical" href="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/">
+<meta property="og:url" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:title" content="Pixel Labs | Grabado y Corte Láser en San Vicente, Buenos Aires">
-<meta property="og:description" content="Grabado y corte láser en madera, acrílico y cuero. Cuadros, retratos de mascotas, souvenirs y cartelería personalizada. Probá la pieza en tu pared antes de encargarla. Envíos a todo el país.">
+<meta property="og:description" content="Grabado y corte láser en madera, acrílico y cuero. Cuadros, retratos de mascotas y souvenirs. Probá la pieza en tu pared antes de encargarla. Envíos a todo el país.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
-<meta property="og:image" content="https://pixellabs.ar/favicon-512.png">
+<meta property="og:image" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/favicon-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +43,7 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Pixel Labs",
-  "image": "https://pixellabs.ar/favicon-512.png",
+  "image": "https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/favicon-512.png",
   "description": "Estudio de grabado y corte láser en madera, acrílico y cuero. Cuadros, souvenirs, cartelería y regalos personalizados, con envíos a todo el país.",
   "address": {"@type": "PostalAddress", "addressLocality": "San Vicente", "addressRegion": "Buenos Aires", "addressCountry": "AR"},
   "areaServed": "AR",
@@ -250,7 +253,7 @@
   </div>
 </section>
 
-<section class="section-light" aria-labelledby="t-proceso">
+<section class="section-glass" aria-labelledby="t-proceso">
   <div class="section-head" data-reveal>
     <p class="eyebrow">Cómo trabajamos</p>
     <h2 id="t-proceso" data-engrave>De la idea a tu pared, en tres pasos</h2>
@@ -334,15 +337,15 @@
   </div>
   <div class="gallery-grid" style="grid-template-columns:repeat(3, 1fr);">
     <article class="gallery-item" data-reveal="zoom">
-      <img src="images/cuadro-fases-lunares.jpg" alt="Cuadro decorativo de fases lunares en corte láser — Pixel Labs" loading="lazy">
+      <img src="images/thumb/cuadro-fases-lunares.webp" width="560" height="560" decoding="async" alt="Cuadro decorativo de fases lunares en corte láser — Pixel Labs" loading="lazy">
       <div class="gallery-overlay"><h4>Fases Lunares</h4><a href="productos.html">Ver catálogo</a></div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms">
-      <img src="images/cuadro-mascota-personalizada-02.jpg" alt="Retrato de mascota personalizado hecho a partir de una foto — Pixel Labs" loading="lazy">
+      <img src="images/thumb/cuadro-mascota-personalizada-02.webp" width="560" height="560" decoding="async" alt="Retrato de mascota personalizado hecho a partir de una foto — Pixel Labs" loading="lazy">
       <div class="gallery-overlay"><h4>Retratos a medida</h4><a href="productos.html">Ver catálogo</a></div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms">
-      <img src="images/cuadro-buda-arbol-vida.jpg" alt="Cuadro de Buda con árbol de la vida e iluminación LED en corte láser — Pixel Labs" loading="lazy">
+      <img src="images/thumb/cuadro-buda-arbol-vida.webp" width="560" height="560" decoding="async" alt="Cuadro de Buda con árbol de la vida e iluminación LED en corte láser — Pixel Labs" loading="lazy">
       <div class="gallery-overlay"><h4>Piezas con luz</h4><a href="productos.html">Ver catálogo</a></div>
     </article>
   </div>
@@ -434,6 +437,7 @@
       <p class="lb-desc" id="lbDesc"></p>
       <a class="btn btn-solid spark-hover" id="lbWa" href="#" target="_blank" rel="noopener">Cotizar esta pieza</a>
       <button class="btn spark-hover" type="button" id="lbPick">Agregar a mi selección</button>
+      <button class="btn spark-hover" type="button" id="lbTry" hidden>Verla en mi pared</button>
       <button class="btn spark-hover" type="button" id="lbShare" hidden>Compartir</button>
     </div>
   </div>

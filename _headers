@@ -1,0 +1,23 @@
+# Cloudflare Workers / Pages — cabeceras de respuesta
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), payment=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Los HTML se revalidan siempre: cuando publicás un cambio, se ve al toque.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Estáticos con hash de contenido estable: cache largo.
+/images/*
+  Cache-Control: public, max-age=2592000
+/*.css
+  Cache-Control: public, max-age=86400
+/*.js
+  Cache-Control: public, max-age=86400
+/favicon-512.png
+  Cache-Control: public, max-age=2592000

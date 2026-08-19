@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pixellabs.ar/sitemap.xml
+Sitemap: https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/sitemap.xml
