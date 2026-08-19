@@ -339,6 +339,210 @@
     });
   }
 
+
+  // ---------------------------------------------------------
+  // CUENTA REGRESIVA (barra de anuncio)
+  // ---------------------------------------------------------
+  $$('.count-down').forEach(function (el) {
+    var end = new Date(el.getAttribute('data-deadline')).getTime();
+    if (isNaN(end)) return;
+    function tick() {
+      var d = Math.ceil((end - Date.now()) / 86400000);
+      if (d > 1) el.textContent = '· faltan ' + d + ' días';
+      else if (d === 1) el.textContent = '· último día';
+      else { el.textContent = ''; }
+    }
+    tick();
+    setInterval(tick, 3600000);
+  });
+
+  // ---------------------------------------------------------
+  // PARALLAX DEL PLANO DE FONDO
+  // ---------------------------------------------------------
+  var bp = $('.blueprint svg');
+  if (bp && !reduce && fine) {
+    var bpY = 0, bpT = 0;
+    window.addEventListener('scroll', function () {
+      bpY = window.pageYOffset * 0.055;
+    }, { passive: true });
+    (function bpLoop() {
+      bpT += (bpY - bpT) * 0.08;
+      bp.style.transform = 'translate3d(0,' + (-bpT).toFixed(1) + 'px,0)';
+      requestAnimationFrame(bpLoop);
+    })();
+  }
+
+  // ---------------------------------------------------------
+  // BUSCADOR DEL CATÁLOGO
+  // ---------------------------------------------------------
+  var finder = $('#finder');
+  if (finder) {
+    var allItems = $$('.gallery-item[data-name]');
+    var counter = $('#finderCount');
+    var noRes = $('#noResults');
+    var clearBtn = $('.finder-clear');
+
+    // saca acentos: "mandala" tiene que encontrar "Mándala"
+    function norm(t) {
+      return (t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+    allItems.forEach(function (el) {
+      el._hay = norm(el.dataset.name + ' ' + el.dataset.catname + ' ' + el.dataset.alt);
+    });
+
+    var filtrar = function () {
+      var q = norm(finder.value.trim());
+      var visibles = 0;
+      allItems.forEach(function (el) {
+        var ok = !q || el._hay.indexOf(q) > -1;
+        el.classList.toggle('is-hidden', !ok);
+        if (ok) { visibles++; el.classList.add('is-in'); }
+      });
+      // esconde las secciones que quedaron sin piezas
+      $$('[data-section]').forEach(function (sec) {
+        var items = $$('.gallery-item', sec);
+        if (!items.length) { sec.style.display = q ? 'none' : ''; return; }
+        sec.style.display = items.some(function (i) { return !i.classList.contains('is-hidden'); }) ? '' : 'none';
+      });
+      if (counter) counter.textContent = visibles + (visibles === 1 ? ' pieza' : ' piezas');
+      if (noRes) noRes.classList.toggle('on', visibles === 0);
+      if (clearBtn) clearBtn.classList.toggle('on', !!q);
+      if (q) {
+        catButtons.forEach(function (b) { b.classList.remove('active'); });
+        if (catButtons[0]) catButtons[0].classList.add('active');
+      }
+    };
+
+    var deb;
+    finder.addEventListener('input', function () { clearTimeout(deb); deb = setTimeout(filtrar, 120); });
+    if (clearBtn) clearBtn.addEventListener('click', function () { finder.value = ''; filtrar(); finder.focus(); });
+    if (counter) counter.textContent = allItems.length + ' piezas';
+  }
+
+  // ---------------------------------------------------------
+  // LIGHTBOX
+  // ---------------------------------------------------------
+  var lb = $('#lightbox');
+  if (lb) {
+    var lbImg = $('#lbImg'), lbTitle = $('#lbTitle'), lbCat = $('#lbCat'),
+        lbDesc = $('#lbDesc'), lbWa = $('#lbWa'), lbPick = $('#lbPick'), lbShare = $('#lbShare');
+    var visibles = [], idx = 0, lastFocus = null;
+
+    function abrir(card) {
+      visibles = $$('.gallery-item[data-name]').filter(function (el) {
+        return !el.classList.contains('is-hidden') && el.offsetParent !== null;
+      });
+      idx = visibles.indexOf(card);
+      if (idx < 0) { visibles = [card]; idx = 0; }
+      pintar();
+      lastFocus = document.activeElement;
+      lb.classList.add('on');
+      document.body.classList.add('is-locked');
+      $('.lb-close').focus();
+      track('ver_pieza', { pieza: card.dataset.name });
+    }
+    function pintar() {
+      var c = visibles[idx];
+      var img = $('img', c);
+      lbImg.src = img.getAttribute('src');
+      lbImg.alt = c.dataset.alt || c.dataset.name;
+      lbTitle.textContent = c.dataset.name;
+      lbCat.textContent = c.dataset.catname || 'Catálogo';
+      lbDesc.textContent = 'Se hace a medida: elegís tamaño, material y terminación. Contanos cuál querés y te pasamos el precio exacto.';
+      lbWa.href = c.dataset.wa;
+      lb._card = c;
+      sincroPick();
+    }
+    function cerrar() {
+      lb.classList.remove('on');
+      document.body.classList.remove('is-locked');
+      if (lastFocus) lastFocus.focus();
+    }
+    function mover(n) { if (!visibles.length) return; idx = (idx + n + visibles.length) % visibles.length; pintar(); }
+
+    document.addEventListener('click', function (e) {
+      var card = e.target.closest && e.target.closest('.gallery-item[data-name]');
+      if (!card) return;
+      if (e.target.closest('a') || e.target.closest('.pick')) return;   // links y el + hacen lo suyo
+      e.preventDefault();
+      abrir(card);
+    });
+    $('.lb-close').addEventListener('click', cerrar);
+    $('.lb-prev').addEventListener('click', function () { mover(-1); });
+    $('.lb-next').addEventListener('click', function () { mover(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) cerrar(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('on')) return;
+      if (e.key === 'Escape') cerrar();
+      if (e.key === 'ArrowLeft') mover(-1);
+      if (e.key === 'ArrowRight') mover(1);
+    });
+    // deslizar en celular
+    var tx = 0;
+    lb.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 55) mover(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    if (navigator.share && lbShare) {
+      lbShare.hidden = false;
+      lbShare.addEventListener('click', function () {
+        navigator.share({ title: 'Pixel Labs — ' + lbTitle.textContent, url: location.href }).catch(function () {});
+      });
+    }
+  }
+
+  // ---------------------------------------------------------
+  // MI SELECCIÓN — varias piezas en un solo mensaje de WhatsApp
+  // ---------------------------------------------------------
+  var tray = $('#tray');
+  if (tray) {
+    var elegidas = [];
+    var trayN = $('#trayN'), trayTitle = $('#trayTitle'), trayGo = $('#trayGo');
+
+    function refrescar() {
+      trayN.textContent = elegidas.length;
+      trayTitle.textContent = elegidas.length === 1 ? 'pieza elegida' : 'piezas elegidas';
+      tray.classList.toggle('on', elegidas.length > 0);
+      var msg = '¡Hola Pixel Labs! Me interesan estas piezas del catálogo:\n\n' +
+        elegidas.map(function (n, i) { return (i + 1) + '. ' + n; }).join('\n') +
+        '\n\n¿Me pasan precio y plazo?';
+      trayGo.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg);
+      $$('.gallery-item[data-name]').forEach(function (c) {
+        var on = elegidas.indexOf(c.dataset.name) > -1;
+        var b = $('.pick', c);
+        if (b) { b.classList.toggle('on', on); b.textContent = on ? '✓' : '+'; }
+      });
+      sincroPick();
+    }
+    function alternar(nombre) {
+      var i = elegidas.indexOf(nombre);
+      if (i > -1) elegidas.splice(i, 1); else elegidas.push(nombre);
+      refrescar();
+    }
+    window.sincroPick = function () {};
+    if (lb) {
+      window.sincroPick = function () {
+        if (!lb._card || !lbPick) return;
+        var on = elegidas.indexOf(lb._card.dataset.name) > -1;
+        lbPick.textContent = on ? 'Quitar de mi selección' : 'Agregar a mi selección';
+      };
+      lbPick.addEventListener('click', function () { alternar(lb._card.dataset.name); });
+    }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.pick');
+      if (!b) return;
+      e.preventDefault(); e.stopPropagation();
+      alternar(b.closest('.gallery-item').dataset.name);
+    });
+    $('#trayClear').addEventListener('click', function () { elegidas = []; refrescar(); });
+    trayGo.addEventListener('click', function () {
+      track('contacto_whatsapp', { origen: 'seleccion multiple', destino: elegidas.length + ' piezas' });
+    });
+  }
+  if (!window.sincroPick) window.sincroPick = function () {};
+
   // ---------------------------------------------------------
   // TRANSICIÓN ENTRE PÁGINAS
   // ---------------------------------------------------------

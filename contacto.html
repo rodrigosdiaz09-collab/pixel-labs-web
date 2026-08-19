@@ -126,9 +126,88 @@
 <div class="cursor-dot" aria-hidden="true"></div>
 <div class="wipe" aria-hidden="true"></div>
 
+<!-- ==========================================================================
+     FONDO: plano técnico de la Creality Falcon2 Pro S 22W, dibujado en vectores.
+     Va fijo detrás de todo el contenido. El cabezal recorre el área de trabajo
+     y el trazo se dibuja solo, como en un corte real.
+     ========================================================================== -->
+<div class="blueprint" aria-hidden="true">
+<svg viewBox="0 0 1400 1120" xmlns="http://www.w3.org/2000/svg" role="presentation">
+  <defs>
+    <pattern id="bpGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 H0 V40" class="bp-faint"/>
+    </pattern>
+    <filter id="bpGlow" x="-160%" y="-160%" width="420%" height="420%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- papel milimetrado -->
+  <rect x="330" y="215" width="740" height="675" fill="url(#bpGrid)"/>
+
+  <!-- chasis cerrado -->
+  <rect x="245" y="120" width="910" height="865" class="bp-line"/>
+  <rect x="266" y="141" width="868" height="823" class="bp-faint"/>
+  <path d="M245 205 H1155" class="bp-faint"/>
+  <path d="M245 900 H1155" class="bp-faint"/>
+  <rect x="245" y="120" width="910" height="85" class="bp-fillsoft"/>
+
+  <!-- panel y parada de emergencia -->
+  <circle cx="1085" cy="163" r="17" class="bp-line"/>
+  <circle cx="1085" cy="163" r="9" class="bp-faint"/>
+  <path d="M300 155 H420 M300 172 H380" class="bp-faint"/>
+  <text x="300" y="190" class="bp-txt sm">Falcon2 Pro S</text>
+
+  <!-- área de trabajo 355 x 390 mm -->
+  <rect x="330" y="215" width="740" height="675" class="bp-line"/>
+  <path d="M330 245 V215 H360 M1040 215 H1070 V245 M1070 860 V890 H1040 M360 890 H330 V860" class="bp-strong"/>
+
+  <!-- rieles Y -->
+  <path d="M330 215 V890 M1070 215 V890" class="bp-faint"/>
+  <path d="M318 215 V890 M1082 215 V890" class="bp-faint"/>
+
+  <!-- pórtico + cabezal -->
+  <g class="bp-gantry">
+    <path d="M312 250 H1088" class="bp-strong"/>
+    <path d="M312 262 H1088" class="bp-faint"/>
+    <rect x="306" y="240" width="14" height="24" class="bp-line"/>
+    <rect x="1080" y="240" width="14" height="24" class="bp-line"/>
+    <g class="bp-head">
+      <rect x="352" y="228" width="42" height="52" class="bp-strong"/>
+      <rect x="360" y="236" width="26" height="20" class="bp-faint"/>
+      <path d="M373 280 V300" class="bp-strong"/>
+      <path d="M361 300 H385 L379 314 H367 Z" class="bp-line"/>
+      <circle cx="373" cy="322" r="5" fill="#E7CD8F" class="bp-spark" filter="url(#bpGlow)"/>
+      <path d="M373 330 V352 M357 340 H389" class="bp-faint"/>
+    </g>
+  </g>
+
+  <!-- trazo que se dibuja solo: fases lunares -->
+  <path class="bp-path" d="M520 640 a60 60 0 1 0 0.1 0 M660 640 a60 60 0 1 0 0.1 0 M660 580 a60 60 0 0 0 0 120 M800 640 a60 60 0 1 0 0.1 0 M800 580 a60 60 0 0 1 0 120"/>
+
+  <!-- cotas -->
+  <path d="M330 940 H1070 M330 932 V948 M1070 932 V948" class="bp-faint"/>
+  <text x="660" y="968" class="bp-txt">390 mm</text>
+  <path d="M1120 215 V890 M1112 215 H1128 M1112 890 H1128" class="bp-faint"/>
+  <text x="1140" y="560" class="bp-txt" transform="rotate(90 1140 560)">355 mm</text>
+
+  <!-- rótulo -->
+  <path d="M780 1000 H1155 M780 1000 V1085 M780 1042 H1155" class="bp-faint"/>
+  <text x="795" y="1028" class="bp-txt">Creality Falcon2 Pro S</text>
+  <text x="795" y="1070" class="bp-txt sm">22 W · 455 nm · Clase 1 · 0,08 mm</text>
+
+  <!-- referencias sueltas -->
+  <text x="250" y="1028" class="bp-txt sm">Cámara de posicionamiento</text>
+  <text x="250" y="1070" class="bp-txt sm">Asistencia de aire integrada</text>
+  <circle cx="1040" cy="245" r="9" class="bp-faint"/>
+  <path d="M1031 236 L1049 254 M1049 236 L1031 254" class="bp-faint"/>
+</svg>
+</div>
+
 <!-- BARRA DE ANUNCIO: cambiá el texto según la temporada. Para ocultarla, borrá este bloque entero. -->
 <div class="announce">
-  <span>Día de la Madre · cerramos agenda de pedidos el 5 de octubre</span>
+  <span>Día de la Madre · cerramos agenda el 5 de octubre <span class="count-down" data-deadline="2026-10-05T23:59:59-03:00"></span></span>
   <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20reservar%20un%20pedido%20para%20el%20D%C3%ADa%20de%20la%20Madre." target="_blank" rel="noopener">Reservar mi lugar</a>
   <button class="announce-close" aria-label="Cerrar aviso">✕</button>
 </div>
@@ -269,6 +348,32 @@
     
   </div>
 </section></main>
+
+<!-- Vista ampliada del catálogo -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de la pieza">
+  <button class="lb-close" type="button" aria-label="Cerrar">✕</button>
+  <button class="lb-nav lb-prev" type="button" aria-label="Anterior">‹</button>
+  <button class="lb-nav lb-next" type="button" aria-label="Siguiente">›</button>
+  <div class="lb-inner">
+    <figure class="lb-fig"><img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt=""></figure>
+    <div class="lb-side">
+      <p class="lb-cat" id="lbCat"></p>
+      <h3 class="lb-title" id="lbTitle"></h3>
+      <p class="lb-desc" id="lbDesc"></p>
+      <a class="btn btn-solid spark-hover" id="lbWa" href="#" target="_blank" rel="noopener">Cotizar esta pieza</a>
+      <button class="btn spark-hover" type="button" id="lbPick">Agregar a mi selección</button>
+      <button class="btn spark-hover" type="button" id="lbShare" hidden>Compartir</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bandeja: varias piezas en un solo mensaje -->
+<div class="tray" id="tray" role="status" aria-live="polite">
+  <span class="tray-n" id="trayN">0</span>
+  <span class="tray-t"><b id="trayTitle">piezas elegidas</b><span>Te las mandamos todas en un solo mensaje</span></span>
+  <a class="btn btn-solid spark-hover" id="trayGo" href="#" target="_blank" rel="noopener">Cotizar todo</a>
+  <button class="tray-clear" type="button" id="trayClear">Vaciar</button>
+</div>
 
 <a class="fab" href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
   <span class="fab-label">Escribinos, contestamos</span>
