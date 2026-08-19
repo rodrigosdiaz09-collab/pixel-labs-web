@@ -1,23 +1,70 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nosotros | Pixel Labs — Estudio de Grabado Láser</title>
-<meta name="description" content="Conocé Pixel Labs: tecnología láser y obsesión por el detalle en cada corte, desde San Vicente, Buenos Aires, hacia todo el país.">
+<title>Nosotros | Pixel Labs — Taller de corte láser en San Vicente</title>
+<meta name="description" content="La historia de Pixel Labs: de un rincón de casa a un taller de corte y grabado láser en San Vicente, Buenos Aires. Piezas personalizadas con envíos a todo el país.">
+<meta name="keywords" content="taller corte láser San Vicente, emprendimiento láser Buenos Aires, Pixel Labs historia">
+<meta name="theme-color" content="#0D0D0D">
+<!-- OJO: el dominio pixellabs.ar todavía no está activo. Mientras el sitio viva
+     en workers.dev, este canonical le dice a Google que indexe una URL que no existe.
+     Conectá el dominio o cambiá estas URLs por la de workers.dev. -->
 <link rel="canonical" href="https://pixellabs.ar/nosotros">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:title" content="Nosotros | Pixel Labs — Taller de corte láser en San Vicente">
+<meta property="og:description" content="La historia de Pixel Labs: de un rincón de casa a un taller de corte y grabado láser en San Vicente, Buenos Aires. Piezas personalizadas con envíos a todo el país.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:image" content="https://pixellabs.ar/favicon-512.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<!-- ===================== MEDICIÓN =====================
+     Pegá acá tu GA4 y tu Píxel de Meta. El resto ya está cableado:
+     script.js dispara el evento "contacto_whatsapp" en CADA clic a WhatsApp.
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());gtag('config','G-XXXXXXX');
+</script>
+     ==================================================== -->
+
 </head>
 <body>
+<a class="skip-link" href="#main">Ir al contenido</a>
+
+<div class="boot" aria-hidden="true">
+  <div class="boot-inner">
+    <div class="boot-mark">Pixel Labs</div>
+    <div class="boot-bar"></div>
+    <p class="boot-note">Calibrando el láser</p>
+  </div>
+</div>
+
+<div class="scan-progress" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="wipe" aria-hidden="true"></div>
+
+<!-- BARRA DE ANUNCIO: cambiá el texto según la temporada. Para ocultarla, borrá este bloque entero. -->
+<div class="announce">
+  <span>Día de la Madre · cerramos agenda de pedidos el 5 de octubre</span>
+  <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20reservar%20un%20pedido%20para%20el%20D%C3%ADa%20de%20la%20Madre." target="_blank" rel="noopener">Reservar mi lugar</a>
+  <button class="announce-close" aria-label="Cerrar aviso">✕</button>
+</div>
 
 <header class="site-header">
   <a class="brand" href="index.html">
-    <img class="brand-mark" src="images/logo-header.png" alt="Pixel Labs - grabado y corte láser" width="40" height="40">
+    <img class="brand-mark" src="images/logo-header.png" alt="Pixel Labs — grabado y corte láser" width="40" height="40">
     PIXEL LABS
   </a>
   <nav class="main-nav" id="mainNav">
@@ -30,34 +77,63 @@
   <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
 </header>
 
+<main id="main">
+
 <div class="page-hero">
+  <p class="crumbs"><a href="index.html">Inicio</a> · <span>Nosotros</span></p>
   <p class="eyebrow">Nosotros</p>
-  <h1>DETRAS DE CADA CORTE</h1>
+  <h1 data-engrave>Detrás de cada corte</h1>
+  <p class="lede">Un taller chico, una máquina que no perdona errores y la manía de revisar cada pieza dos veces.</p>
 </div>
 
 <section class="about-grid">
-  <div class="about-media">
-    <img src="images/taller.jpg" alt="Pieza de madera grabada con el logo de Pixel Labs, sostenida frente a la cortadora láser del taller en San Vicente" loading="lazy">
+  <div class="about-media" data-reveal="zoom">
+    <img src="images/taller.jpg" alt="Pieza de madera grabada con el logo de Pixel Labs frente a la cortadora láser del taller en San Vicente" loading="lazy">
   </div>
   <div>
-    <p class="lede">Todo comenzó en un pequeño rincón de nuestra casa, como empiezan la mayoría de los sueños: con ilusión, esfuerzo y muchísimas ganas de crear.</p>
-    <p class="lede">Lo que al principio era un espacio improvisado, con herramientas, ideas y largas horas de trabajo, hoy es el lugar donde damos vida a recuerdos que acompañarán a otras familias para siempre.</p>
-    <p class="lede">En Pixel Labs creemos que los momentos más importantes no deberían perderse con el tiempo. Una fotografía, un regalo personalizado, un retrato, un souvenir o un detalle para un evento pueden convertirse en un puente hacia un abrazo, una sonrisa o una historia que merece ser recordada.</p>
-    <p class="lede">Cada pieza que realizamos lleva algo más que materiales y tecnología. Lleva dedicación, paciencia y el mismo cariño que pondríamos si fuera para nuestra propia familia.</p>
-    <p class="lede">Seguimos creciendo, aprendiendo y soñando, pero sin olvidar de dónde venimos: ese pequeño rincón de casa donde nació este emprendimiento y donde entendimos que los grandes proyectos no empiezan en enormes talleres, sino en personas que se animan a creer en sus sueños.</p>
-    <p class="lede">Gracias por permitirnos ser parte de tus momentos más importantes. Para nosotros, ese es el verdadero significado de lo que hacemos: transformar instantes en recuerdos que vivirán para siempre.</p>
+    <p class="lede" data-reveal>Todo empezó en un rincón de casa, como empiezan casi todos los proyectos que valen: con más ganas que herramientas y bastante menos idea de la que hacía falta.</p>
+    <p class="lede" data-reveal style="--d:60ms">Aquel espacio improvisado —una mesa, una máquina y muchas horas que no figuraban en ningún plan— es hoy el lugar donde se fabrican recuerdos que van a vivir en casas ajenas mucho después de que nosotros nos olvidemos de haberlos hecho.</p>
+
+    <blockquote class="pull-quote" data-reveal>Los momentos importantes no deberían depender de la memoria.</blockquote>
+
+    <p class="lede" data-reveal>Esa es la idea que sostiene todo lo demás. Una foto, un retrato, un souvenir, un detalle sobre la mesa de un evento: objetos chicos que funcionan como puente hacia un abrazo, una risa o una historia que merece que la sigan contando.</p>
+    <p class="lede" data-reveal style="--d:60ms">Por eso cada pieza lleva algo que no aparece en la lista de materiales. Le ponemos la misma paciencia que le pondríamos si fuera para nuestra propia familia, que es exactamente el nivel de exigencia más alto que conocemos.</p>
+    <p class="lede" data-reveal style="--d:120ms">Seguimos creciendo y seguimos aprendiendo, pero sin olvidar de dónde venimos: los proyectos grandes no arrancan en talleres enormes, arrancan en gente que se anima.</p>
+    <p class="lede" data-reveal style="--d:180ms">Gracias por dejarnos entrar en tus momentos importantes. Para nosotros ese es el trabajo entero: convertir instantes en cosas que se pueden tocar.</p>
+    <p class="hero-joke" data-reveal>PD: el taller sigue oliendo a madera quemada. No pensamos arreglarlo.</p>
   </div>
 </section>
 
 <div class="hr-divider"></div>
 
-<section style="text-align:center; padding-top:0;">
-  <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20conversar%20sobre%20un%20proyecto" target="_blank" rel="noopener" class="btn btn-solid spark-hover">Conversemos sobre tu proyecto</a>
+<section style="padding-top:3rem;">
+  <div class="stats">
+    <div class="stat" data-reveal><span class="stat-n" data-count="66">0</span><span class="stat-l">Diseños en catálogo</span></div>
+    <div class="stat" data-reveal style="--d:80ms"><span class="stat-n" data-count="3">0</span><span class="stat-l">Materiales</span></div>
+    <div class="stat" data-reveal style="--d:160ms"><span class="stat-n" data-count="24">0</span><span class="stat-l">Provincias con envío</span></div>
+    <div class="stat" data-reveal style="--d:240ms"><span class="stat-n" data-count="1">0</span><span class="stat-l">Láser, muy bien cuidado</span></div>
+  </div>
 </section>
+
+<section class="cta-final">
+  <div class="spark-divider centered"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0 L7 5 L12 6 L7 7 L6 12 L5 7 L0 6 L5 5 Z" fill="currentColor"/></svg></div>
+  <p class="eyebrow centered">¿Empezamos?</p>
+  <h2 data-engrave>Conversemos sobre tu proyecto</h2>
+  <p class="lede">Del otro lado no hay un bot: hay alguien con las manos llenas de aserrín.</p>
+  <div class="hero-actions">
+    <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20conversar%20sobre%20un%20proyecto." target="_blank" rel="noopener" class="btn btn-solid spark-hover">Escribinos por WhatsApp</a>
+    
+  </div>
+</section></main>
+
+<a class="fab" href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+  <span class="fab-label">Escribinos, contestamos</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg>
+</a>
 
 <footer class="site-footer">
   <div class="footer-brand">
-    <img src="images/logo-header.png" alt="Pixel Labs" width="30" height="30">
+    <img src="images/logo-header.png" alt="" width="30" height="30">
     <span>Pixel Labs</span>
   </div>
   <div class="footer-links">
@@ -68,17 +144,14 @@
     <a href="contacto.html">Contacto</a>
   </div>
   <div class="footer-social">
-    <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg>
-    </a>
-    <a href="mailto:rodrigo.s.diaz09@gmail.com" aria-label="Email">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg>
-    </a>
-    <a href="https://wa.me/542224642172" target="_blank" rel="noopener" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg>
-    </a>
+    <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg></a>
+    <a href="mailto:rodrigo.s.diaz09@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg></a>
+    <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg></a>
   </div>
-  <p class="footer-copy">© 2026 Pixel Labs. Todos los derechos reservados. Ningún píxel fue maltratado en el proceso.</p>
+  <p class="footer-copy">
+    © 2026 Pixel Labs · San Vicente, Buenos Aires · Envíos a todo el país
+    <span class="joke">Ningún píxel fue maltratado en el proceso.</span>
+  </p>
 </footer>
 
 <script src="script.js"></script>

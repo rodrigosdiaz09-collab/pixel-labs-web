@@ -1,40 +1,141 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contacto | Pixel Labs — Cotizá tu Proyecto</title>
-<meta name="description" content="Contactá a Pixel Labs para cotizar tu proyecto de grabado o corte láser. WhatsApp, email y ubicación en San Vicente, Buenos Aires. Envíos a todo el país.">
+<title>Contacto | Pixel Labs — Grabado y corte láser en San Vicente</title>
+<meta name="description" content="Escribinos por WhatsApp y armamos tu pieza a medida. Grabado y corte láser en San Vicente, Buenos Aires. Envíos a todo el país. Preguntas frecuentes sobre plazos, pagos y envíos.">
+<meta name="keywords" content="contacto Pixel Labs, corte láser San Vicente contacto, presupuesto grabado láser">
+<meta name="theme-color" content="#0D0D0D">
+<!-- OJO: el dominio pixellabs.ar todavía no está activo. Mientras el sitio viva
+     en workers.dev, este canonical le dice a Google que indexe una URL que no existe.
+     Conectá el dominio o cambiá estas URLs por la de workers.dev. -->
 <link rel="canonical" href="https://pixellabs.ar/contacto">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:title" content="Contacto | Pixel Labs — Grabado y corte láser en San Vicente">
+<meta property="og:description" content="Escribinos por WhatsApp y armamos tu pieza a medida. Grabado y corte láser en San Vicente, Buenos Aires. Envíos a todo el país. Preguntas frecuentes sobre plazos, pagos y envíos.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:image" content="https://pixellabs.ar/favicon-512.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
+<!-- ===================== MEDICIÓN =====================
+     Pegá acá tu GA4 y tu Píxel de Meta. El resto ya está cableado:
+     script.js dispara el evento "contacto_whatsapp" en CADA clic a WhatsApp.
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());gtag('config','G-XXXXXXX');
+</script>
+     ==================================================== -->
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Pixel Labs",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "San Vicente",
-    "addressRegion": "Buenos Aires",
-    "addressCountry": "AR"
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "¿Cuánto tardan en hacer mi pedido?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "El plazo habitual de producción es de [COMPLETAR: 5 a 7] días hábiles desde que aprobás el diseño, más el tiempo de envío. Para eventos con fecha, pedinos con [COMPLETAR: 15] días de anticipación y dormís tranquilo."
+   }
   },
-  "telephone": "+542224642172",
-  "email": "rodrigo.s.diaz09@gmail.com",
-  "sameAs": ["https://instagram.com/PixelLabs.ar"]
+  {
+   "@type": "Question",
+   "name": "¿Cómo se paga?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Aceptamos [COMPLETAR: transferencia y Mercado Pago]. Para arrancar la producción pedimos una seña del [COMPLETAR: 50%] y el resto antes del despacho."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Hacen envíos a todo el país?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí, por Andreani y Correo Argentino, con seguimiento. También podés retirar en San Vicente, Buenos Aires, y ahorrarte el costo. A la Luna todavía no llegamos, pero tenemos las fases en cuadro."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Puedo mandar mi propia foto o mi logo?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí, es la mitad de lo que hacemos. Vectorizamos la imagen para que el láser la entienda. Cuanto mejor sea la foto original, mejor sale el retrato: buscá buena luz y que la cara se vea nítida."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Cuál es el pedido mínimo de souvenirs?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Diez unidades. Desde ahí el precio unitario arranca en $1.800 y baja a medida que sube la cantidad."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Qué pasa si la pieza llega dañada?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "[COMPLETAR: confirmá tu política] — la recomendación es: si llega rota por el transporte, la rehacemos sin cargo. Mandanos una foto del paquete y de la pieza apenas la abrís."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Trabajan con empresas?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí. Grabamos tu logo sobre madera, acrílico o cuero, con precio por volumen y mockup previo sin cargo. Es el pedido que más crece en noviembre, así que conviene agendarlo en octubre."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Los precios de la web son finales?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Son orientativos: marcan el piso de cada medida. El valor exacto depende del detalle del diseño, el material y los adicionales. Te lo confirmamos por WhatsApp antes de que pagues nada."
+   }
+  }
+ ]
 }
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Ir al contenido</a>
+
+<div class="boot" aria-hidden="true">
+  <div class="boot-inner">
+    <div class="boot-mark">Pixel Labs</div>
+    <div class="boot-bar"></div>
+    <p class="boot-note">Calibrando el láser</p>
+  </div>
+</div>
+
+<div class="scan-progress" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="wipe" aria-hidden="true"></div>
+
+<!-- BARRA DE ANUNCIO: cambiá el texto según la temporada. Para ocultarla, borrá este bloque entero. -->
+<div class="announce">
+  <span>Día de la Madre · cerramos agenda de pedidos el 5 de octubre</span>
+  <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20reservar%20un%20pedido%20para%20el%20D%C3%ADa%20de%20la%20Madre." target="_blank" rel="noopener">Reservar mi lugar</a>
+  <button class="announce-close" aria-label="Cerrar aviso">✕</button>
+</div>
 
 <header class="site-header">
   <a class="brand" href="index.html">
-    <img class="brand-mark" src="images/logo-header.png" alt="Pixel Labs - grabado y corte láser" width="40" height="40">
+    <img class="brand-mark" src="images/logo-header.png" alt="Pixel Labs — grabado y corte láser" width="40" height="40">
     PIXEL LABS
   </a>
   <nav class="main-nav" id="mainNav">
@@ -47,61 +148,136 @@
   <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
 </header>
 
+<main id="main">
+
 <div class="page-hero">
+  <p class="crumbs"><a href="index.html">Inicio</a> · <span>Contacto</span></p>
   <p class="eyebrow">Contacto</p>
-  <h1>¿Tenés una idea?</h1>
-  <p class="lede" style="margin-top:1.2rem;">Nosotros la convertimos en realidad, un pixel a la vez. Escribinos y armemos tu proyecto a medida.</p>
+  <h1 data-engrave>¿Tenés una idea?</h1>
+  <p class="lede">Contala como te salga. Nosotros nos encargamos de la parte técnica, que es la aburrida.</p>
 </div>
 
 <section class="contact-grid">
-  <form id="contactForm">
+  <form id="contactForm" data-reveal="left">
     <div class="form-field">
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" name="nombre" required>
+      <label for="nombre">Cómo te llamás</label>
+      <input type="text" id="nombre" name="nombre" required autocomplete="name">
     </div>
     <div class="form-field">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
+      <label for="email">Tu email</label>
+      <input type="email" id="email" name="email" required autocomplete="email">
     </div>
     <div class="form-field">
-      <label for="tipo">Tipo de proyecto</label>
+      <label for="tipo">Qué necesitás</label>
       <select id="tipo" name="tipo">
-        <option>Evento</option>
-        <option>Decoración de hogar</option>
-        <option>Regalo personalizado</option>
-        <option>Otro</option>
+        <option>Cuadro o deco para casa</option>
+        <option>Retrato de mascota</option>
+        <option>Souvenirs para un evento</option>
+        <option>Cartelería para mi local</option>
+        <option>Regalos corporativos</option>
+        <option>Todavía no sé, tengo una idea suelta</option>
       </select>
     </div>
     <div class="form-field">
-      <label for="mensaje">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" required></textarea>
+      <label for="medida">Medida aproximada (si ya la tenés)</label>
+      <input type="text" id="medida" name="medida" placeholder="Ej: 32 × 38 cm" autocomplete="off">
+    </div>
+    <div class="form-field">
+      <label for="mensaje">Contanos la idea</label>
+      <textarea id="mensaje" name="mensaje" required placeholder="Para cuándo lo necesitás, para quién es, si tenés una foto de referencia…"></textarea>
     </div>
     <button type="submit" class="btn btn-solid spark-hover">Enviar por WhatsApp</button>
+    <p class="form-note">Al enviar se abre WhatsApp con todo escrito. No hace falta que repitas nada.</p>
+    <!-- ⚠️ Este formulario abre WhatsApp pero NO guarda el email en ningún lado.
+         Si querés armar una base de contactos, hay que conectarlo a un Google Sheet
+         o a un servicio de formularios desde el Worker. -->
   </form>
 
-  <div>
+  <div data-reveal="right">
     <div class="contact-info-row">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/></svg>
-      <a href="https://wa.me/542224642172" target="_blank" rel="noopener">+54 2224 642172</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/></svg>
+      <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener">+54 2224 64-2172 · el camino más rápido</a>
     </div>
     <div class="contact-info-row">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg>
       <a href="mailto:rodrigo.s.diaz09@gmail.com">rodrigo.s.diaz09@gmail.com</a>
     </div>
     <div class="contact-info-row">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
-      <span>San Vicente, Buenos Aires, Argentina — envíos a todo el país</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+      <span>San Vicente, Buenos Aires — envíos a todo el país</span>
     </div>
     <div class="contact-info-row">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg>
-      <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener">@PixelLabs.ar</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg>
+      <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener">@PixelLabs.ar · ahí subimos todo primero</a>
     </div>
+
+    <div class="spark-divider"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0 L7 5 L12 6 L7 7 L6 12 L5 7 L0 6 L5 5 Z" fill="currentColor"/></svg></div>
+    <p class="lede" style="font-size:0.95rem;">Si escribís fuera de horario igual leemos. Contestamos apenas se apaga el láser.</p>
   </div>
 </section>
 
+<div class="hr-divider"></div>
+
+<section class="section-light" aria-labelledby="t-faq">
+  <div class="section-head" data-reveal style="margin-left:auto;margin-right:auto;text-align:center;">
+    <p class="eyebrow centered">Preguntas frecuentes</p>
+    <h2 id="t-faq" data-engrave>Lo que todos preguntan antes de encargar</h2>
+  </div>
+  <div class="faq">
+  <div class="faq-item" data-reveal style="--d:0ms">
+    <button class="faq-q" type="button">¿Cuánto tardan en hacer mi pedido?</button>
+    <div class="faq-a"><p>El plazo habitual de producción es de <strong>[COMPLETAR: 5 a 7]</strong> días hábiles desde que aprobás el diseño, más el tiempo de envío. Para eventos con fecha, pedinos con <strong>[COMPLETAR: 15]</strong> días de anticipación y dormís tranquilo.</p></div>
+  </div>
+  <div class="faq-item" data-reveal style="--d:40ms">
+    <button class="faq-q" type="button">¿Cómo se paga?</button>
+    <div class="faq-a"><p>Aceptamos <strong>[COMPLETAR: transferencia y Mercado Pago]</strong>. Para arrancar la producción pedimos una seña del <strong>[COMPLETAR: 50%]</strong> y el resto antes del despacho.</p></div>
+  </div>
+  <div class="faq-item" data-reveal style="--d:80ms">
+    <button class="faq-q" type="button">¿Hacen envíos a todo el país?</button>
+    <div class="faq-a"><p>Sí, por Andreani y Correo Argentino, con seguimiento. También podés retirar en San Vicente, Buenos Aires, y ahorrarte el costo. A la Luna todavía no llegamos, pero tenemos las fases en cuadro.</p></div>
+  </div>
+  <div class="faq-item" data-reveal style="--d:120ms">
+    <button class="faq-q" type="button">¿Puedo mandar mi propia foto o mi logo?</button>
+    <div class="faq-a"><p>Sí, es la mitad de lo que hacemos. Vectorizamos la imagen para que el láser la entienda. Cuanto mejor sea la foto original, mejor sale el retrato: buscá buena luz y que la cara se vea nítida.</p></div>
+  </div>
+  <div class="faq-item" data-reveal style="--d:160ms">
+    <button class="faq-q" type="button">¿Cuál es el pedido mínimo de souvenirs?</button>
+    <div class="faq-a"><p>Diez unidades. Desde ahí el precio unitario arranca en $1.800 y baja a medida que sube la cantidad.</p></div>
+  </div>
+  <div class="faq-item" data-reveal style="--d:200ms">
+    <button class="faq-q" type="button">¿Qué pasa si la pieza llega dañada?</button>
+    <div class="faq-a"><p><strong>[COMPLETAR: confirmá tu política]</strong> — la recomendación es: si llega rota por el transporte, la rehacemos sin cargo. Mandanos una foto del paquete y de la pieza apenas la abrís.</p></div>
+  </div>
+  <div class="faq-item" data-reveal style="--d:240ms">
+    <button class="faq-q" type="button">¿Trabajan con empresas?</button>
+    <div class="faq-a"><p>Sí. Grabamos tu logo sobre madera, acrílico o cuero, con precio por volumen y mockup previo sin cargo. Es el pedido que más crece en noviembre, así que conviene agendarlo en octubre.</p></div>
+  </div>
+  <div class="faq-item" data-reveal style="--d:280ms">
+    <button class="faq-q" type="button">¿Los precios de la web son finales?</button>
+    <div class="faq-a"><p>Son orientativos: marcan el piso de cada medida. El valor exacto depende del detalle del diseño, el material y los adicionales. Te lo confirmamos por WhatsApp antes de que pagues nada.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="cta-final">
+  <div class="spark-divider centered"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0 L7 5 L12 6 L7 7 L6 12 L5 7 L0 6 L5 5 Z" fill="currentColor"/></svg></div>
+  <p class="eyebrow centered">¿Empezamos?</p>
+  <h2 data-engrave>Mejor todavía: escribinos ahora</h2>
+  <p class="lede">Un mensaje de dos líneas alcanza para empezar.</p>
+  <div class="hero-actions">
+    <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20consultar%20por%20un%20proyecto." target="_blank" rel="noopener" class="btn btn-solid spark-hover">Abrir WhatsApp</a>
+    
+  </div>
+</section></main>
+
+<a class="fab" href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+  <span class="fab-label">Escribinos, contestamos</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg>
+</a>
+
 <footer class="site-footer">
   <div class="footer-brand">
-    <img src="images/logo-header.png" alt="Pixel Labs" width="30" height="30">
+    <img src="images/logo-header.png" alt="" width="30" height="30">
     <span>Pixel Labs</span>
   </div>
   <div class="footer-links">
@@ -112,17 +288,14 @@
     <a href="contacto.html">Contacto</a>
   </div>
   <div class="footer-social">
-    <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg>
-    </a>
-    <a href="mailto:rodrigo.s.diaz09@gmail.com" aria-label="Email">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg>
-    </a>
-    <a href="https://wa.me/542224642172" target="_blank" rel="noopener" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg>
-    </a>
+    <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg></a>
+    <a href="mailto:rodrigo.s.diaz09@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg></a>
+    <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg></a>
   </div>
-  <p class="footer-copy">© 2026 Pixel Labs. Todos los derechos reservados. Ningún píxel fue maltratado en el proceso.</p>
+  <p class="footer-copy">
+    © 2026 Pixel Labs · San Vicente, Buenos Aires · Envíos a todo el país
+    <span class="joke">Ningún píxel fue maltratado en el proceso.</span>
+  </p>
 </footer>
 
 <script src="script.js"></script>

@@ -1,24 +1,70 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Servicios de Grabado y Corte Láser | Pixel Labs</title>
-<meta name="description" content="Grabado personalizado en madera y acrílico, corte de precisión, diseño a medida para regalos y piezas únicas para eventos. Pixel Labs, San Vicente, Buenos Aires.">
-<meta name="keywords" content="grabado láser San Vicente, corte láser Buenos Aires, cartelería láser, regalos personalizados madera">
+<meta name="description" content="Grabado personalizado, corte milimétrico, diseño a medida y piezas para eventos en madera, acrílico y cuero. Regalos corporativos con tu logo. San Vicente, Buenos Aires.">
+<meta name="keywords" content="servicios corte láser, grabado personalizado madera, corte acrílico a medida, souvenirs eventos, regalos corporativos con logo, cartelería para comercios">
+<meta name="theme-color" content="#0D0D0D">
+<!-- OJO: el dominio pixellabs.ar todavía no está activo. Mientras el sitio viva
+     en workers.dev, este canonical le dice a Google que indexe una URL que no existe.
+     Conectá el dominio o cambiá estas URLs por la de workers.dev. -->
 <link rel="canonical" href="https://pixellabs.ar/servicios">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:title" content="Servicios de Grabado y Corte Láser | Pixel Labs">
+<meta property="og:description" content="Grabado personalizado, corte milimétrico, diseño a medida y piezas para eventos en madera, acrílico y cuero. Regalos corporativos con tu logo. San Vicente, Buenos Aires.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:image" content="https://pixellabs.ar/favicon-512.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<!-- ===================== MEDICIÓN =====================
+     Pegá acá tu GA4 y tu Píxel de Meta. El resto ya está cableado:
+     script.js dispara el evento "contacto_whatsapp" en CADA clic a WhatsApp.
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());gtag('config','G-XXXXXXX');
+</script>
+     ==================================================== -->
+
 </head>
 <body>
+<a class="skip-link" href="#main">Ir al contenido</a>
+
+<div class="boot" aria-hidden="true">
+  <div class="boot-inner">
+    <div class="boot-mark">Pixel Labs</div>
+    <div class="boot-bar"></div>
+    <p class="boot-note">Calibrando el láser</p>
+  </div>
+</div>
+
+<div class="scan-progress" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="wipe" aria-hidden="true"></div>
+
+<!-- BARRA DE ANUNCIO: cambiá el texto según la temporada. Para ocultarla, borrá este bloque entero. -->
+<div class="announce">
+  <span>Día de la Madre · cerramos agenda de pedidos el 5 de octubre</span>
+  <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20reservar%20un%20pedido%20para%20el%20D%C3%ADa%20de%20la%20Madre." target="_blank" rel="noopener">Reservar mi lugar</a>
+  <button class="announce-close" aria-label="Cerrar aviso">✕</button>
+</div>
 
 <header class="site-header">
   <a class="brand" href="index.html">
-    <img class="brand-mark" src="images/logo-header.png" alt="Pixel Labs - grabado y corte láser" width="40" height="40">
+    <img class="brand-mark" src="images/logo-header.png" alt="Pixel Labs — grabado y corte láser" width="40" height="40">
     PIXEL LABS
   </a>
   <nav class="main-nav" id="mainNav">
@@ -31,55 +77,111 @@
   <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
 </header>
 
+<main id="main">
+
 <div class="page-hero">
+  <p class="crumbs"><a href="index.html">Inicio</a> · <span>Servicios</span></p>
   <p class="eyebrow">Servicios</p>
-  <h1>¿TENES UNA IDEA? NOSOTROS LA HACEMOS REALIDAD</h1>
-  <p class="lede" style="margin-top:1.2rem;">Transformamos madera, acrílico y cuero en piezas únicas, diseñadas para durar y para destacar.</p>
+  <h1 data-engrave>Si se puede dibujar, se puede cortar</h1>
+  <p class="lede">Y si no se puede dibujar, lo dibujamos nosotros. Madera, acrílico y cuero convertidos en piezas que duran bastante más que la ocasión que las motivó.</p>
+</div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Deco home</span><span>Souvenirs</span><span>Cartelería</span><span>Toppers</span><span>Llaveros</span><span>Etiquetas</span><span>Stencils</span><span>Retratos de mascota</span><span>Regalos corporativos</span>
+    <span>Deco home</span><span>Souvenirs</span><span>Cartelería</span><span>Toppers</span><span>Llaveros</span><span>Etiquetas</span><span>Stencils</span><span>Retratos de mascota</span><span>Regalos corporativos</span>
+  </div>
 </div>
 
 <section>
-  <div class="service-row">
-    <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 40 L40 8 M24 8 H40 V24" stroke="currentColor" stroke-width="1.2"/></svg>
+  <div class="service-row" data-reveal>
+    <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 40 L40 8 M24 8 H40 V24" stroke="currentColor" stroke-width="1.2"/></svg>
     <div>
-      <h3>Grabado Personalizado en Madera y Acrílico</h3>
-      <p>Diseños, logos, nombres y frases grabados con precisión milimétrica sobre madera natural o acrílico, para regalos, cartelería o piezas de autor.</p>
+      <h3>Grabado personalizado</h3>
+      <p>Logos, nombres, fechas y frases quemados con precisión milimétrica sobre madera natural o acrílico. Lo que en una impresión se despinta, acá queda para siempre.</p>
+      <span class="price-hint">Desde $7.000</span>
     </div>
   </div>
 
-  <div class="service-row">
-    <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 24 H42 M14 12 L34 36 M34 12 L14 36" stroke="currentColor" stroke-width="1.2"/></svg>
+  <div class="service-row" data-reveal style="--d:80ms">
+    <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M6 24 H42 M14 12 L34 36 M34 12 L14 36" stroke="currentColor" stroke-width="1.2"/></svg>
     <div>
-      <h3>Cortes Milimétricos en Materiales Finos</h3>
-      <p>Corte láser en madera, acrílico y cartón con tolerancias mínimas, ideal para piezas ensamblables</p>
+      <h3>Corte milimétrico</h3>
+      <p>Madera, acrílico y cartón con tolerancias tan finas que las piezas encastran solas. Ideal para armados, calados y todo lo que tenga que cerrar perfecto.</p>
+      <span class="price-hint">Cotización por proyecto</span>
     </div>
   </div>
 
-  <div class="service-row">
-    <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="1.2"/><path d="M24 14 V24 L31 29" stroke="currentColor" stroke-width="1.2"/></svg>
+  <div class="service-row" data-reveal style="--d:160ms">
+    <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="1.2"/><path d="M24 14 V24 L31 29" stroke="currentColor" stroke-width="1.2"/></svg>
     <div>
-      <h3>Diseño a Medida para Regalos y Decoración</h3>
-      <p>Acompañamos el diseño desde la idea hasta la pieza final: cuadros, letreros, organizadores y objetos decorativos con identidad propia.</p>
+      <h3>Diseño desde cero</h3>
+      <p>Traés una idea suelta y te la devolvemos en un boceto. Cuadros, letreros, organizadores y objetos que no existían hasta que se te ocurrieron.</p>
+      <span class="price-hint">Diseño desde $6.000</span>
     </div>
   </div>
 
-  <div class="service-row">
-    <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M24 6 L30 18 L44 20 L34 29 L37 43 L24 36 L11 43 L14 29 L4 20 L18 18 Z" stroke="currentColor" stroke-width="1.2"/></svg>
+  <div class="service-row" data-reveal style="--d:240ms">
+    <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 6 L30 18 L44 20 L34 29 L37 43 L24 36 L11 43 L14 29 L4 20 L18 18 Z" stroke="currentColor" stroke-width="1.2"/></svg>
     <div>
-      <h3>Piezas Únicas para Eventos</h3>
-      <p>Souvenirs, cartelería y detalles personalizados para bodas, cumpleaños y eventos corporativos, pensados para acompañar cada celebración.</p>
+      <h3>Piezas para eventos</h3>
+      <p>Souvenirs, cartelería y detalles con nombre para casamientos, quince y cumpleaños. En la cantidad justa, con la fecha respetada.</p>
+      <span class="price-hint">Souvenirs desde $1.800 · mínimo 10 u.</span>
     </div>
   </div>
 </section>
 
 <div class="hr-divider"></div>
 
-<section style="text-align:center; padding-top:0;">
-  <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%20un%20proyecto" target="_blank" rel="noopener" class="btn btn-solid spark-hover">Cotizar mi Proyecto</a>
+<section class="section-light" aria-labelledby="t-corp">
+  <div class="section-head" data-reveal>
+    <p class="eyebrow">Para empresas</p>
+    <h2 id="t-corp" data-engrave>Regalos corporativos que no terminan en un cajón</h2>
+    <p class="lede">El merchandising promedio se pierde en una semana. Una pieza grabada en madera con el logo de tu empresa se queda en el escritorio durante años. Es publicidad que decora.</p>
+  </div>
+
+  <div class="steps">
+    <article class="step" data-reveal>
+      <span class="step-n">01</span>
+      <h3>Tu logo, grabado</h3>
+      <p>Sobre madera, acrílico o cuero. Te mandamos un mockup antes de producir, sin cargo.</p>
+    </article>
+    <article class="step" data-reveal style="--d:100ms">
+      <span class="step-n">02</span>
+      <h3>Precio por volumen</h3>
+      <p>Cuanto más grande el pedido, más baja el unitario. Desde 100 unidades el salto se nota.</p>
+    </article>
+    <article class="step" data-reveal style="--d:200ms">
+      <span class="step-n">03</span>
+      <h3>Fecha comprometida</h3>
+      <p>Nos decís cuándo lo necesitás y trabajamos hacia atrás. Fin de año se agenda en octubre.</p>
+    </article>
+  </div>
+
+  <div style="margin-top:2rem;" data-reveal>
+    <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20un%20presupuesto%20de%20regalos%20corporativos.%20Somos%20una%20empresa%20y%20necesitamos%3A" target="_blank" rel="noopener" class="btn btn-solid spark-hover">Pedir presupuesto corporativo</a>
+  </div>
 </section>
+
+<section class="cta-final">
+  <div class="spark-divider centered"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0 L7 5 L12 6 L7 7 L6 12 L5 7 L0 6 L5 5 Z" fill="currentColor"/></svg></div>
+  <p class="eyebrow centered">¿Empezamos?</p>
+  <h2 data-engrave>¿Lo tuyo no entra en ninguna categoría?</h2>
+  <p class="lede">Mejor. Los proyectos más lindos empezaron con un “no sé si esto se puede hacer”.</p>
+  <div class="hero-actions">
+    <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Tengo%20un%20proyecto%20raro%20y%20quiero%20saber%20si%20se%20puede%20hacer." target="_blank" rel="noopener" class="btn btn-solid spark-hover">Contame tu proyecto</a>
+    <a href="productos.html" class="btn spark-hover">Ver precios y catálogo</a>
+  </div>
+</section></main>
+
+<a class="fab" href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+  <span class="fab-label">Escribinos, contestamos</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg>
+</a>
 
 <footer class="site-footer">
   <div class="footer-brand">
-    <img src="images/logo-header.png" alt="Pixel Labs" width="30" height="30">
+    <img src="images/logo-header.png" alt="" width="30" height="30">
     <span>Pixel Labs</span>
   </div>
   <div class="footer-links">
@@ -90,17 +192,14 @@
     <a href="contacto.html">Contacto</a>
   </div>
   <div class="footer-social">
-    <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg>
-    </a>
-    <a href="mailto:rodrigo.s.diaz09@gmail.com" aria-label="Email">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg>
-    </a>
-    <a href="https://wa.me/542224642172" target="_blank" rel="noopener" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg>
-    </a>
+    <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg></a>
+    <a href="mailto:rodrigo.s.diaz09@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg></a>
+    <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg></a>
   </div>
-  <p class="footer-copy">© 2026 Pixel Labs. Todos los derechos reservados. Ningún píxel fue maltratado en el proceso.</p>
+  <p class="footer-copy">
+    © 2026 Pixel Labs · San Vicente, Buenos Aires · Envíos a todo el país
+    <span class="joke">Ningún píxel fue maltratado en el proceso.</span>
+  </p>
 </footer>
 
 <script src="script.js"></script>

@@ -1,51 +1,88 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pixel Labs | Grabado y Corte Láser en San Vicente, Buenos Aires</title>
-<meta name="description" content="Grabado láser personalizado en madera, acrílico y cuero. Piezas únicas para eventos y decoración de hogar. Envíos a todo el país. San Vicente, Buenos Aires.">
-<meta name="keywords" content="grabado láser San Vicente, corte láser Buenos Aires, decoración láser personalizada, souvenirs para eventos, regalos personalizados madera, cartelería láser, Pixel Labs">
+<meta name="description" content="Grabado y corte láser en madera, acrílico y cuero. Cuadros, retratos de mascotas, souvenirs y cartelería personalizada. Desde $7.000, con envíos a todo el país.">
+<meta name="keywords" content="grabado láser San Vicente, corte láser Buenos Aires, cuadros personalizados, souvenirs para eventos, retrato de mascota, cartelería láser, regalos corporativos">
+<meta name="theme-color" content="#0D0D0D">
+<!-- OJO: el dominio pixellabs.ar todavía no está activo. Mientras el sitio viva
+     en workers.dev, este canonical le dice a Google que indexe una URL que no existe.
+     Conectá el dominio o cambiá estas URLs por la de workers.dev. -->
 <link rel="canonical" href="https://pixellabs.ar/">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Pixel Labs | GRABADO Y CORTE LÁSER">
-<meta property="og:description" content="Piezas únicas en madera, acrílico y cuero para eventos y hogar. Envíos a todo el país.">
+<meta property="og:title" content="Pixel Labs | Grabado y Corte Láser en San Vicente, Buenos Aires">
+<meta property="og:description" content="Grabado y corte láser en madera, acrílico y cuero. Cuadros, retratos de mascotas, souvenirs y cartelería personalizada. Desde $7.000, con envíos a todo el país.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
-
+<meta property="og:image" content="https://pixellabs.ar/favicon-512.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
+<!-- ===================== MEDICIÓN =====================
+     Pegá acá tu GA4 y tu Píxel de Meta. El resto ya está cableado:
+     script.js dispara el evento "contacto_whatsapp" en CADA clic a WhatsApp.
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());gtag('config','G-XXXXXXX');
+</script>
+     ==================================================== -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Pixel Labs",
   "image": "https://pixellabs.ar/favicon-512.png",
-  "description": "Estudio de grabado y corte láser en madera, acrílico y cuero. Piezas únicas para eventos y decoración de hogar, con envíos a todo el país.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "San Vicente",
-    "addressRegion": "Buenos Aires",
-    "addressCountry": "AR"
-  },
+  "description": "Estudio de grabado y corte láser en madera, acrílico y cuero. Cuadros, souvenirs, cartelería y regalos personalizados, con envíos a todo el país.",
+  "address": {"@type": "PostalAddress", "addressLocality": "San Vicente", "addressRegion": "Buenos Aires", "addressCountry": "AR"},
+  "areaServed": "AR",
   "telephone": "+542224642172",
   "email": "rodrigo.s.diaz09@gmail.com",
   "sameAs": ["https://instagram.com/PixelLabs.ar"],
-  "priceRange": "$$"
+  "priceRange": "$$",
+  "makesOffer": [
+    {"@type": "Offer", "name": "Cuadro decorativo en corte láser", "priceCurrency": "ARS", "price": "7000"},
+    {"@type": "Offer", "name": "Souvenirs personalizados", "priceCurrency": "ARS", "price": "1800"}
+  ]
 }
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Ir al contenido</a>
+
+<div class="boot" aria-hidden="true">
+  <div class="boot-inner">
+    <div class="boot-mark">Pixel Labs</div>
+    <div class="boot-bar"></div>
+    <p class="boot-note">Calibrando el láser</p>
+  </div>
+</div>
+
+<div class="scan-progress" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="wipe" aria-hidden="true"></div>
+
+<!-- BARRA DE ANUNCIO: cambiá el texto según la temporada. Para ocultarla, borrá este bloque entero. -->
+<div class="announce">
+  <span>Día de la Madre · cerramos agenda de pedidos el 5 de octubre</span>
+  <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20reservar%20un%20pedido%20para%20el%20D%C3%ADa%20de%20la%20Madre." target="_blank" rel="noopener">Reservar mi lugar</a>
+  <button class="announce-close" aria-label="Cerrar aviso">✕</button>
+</div>
 
 <header class="site-header">
   <a class="brand" href="index.html">
-    <img class="brand-mark" src="images/logo-header.png" alt="Pixel Labs - grabado y corte láser" width="40" height="40">
+    <img class="brand-mark" src="images/logo-header.png" alt="Pixel Labs — grabado y corte láser" width="40" height="40">
     PIXEL LABS
   </a>
   <nav class="main-nav" id="mainNav">
@@ -58,162 +95,208 @@
   <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
 </header>
 
+<main id="main">
+
 <section class="hero">
   <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
   <div class="hero-content">
-    <p class="eyebrow">Estudio de grabado y corte láser</p>
-    <h1>Pixel Labs</h1>
-    <p class="lede">Donde la precisión se convierte en arte. Diseños en madera, acrílico y cuero para eventos y hogar, trabajados uno por uno en San Vicente, Buenos Aires.</p>
+    <p class="eyebrow">Grabado y corte láser · San Vicente, Buenos Aires</p>
+    <h1 data-engrave>La luz corta.<span class="accent">Vos decidís dónde.</span></h1>
+    <p class="lede">Cuadros, souvenirs y cartelería en madera, acrílico y cuero. Por el láser cada pieza pasa una sola vez, así que la hacemos bien la primera. Envíos a todo el país.</p>
     <div class="hero-actions">
-      <a href="productos.html" class="btn btn-solid spark-hover">Ver Productos</a>
-      <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%20mi%20evento" target="_blank" rel="noopener" class="btn spark-hover">Cotizar Producto Personalizado</a>
+      <a href="productos.html" class="btn btn-solid spark-hover">Ver el catálogo</a>
+      <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Tengo%20una%20idea%20y%20quiero%20cotizarla." target="_blank" rel="noopener" class="btn spark-hover">Cotizar mi idea</a>
     </div>
-    <p style="font-size:0.78rem; color:var(--ink-soft); margin-top:1.4rem; opacity:0.8;">Cortamos por lo sano. Literal, literalmente.</p>
+    <p class="hero-joke">Cortamos por lo sano. Literal, literalmente.</p>
   </div>
   <div class="hero-tag">
-    <video autoplay muted loop playsinline poster="images/logo-hero.png" aria-label="Logo animado de Pixel Labs">
+    <video autoplay muted loop playsinline preload="none" poster="images/logo-hero.png" aria-label="Logo animado de Pixel Labs">
       <source src="images/logo-hero.mp4" type="video/mp4">
     </video>
   </div>
+  <div class="hero-scroll" aria-hidden="true">Seguí bajando</div>
 </section>
 
-<section class="" aria-labelledby="teaser-servicios">
-  <div class="spark-divider">
-    <svg viewBox="0 0 12 12"><path d="M6 0 L7 5 L12 6 L7 7 L6 12 L5 7 L0 6 L5 5 Z" fill="currentColor"/></svg>
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Deco home</span><span>Souvenirs</span><span>Cartelería</span><span>Toppers</span><span>Llaveros</span><span>Etiquetas</span><span>Stencils</span><span>Retratos de mascota</span><span>Regalos corporativos</span>
+    <span>Deco home</span><span>Souvenirs</span><span>Cartelería</span><span>Toppers</span><span>Llaveros</span><span>Etiquetas</span><span>Stencils</span><span>Retratos de mascota</span><span>Regalos corporativos</span>
   </div>
-  <div class="section-head">
+</div>
+
+<section style="padding-bottom:2rem;">
+  <div class="trust-bar" data-reveal>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="1" y="6" width="14" height="11" rx="1"/><path d="M15 9h4l3 3v5h-7z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+    <span><b>Envíos a todo el país</b>Andreani y Correo Argentino</span>
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+    <span><b>Aprobás antes de cortar</b>El láser no arranca sin tu OK</span>
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    <span><b>Desde $7.000</b>Precios publicados, sin misterio</span>
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/></svg>
+    <span><b>Te atiende quien lo hace</b>WhatsApp directo, sin call center</span>
+  </div>
+</div>
+</section>
+
+<section aria-labelledby="t-servicios">
+  <div class="section-head" data-reveal>
     <p class="eyebrow">Lo que hacemos</p>
-    <h2 id="teaser-servicios">GRABADO Y CORTE LASER</h2>
-    <p class="lede">Deco Home, Souvenirs, Carteleria, Stencil, Toppers, Llaveros, Etiquetas, Productos corporativos.</p>
+    <h2 id="t-servicios" data-engrave>Grabado y corte láser</h2>
+    <p class="lede">Deco home, souvenirs, cartelería, stencils, toppers, llaveros, etiquetas y regalos corporativos. Si entra en la máquina, lo hacemos.</p>
   </div>
 
-  <div class="service-row">
-    <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 40 L42 40 M12 40 V16 L24 6 L36 16 V40" stroke="currentColor" stroke-width="1.2"/></svg>
+  <div class="service-row" data-reveal>
+    <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M6 40 L42 40 M12 40 V16 L24 6 L36 16 V40" stroke="currentColor" stroke-width="1.2"/></svg>
     <div>
-      <h3>Trabajos a medida para todo tipo de eventos</h3>
-      <p>Cortados con precisión al detalle. <a href="servicios.html" style="color:var(--gold); border-bottom:1px solid var(--gold);">Ver todos los servicios →</a></p>
+      <h3>Piezas a medida para cada evento</h3>
+      <p>Casamientos, quince, cumpleaños, bautismos y eventos de empresa. Cortadas al detalle, en la cantidad exacta que necesitás. <a href="servicios.html">Ver todos los servicios →</a></p>
     </div>
   </div>
-  <div class="service-row">
-    <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="32" height="32" stroke="currentColor" stroke-width="1.2"/><path d="M8 24 H40 M24 8 V40" stroke="currentColor" stroke-width="1.2"/></svg>
+  <div class="service-row" data-reveal style="--d:90ms">
+    <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="8" y="8" width="32" height="32" stroke="currentColor" stroke-width="1.2"/><path d="M8 24 H40 M24 8 V40" stroke="currentColor" stroke-width="1.2"/></svg>
     <div>
-      <h3>Catálogo en crecimiento</h3>
-      <p>Diseños listos para llevar y proyectos pensados desde cero junto a vos. <a href="productos.html" style="color:var(--gold); border-bottom:1px solid var(--gold);">Explorar catálogo →</a></p>
+      <h3>Un catálogo que no para de crecer</h3>
+      <p>Más de 60 diseños listos para llevar, y la puerta abierta para el que todavía no existe. <a href="productos.html">Explorar el catálogo →</a></p>
     </div>
   </div>
 </section>
 
-<div class="hr-divider"></div>
-
-<section aria-labelledby="teaser-proceso">
-  <div class="section-head">
+<section class="section-light" aria-labelledby="t-proceso">
+  <div class="section-head" data-reveal>
     <p class="eyebrow">Cómo trabajamos</p>
-    <h2 id="teaser-proceso">TRANSFORMAMOS TUS IDEAS EN REALIDAD.</h2>
-    <p class="lede">Un proceso simple, pensado para que cada encargo llegue con la vuelta exacta que imaginaste.</p>
+    <h2 id="t-proceso" data-engrave>De la idea a tu pared, en tres pasos</h2>
+    <p class="lede">Sin formularios eternos ni presupuestos que tardan una semana. Escribís, aprobás, recibís.</p>
   </div>
-
-  <div class="service-row">
-    <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 6a14 14 0 0 0-8 25.4V36h16v-4.6A14 14 0 0 0 24 6z" stroke="currentColor" stroke-width="1.2"/><path d="M18 42h12" stroke="currentColor" stroke-width="1.2"/></svg>
-    <div>
+  <div class="steps">
+    <article class="step" data-reveal>
+      <span class="step-n">01</span>
       <h3>Contanos la idea</h3>
-      <p>Nos escribís por WhatsApp con la idea, el estilo o la referencia que tenés en mente.</p>
-    </div>
-  </div>
-  <div class="service-row">
-    <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 40 L20 28 L28 34 L40 20" stroke="currentColor" stroke-width="1.2"/><circle cx="40" cy="20" r="3" stroke="currentColor" stroke-width="1.2"/></svg>
-    <div>
-      <h3>Definimos el diseño</h3>
-      <p>Ajustamos tamaño, material y terminación hasta llegar al boceto final que vas a aprobar.</p>
-    </div>
-  </div>
-  <div class="service-row">
-    <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="14" width="28" height="24" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M10 20 H38" stroke="currentColor" stroke-width="1.2"/></svg>
-    <div>
-      <h3>Coordinamos el envío</h3>
-      <p>Preparamos tu pedido y lo despachamos a cualquier punto del país, con seguimiento incluido.</p>
-    </div>
+      <p>Una foto, un dibujo en una servilleta o una idea a medio formar. Con eso alcanza para arrancar.</p>
+    </article>
+    <article class="step" data-reveal style="--d:100ms">
+      <span class="step-n">02</span>
+      <h3>Aprobás el diseño</h3>
+      <p>Te pasamos el boceto con medidas, material y precio final. Se cambia todo lo que haga falta. Recién ahí prende el láser.</p>
+    </article>
+    <article class="step" data-reveal style="--d:200ms">
+      <span class="step-n">03</span>
+      <h3>Lo hacemos y te lo mandamos</h3>
+      <p>Producimos, embalamos como si el paquete viajara solo y despachamos a todo el país con seguimiento.</p>
+    </article>
   </div>
 </section>
 
-<section class="" aria-labelledby="teaser-catalogo">
-  <div class="spark-divider">
-    <svg viewBox="0 0 12 12"><path d="M6 0 L7 5 L12 6 L7 7 L6 12 L5 7 L0 6 L5 5 Z" fill="currentColor"/></svg>
+<section aria-labelledby="t-catalogo">
+  <div class="spark-divider"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0 L7 5 L12 6 L7 7 L6 12 L5 7 L0 6 L5 5 Z" fill="currentColor"/></svg></div>
+  <div class="section-head" data-reveal>
+    <p class="eyebrow">Salidos del taller</p>
+    <h2 id="t-catalogo" data-engrave>Objetos que ya tienen dueño</h2>
+    <p class="lede">Tres de los más pedidos. En el catálogo hay más de sesenta.</p>
   </div>
-  <div class="section-head">
-    <p class="eyebrow">Algunos ejemplos</p>
-    <h2 id="teaser-catalogo">OBJETOS QUE YA SALIERON DEL TALLER</h2>
-  </div>
-
   <div class="gallery-grid" style="grid-template-columns:repeat(3, 1fr);">
-    <article class="gallery-item">
-      <img src="images/cuadro-fases-lunares.jpg" alt="Cuadro decorativo de fases lunares en corte láser - Pixel Labs" loading="lazy">
-      <div class="gallery-overlay">
-        <h4>Fases Lunares</h4>
-        <a href="productos.html">Ver catálogo</a>
-      </div>
+    <article class="gallery-item" data-reveal="zoom">
+      <img src="images/cuadro-fases-lunares.jpg" alt="Cuadro decorativo de fases lunares en corte láser — Pixel Labs" loading="lazy">
+      <div class="gallery-overlay"><h4>Fases Lunares</h4><a href="productos.html">Ver catálogo</a></div>
     </article>
-    <article class="gallery-item">
-      <img src="images/cuadro-mascota-personalizada-02.jpg" alt="Retrato de mascota personalizado a partir de una foto - Pixel Labs" loading="lazy">
-      <div class="gallery-overlay">
-        <h4>Retratos a Medida</h4>
-        <a href="productos.html">Ver catálogo</a>
-      </div>
+    <article class="gallery-item" data-reveal="zoom" style="--d:110ms">
+      <img src="images/cuadro-mascota-personalizada-02.jpg" alt="Retrato de mascota personalizado hecho a partir de una foto — Pixel Labs" loading="lazy">
+      <div class="gallery-overlay"><h4>Retratos a medida</h4><a href="productos.html">Ver catálogo</a></div>
     </article>
-    <article class="gallery-item">
-      <img src="images/cuadro-buda-arbol-vida.jpg" alt="Cuadro de Buda con árbol de la vida y luz LED en corte láser - Pixel Labs" loading="lazy">
-      <div class="gallery-overlay">
-        <h4>Piezas con Luz</h4>
-        <a href="productos.html">Ver catálogo</a>
-      </div>
+    <article class="gallery-item" data-reveal="zoom" style="--d:220ms">
+      <img src="images/cuadro-buda-arbol-vida.jpg" alt="Cuadro de Buda con árbol de la vida e iluminación LED en corte láser — Pixel Labs" loading="lazy">
+      <div class="gallery-overlay"><h4>Piezas con luz</h4><a href="productos.html">Ver catálogo</a></div>
     </article>
+  </div>
+</section>
+
+<section style="padding-top:2rem;">
+  <div class="stats">
+    <div class="stat" data-reveal><span class="stat-n" data-count="66" data-suffix="">0</span><span class="stat-l">Diseños en catálogo</span></div>
+    <div class="stat" data-reveal style="--d:80ms"><span class="stat-n" data-count="3">0</span><span class="stat-l">Materiales que dominamos</span></div>
+    <div class="stat" data-reveal style="--d:160ms"><span class="stat-n" data-count="24">0</span><span class="stat-l">Provincias con envío</span></div>
+    <div class="stat" data-reveal style="--d:240ms"><span class="stat-n" data-count="100" data-suffix="%">0</span><span class="stat-l">Diseños aprobados por vos</span></div>
   </div>
 </section>
 
 <div class="hr-divider"></div>
 
-<section aria-labelledby="teaser-porque" style="padding-top:5rem; padding-bottom:5rem;">
-  <div class="section-head">
-    <p class="eyebrow">Por qué elegirnos</p>
-    <h2 id="teaser-porque">DETALLES QUE SE NOTAN</h2>
+<section aria-labelledby="t-porque">
+  <div class="section-head" data-reveal>
+    <p class="eyebrow">Por qué nosotros</p>
+    <h2 id="t-porque" data-engrave>Detalles que se notan</h2>
   </div>
-
-  <div class="about-grid" style="align-items:start;">
-    <div>
-      <p class="lede">Cada encargo pasa por un ajuste de diseño antes de tocar la máquina, para que el resultado final sea exactamente el que necesitás.</p>
-      <blockquote class="pull-quote">"CREAMOS RECUERDOS QUE DESAFÍAN AL TIEMPO."</blockquote>
+  <div class="about-grid">
+    <div data-reveal="left">
+      <p class="lede">Antes de que la máquina toque el material, el diseño ya pasó por tus manos. Ese paso de más es la diferencia entre un regalo lindo y un regalo que nadie olvida.</p>
+      <blockquote class="pull-quote">Creamos recuerdos que le ganan al tiempo.</blockquote>
     </div>
-    <div>
-      <div class="contact-info-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2 L14.5 9 L22 9.5 L16 14 L18 21 L12 17 L6 21 L8 14 L2 9.5 L9.5 9 Z"/></svg>
-        <span>Materiales seleccionados: madera, acrílico y cuero de calidad</span>
-      </div>
-      <div class="contact-info-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7 V4 H16 V7"/></svg>
-        <span>Envíos coordinados a todo el país</span>
-      </div>
-      <div class="contact-info-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/></svg>
-        <span>Atención directa por WhatsApp, sin intermediarios</span>
-      </div>
-      <div class="contact-info-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 9v4M12 17h.01M10.3 3.9 2.5 18a2 2 0 0 0 1.8 3h15.4a2 2 0 0 0 1.8-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
-        <span>Humo: solo el del láser cortando (el resto es todo en serio)</span>
-      </div>
+    <div data-reveal="right">
+      <div class="contact-info-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 2 L14.5 9 L22 9.5 L16 14 L18 21 L12 17 L6 21 L8 14 L2 9.5 L9.5 9 Z"/></svg><span>Madera, acrílico y cuero elegidos uno por uno</span></div>
+      <div class="contact-info-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7 V4 H16 V7"/></svg><span>Embalaje pensado para que llegue como salió</span></div>
+      <div class="contact-info-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/></svg><span>Del otro lado del WhatsApp está quien corta</span></div>
+      <div class="contact-info-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 2.5 18a2 2 0 0 0 1.8 3h15.4a2 2 0 0 0 1.8-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg><span>El único humo que hacemos es el del láser</span></div>
     </div>
   </div>
 </section>
 
 <div class="hr-divider"></div>
 
-<section class="" style="text-align:center;">
-  <p class="eyebrow">¿Empezamos?</p>
-  <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); text-transform:uppercase; letter-spacing:0.04em; max-width:26ch; margin:0 auto 1.6rem;">Contanos qué tenés en mente y lo armamos juntos</h2>
-  <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%20un%20proyecto" target="_blank" rel="noopener" class="btn btn-solid spark-hover">Cotizar mi Proyecto</a>
+<!-- ==========================================================================
+     TESTIMONIOS — ⚠️ CONTENIDO DE RELLENO, NO PUBLICAR ASÍ.
+     Reemplazá cada texto por lo que te escribieron clientes reales
+     (una captura de WhatsApp alcanza). Cambiá también nombre e inicial.
+     Si todavía no tenés ninguno, borrá esta sección entera hasta juntarlos.
+     ========================================================================== -->
+<section aria-labelledby="t-quotes">
+  <div class="section-head" data-reveal>
+    <p class="eyebrow">Lo que dicen</p>
+    <h2 id="t-quotes" data-engrave>La parte que no escribimos nosotros</h2>
+  </div>
+  <div class="quotes">
+    <article class="quote" data-reveal>
+      <div class="quote-stars" aria-label="5 de 5">★★★★★</div>
+      <p>[Reemplazá este texto por el testimonio real de tu cliente.]</p>
+      <footer><span class="quote-av" aria-hidden="true">–</span><cite>Nombre del cliente<span>Localidad</span></cite></footer>
+    </article>
+    <article class="quote" data-reveal style="--d:90ms">
+      <div class="quote-stars" aria-label="5 de 5">★★★★★</div>
+      <p>[Reemplazá este texto por el testimonio real de tu cliente.]</p>
+      <footer><span class="quote-av" aria-hidden="true">–</span><cite>Nombre del cliente<span>Localidad</span></cite></footer>
+    </article>
+    <article class="quote" data-reveal style="--d:180ms">
+      <div class="quote-stars" aria-label="5 de 5">★★★★★</div>
+      <p>[Reemplazá este texto por el testimonio real de tu cliente.]</p>
+      <footer><span class="quote-av" aria-hidden="true">–</span><cite>Nombre del cliente<span>Localidad</span></cite></footer>
+    </article>
+  </div>
 </section>
+
+<section class="cta-final">
+  <div class="spark-divider centered"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0 L7 5 L12 6 L7 7 L6 12 L5 7 L0 6 L5 5 Z" fill="currentColor"/></svg></div>
+  <p class="eyebrow centered">¿Empezamos?</p>
+  <h2 data-engrave>Contanos qué tenés en mente</h2>
+  <p class="lede">Respondemos rápido y sin vueltas. Si no sabés bien qué querés, mejor: para eso estamos.</p>
+  <div class="hero-actions">
+    <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20cotizar%20un%20proyecto." target="_blank" rel="noopener" class="btn btn-solid spark-hover">Cotizar mi proyecto</a>
+    <a href="productos.html" class="btn spark-hover">Ver precios</a>
+  </div>
+</section></main>
+
+<a class="fab" href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+  <span class="fab-label">Escribinos, contestamos</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg>
+</a>
 
 <footer class="site-footer">
   <div class="footer-brand">
-    <img src="images/logo-header.png" alt="Pixel Labs" width="30" height="30">
+    <img src="images/logo-header.png" alt="" width="30" height="30">
     <span>Pixel Labs</span>
   </div>
   <div class="footer-links">
@@ -224,17 +307,14 @@
     <a href="contacto.html">Contacto</a>
   </div>
   <div class="footer-social">
-    <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg>
-    </a>
-    <a href="mailto:rodrigo.s.diaz09@gmail.com" aria-label="Email">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg>
-    </a>
-    <a href="https://wa.me/542224642172" target="_blank" rel="noopener" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg>
-    </a>
+    <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor"/></svg></a>
+    <a href="mailto:rodrigo.s.diaz09@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6 L12 13 L21 6"/></svg></a>
+    <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 9.3c0 4 3.2 6.7 6.7 6.7c1 0 1.3-.7 1.3-1.3v-1l-2.3-.6-1 1a5 5 0 0 1-2.8-2.8l1-1-.6-2.3h-1c-.6 0-1.3.3-1.3 1.3z"/></svg></a>
   </div>
-  <p class="footer-copy">© 2026 Pixel Labs. Todos los derechos reservados. Ningún píxel fue maltratado en el proceso.</p>
+  <p class="footer-copy">
+    © 2026 Pixel Labs · San Vicente, Buenos Aires · Envíos a todo el país
+    <span class="joke">Ningún píxel fue maltratado en el proceso.</span>
+  </p>
 </footer>
 
 <script src="script.js"></script>
