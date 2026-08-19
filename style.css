@@ -1171,3 +1171,122 @@ main, .site-header, .site-footer, .announce, .ticker { position: relative; z-ind
   font-variant-numeric: tabular-nums; font-weight: 500;
   border-bottom: 1px solid rgba(22,18,10,0.45); padding-bottom: 1px;
 }
+
+/* =============================================================
+   EL PROBADOR — ver la pieza en tu pared antes de encargarla
+   ============================================================= */
+.tryon-wrap { display: grid; grid-template-columns: 1.55fr 1fr; gap: 1.4rem; align-items: start; }
+
+.tryon-stage {
+  position: relative; aspect-ratio: 4 / 3; overflow: hidden;
+  border: 1px solid var(--line); background: #14120f;
+  touch-action: none; cursor: grab;
+}
+.tryon-stage.is-drag { cursor: grabbing; }
+.tryon-scene { position: absolute; inset: 0; }
+.tryon-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+.tryon-stage.has-photo .tryon-photo { display: block; }
+.tryon-stage.has-photo .tryon-room { display: none; }
+.tryon-stage.has-photo .tryon-hint { color: var(--ink); background: rgba(12,11,9,0.72); border-color: var(--line); }
+.tryon-room { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.tryon-piece {
+  position: absolute; left: 50%; top: 42%;
+  transform: translate(-50%, -50%);
+  will-change: left, top, width;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45));
+}
+.tryon-piece img { width: 100%; height: auto; display: block; pointer-events: none; }
+.tryon-piece::after {
+  content: attr(data-size); position: absolute; left: 50%; bottom: -28px;
+  transform: translateX(-50%); white-space: nowrap;
+  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #16120A; background: var(--gold); padding: 3px 9px;
+}
+.tryon-hint {
+  position: absolute; left: 12px; top: 12px; z-index: 3;
+  font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-on-light-soft); background: rgba(255,255,255,0.75);
+  padding: 5px 10px; border: 1px solid var(--line-on-light); pointer-events: none;
+}
+
+.tryon-panel { display: flex; flex-direction: column; gap: 1.4rem; }
+.tryon-group > h3 {
+  font-family: var(--font-body); font-size: 0.66rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.7rem; font-weight: 400;
+}
+.tryon-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.tryon-thumb {
+  aspect-ratio: 1; border: 1px solid var(--line); background: rgba(22,21,18,0.5);
+  cursor: pointer; padding: 5px; display: block; overflow: hidden; min-height: 0;
+  transition: border-color 0.3s, background 0.3s;
+}
+.tryon-thumb img {
+  /* sin width+height al 100% la miniatura se desborda y tapa los botones de abajo */
+  width: 100%; height: 100%; object-fit: contain; display: block;
+  filter: invert(1) brightness(1.6); opacity: 0.7; pointer-events: none;
+}
+.tryon-thumb:hover { border-color: var(--gold-dim); }
+.tryon-thumb.on { border-color: var(--gold); background: rgba(201,162,75,0.12); }
+.tryon-thumb.on img { opacity: 1; }
+
+.tryon-sizes { display: flex; gap: 6px; flex-wrap: wrap; }
+.tryon-size {
+  flex: 1 1 auto; padding: 0.6rem 0.5rem; border: 1px solid var(--line); background: rgba(22,21,18,0.5);
+  color: var(--ink-soft); cursor: pointer; font-family: inherit; font-size: 0.74rem;
+  letter-spacing: 0.06em; transition: 0.25s; text-align: center; white-space: nowrap;
+}
+.tryon-size:hover { border-color: var(--gold-dim); color: var(--ink); }
+.tryon-size.on { background: var(--gold); border-color: var(--gold); color: var(--bg); font-weight: 500; }
+
+.tryon-modes { display: flex; gap: 6px; }
+.tryon-modes .tryon-size { flex: 1; }
+.tryon-file { display: none; }
+
+.tryon-range { display: flex; align-items: center; gap: 0.8rem; }
+.tryon-range input[type=range] { flex: 1; accent-color: var(--gold); }
+.tryon-range output { font-variant-numeric: tabular-nums; color: var(--gold-light); font-size: 0.85rem; min-width: 62px; text-align: right; }
+.tryon-wallw { display: none; }
+.tryon-wallw.on { display: block; }
+
+.tryon-note { font-size: 0.72rem; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+.tryon-panel .btn { width: 100%; }
+
+@media (max-width: 980px) {
+  .tryon-wrap { grid-template-columns: 1fr; }
+  .tryon-thumbs { grid-template-columns: repeat(8, 1fr); }
+}
+@media (max-width: 560px) {
+  .tryon-thumbs { grid-template-columns: repeat(4, 1fr); }
+  .tryon-size { font-size: 0.68rem; padding: 0.55rem 0.35rem; }
+}
+
+/* =============================================================
+   IDEAS — notas del taller
+   ============================================================= */
+.notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.note-card {
+  display: flex; flex-direction: column; padding: 2rem 1.7rem;
+  background: rgba(22, 21, 18, 0.35);
+  backdrop-filter: blur(8px) saturate(115%); -webkit-backdrop-filter: blur(8px) saturate(115%);
+  border: 1px solid var(--line);
+  transition: border-color 0.4s, transform 0.4s var(--ease);
+}
+.note-card:hover { border-color: var(--gold-dim); transform: translateY(-5px); }
+.note-kicker { font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.7rem; }
+.note-card h3 { font-size: 1.5rem; line-height: 1.15; margin-bottom: 0.7rem; }
+.note-card p { color: var(--ink-soft); font-size: 0.92rem; margin: 0 0 0.9rem; }
+.note-card p:last-of-type { margin-bottom: 0; }
+.note-card ul { color: var(--ink-soft); font-size: 0.92rem; padding-left: 1.1rem; margin: 0 0 0.9rem; }
+.note-card li { margin-bottom: 0.4rem; }
+.note-card b { color: var(--ink); font-weight: 400; }
+.note-card .btn { margin-top: auto; align-self: flex-start; }
+@media (max-width: 980px) { .notes { grid-template-columns: 1fr; } }
+
+.article { max-width: 740px; margin: 0 auto; }
+.article h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); margin: 2.6rem 0 0.9rem; }
+.article p { color: var(--ink-soft); margin: 0 0 1.1rem; }
+.article ul { color: var(--ink-soft); padding-left: 1.2rem; margin: 0 0 1.3rem; }
+.article li { margin-bottom: 0.5rem; }
+.article b { color: var(--ink); font-weight: 400; }
+.article .pull-quote { margin: 2rem 0; }

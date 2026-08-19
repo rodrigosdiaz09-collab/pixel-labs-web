@@ -1,93 +1,73 @@
-# Pixel Labs — qué cambió y qué te falta completar
+# Pixel Labs — v4
 
-## Archivos de este zip
-
-Reemplazá estos 7 en tu carpeta `pixel-labs-web/`. **Las imágenes no cambiaron**, no vienen en el zip.
+Descomprimí sobre `pixel-labs-web/`. Reemplaza 7 archivos, agrega 2 nuevos y una carpeta de imágenes.
 
 ```
-index.html      servicios.html   productos.html
-nosotros.html   contacto.html    style.css   script.js
+index.html   servicios.html   productos.html   nosotros.html   contacto.html
+ideas.html   ← NUEVO          sitemap.xml      style.css       script.js
+images/probador/   ← NUEVO (8 recortes, 147 KB en total)
 ```
 
-Los 66 productos del catálogo están todos, con sus fotos, nombres y links de WhatsApp intactos.
+Verificado en Chromium: 6 páginas × 3 anchos = 18 combinaciones sin scroll horizontal, sin imágenes rotas y sin errores de JavaScript.
 
 ---
 
-## ⚠️ Antes de publicar: 4 cosas para completar
+## Las decisiones que tomé
 
-### 1. Las respuestas del FAQ que no sé
-En `contacto.html` hay tres marcas `[COMPLETAR: ...]` bien visibles. Buscá esa palabra en el archivo y reemplazá:
+### 1. Fuera todos los precios
 
-| Pregunta | Qué falta |
-|---|---|
-| ¿Cuánto tardan? | Días hábiles de producción y anticipación mínima para eventos |
-| ¿Cómo se paga? | Medios de pago que aceptás y el porcentaje de seña |
-| ¿Si llega dañada? | Tu política real de reposición |
+Los saqué de todos lados: el bloque de cuatro medidas, el "desde $7.000" de la barra de confianza, los carteles de precio en Servicios, el "$1.800" de souvenirs, el schema de Google y las descripciones de cada página. **No queda un peso publicado en ningún lado.**
 
-Están también en el JSON-LD del `<head>` de esa página, así que cambialos en los dos lugares (o pedime que lo regenere).
+El costo de esa decisión es real: el precio filtraba visitantes y evitaba consultas de gente fuera de presupuesto. Así que lo reemplacé por algo que cumple la misma función mejor.
 
-### 2. Los testimonios son texto de relleno
-En `index.html`, la sección "La parte que no escribimos nosotros" tiene tres tarjetas con `[Reemplazá este texto...]`. **No la publiques así.** Poné testimonios reales de clientes —una captura de WhatsApp alcanza como fuente— o borrá la sección entera hasta juntarlos.
+### 2. En su lugar: **el probador**
 
-### 3. El canonical apunta a un dominio que no existe
-Las 5 páginas declaran `https://pixellabs.ar/...` mientras el sitio vive en workers.dev. Hay un comentario que lo avisa en cada `<head>`. Conectá el dominio o cambiá esas URLs (y el `sitemap.xml`).
+Es lo que ocupa el espacio donde estaban los precios, y es la pieza central de esta versión.
 
-### 4. La medición está cableada pero apagada
-En el `<head>` de cada página hay un bloque comentado listo para pegar GA4 y el Píxel de Meta. Apenas pongas tu ID, `script.js` empieza a disparar solo el evento **`contacto_whatsapp`** en cada clic a WhatsApp, con el origen y el botón. Ese es tu KPI.
+El visitante elige una pieza, elige el tamaño y la ve sobre una pared con **un sofá de 200 cm dibujado a escala real**. Cambiar de 25 a 50 cm duplica exacto lo que se ve en pantalla: la matemática está atada al ancho real de la escena, no es una animación decorativa. También puede arrastrar la pieza para acomodarla.
+
+Y puede **subir una foto de su propia pared**. Le pedimos un solo dato —cuánto mide de ancho esa pared— y con eso la escala vuelve a ser correcta. La foto se procesa en el navegador con `URL.createObjectURL`: no viaja a ningún servidor, y eso está dicho en la página.
+
+Cuando toca "Me gusta así, cotizala", te llega:
+
+> ¡Hola Pixel Labs! Probé "Buda con árbol de la vida" en el probador de la web, en 50 × 36 cm. ¿Me pasan precio y plazo?
+
+Ese mensaje vale más que un precio publicado: te llega la pieza, la medida y una persona que ya se la imaginó en su casa.
+
+**Cómo lo armé.** Las fotos del catálogo no servían para superponer: son fotos sobre pared, muchas con manos. Generé recortes transparentes de las 8 piezas más limpias, separando la pieza del fondo con umbral de Otsu. Están en `images/probador/`. Si querés sumar más piezas, mandame cuáles y las proceso igual.
+
+### 3. Página nueva: **Ideas**
+
+Contenido de ventas de verdad, no relleno. Tres notas que responden las tres preguntas que frenan una compra:
+
+- **El error de tamaño es el error caro.** La regla de los dos tercios respecto del mueble, la altura de 1,45 m, cuándo conviene un conjunto en vez de una pieza sola. Cierra empujando al probador.
+- **Qué foto sirve para un retrato de mascota.** Luz, nitidez del hocico, contraste, altura de la cámara. Y lo que arruina una foto: capturas de historias y reenvíos de WhatsApp. Esto te va a ahorrar ida y vuelta en cada pedido.
+- **Cuántos souvenirs encargar y cuándo.** La cuenta que funciona (uno por adulto + 10% + 3 para ustedes) y por qué la fecha límite no es la del evento.
+
+Esto trabaja en dos frentes: posiciona en Google por búsquedas de intención de compra ("qué tamaño de cuadro elegir"), y le contesta al cliente antes de que pregunte. Agregué "Ideas" al menú y al sitemap.
+
+### 4. Detalle de estilo: número de corte
+
+Cada pieza del catálogo ahora muestra **"N.º de corte 001/066"** en la vista ampliada. Es un detalle chico que cambia la percepción: no es un producto de una grilla, es una pieza numerada de un taller.
 
 ---
 
-## Lo que se agregó
+## Qué queda pendiente
 
-**Efectos**
+1. **Los testimonios de Inicio siguen siendo texto de relleno.** No publiques esa sección hasta poner los reales, o borrala.
+2. **Tres respuestas del FAQ.** Buscá `[COMPLETAR` en `contacto.html`: plazo de producción, medios de pago y seña, y qué pasa si una pieza llega dañada.
+3. **El canonical apunta a `pixellabs.ar`,** que todavía no existe.
+4. **GA4 y el Píxel de Meta** están cableados pero sin ID.
+5. **El formulario no guarda el email.** Sigue siendo el agujero más caro que tenés.
 
-- Preloader que se va en 200 ms (tope duro: 1,2 s).
-- Cursor láser con anillo que reacciona a los links (solo mouse).
-- Títulos que se "graban" letra por letra al entrar en pantalla.
-- Revelados al scroll con retardo escalonado.
-- Barra de progreso dorada arriba, que avanza como el corte.
-- Tilt 3D + brillo que sigue al puntero en las 66 piezas del catálogo.
-- Botones magnéticos que se acercan al cursor.
-- Grano de película y viñeta sobre todo el sitio.
-- Ticker de palabras corriendo bajo el hero.
-- Transición entre páginas: el láser barre y pasa.
-- Partículas del hero mejoradas, y se pausan si cambiás de pestaña.
-
-**Todos los efectos pesados se apagan solos** en pantallas táctiles y si el visitante tiene activado "reducir movimiento" en su sistema. Si el JS falla, el contenido se ve igual: el estado oculto depende de una clase que agrega el propio script.
-
-**Marketing**
-
-- Botón flotante de WhatsApp que aparece al scrollear.
-- Barra de anuncio estacional arriba de todo, cerrable.
-- Barra de confianza: envíos, aprobás antes, desde $7.000, atención directa.
-- Bloque de 4 precios en Productos ($7.000 / $12.000 / $30.000 / $60.000).
-- Página de regalos corporativos dentro de Servicios.
-- FAQ de 8 preguntas con schema FAQPage.
-- Contadores animados con datos reales (66 diseños, 3 materiales, 24 provincias).
-- Formulario con campo de medida y mensaje precargado más completo.
-- Migas de pan, `skip link`, y schema LocalBusiness con ofertas.
-
-**Textos**
-
-Reescritos los cinco. Mismo mensaje, más filo y con el humor sostenido:
-*"Cortamos por lo sano. Literal, literalmente."* · *"El único humo que hacemos es el del láser."* ·
-*"A la Luna todavía no llegamos, pero tenemos las fases en cuadro."* ·
-*"PD: el taller sigue oliendo a madera quemada. No pensamos arreglarlo."*
+Nota sobre la calculadora de precios que armamos antes: **quedó fuera del sitio**, que era lo coherente con sacar los precios. Guardala como herramienta interna para cotizar rápido; el archivo lo tenés en la conversación.
 
 ---
 
 ## Ajustes de un renglón
 
-**Cambiar la barra de anuncio.** Está al principio del `<body>` de las 5 páginas, con un comentario que la señala. Cambiale el texto cuando pase el Día de la Madre, o borrá el bloque para ocultarla.
-
-**Destacar el tamaño más vendido.** En `productos.html`, tarjeta del 32×38, hay una línea comentada:
-`<span class="price-badge">El más elegido</span>`. Si es verdad que es tu más vendido, sacale los `<!-- -->`.
-
-**Cambiar los colores.** Las 8 variables de marca están arriba de todo en `style.css`, en `:root`.
-
----
-
-## Dos cosas que arreglé de paso
-
-- **`--radius` no existía.** El CSS viejo la usaba en `.service-row`, `.contact-info-row` y `#contactForm`, pero nunca estaba definida, así que el navegador la ignoraba. Ahora está declarada en `0px`, que es lo que se veía. Si querés esquinas redondeadas, cambiala a `4px` y se aplica en todos lados.
-- **Los filtros de categoría** no tenían padding ni ancho máximo: quedaban pegados al borde izquierdo mientras el resto respetaba el margen. Alineados y con `wrap` en celular.
+- **Sumar piezas al probador:** el array `PIEZAS` al principio del bloque del probador en `script.js`. Necesitan un PNG con fondo transparente en `images/probador/`.
+- **Cambiar el sofá de referencia:** el `<svg class="tryon-room">` en `productos.html` está dibujado sobre una escena de 300 cm de ancho; el sofá va de x=50 a x=250, o sea 200 cm.
+- **Fecha de la cuenta regresiva:** atributo `data-deadline` en la barra de anuncio.
+- **Colores de marca:** variables en `:root`, arriba de `style.css`.
+- **Intensidad del plano de fondo:** `.blueprint svg { opacity: 0.5 }`.

@@ -447,7 +447,10 @@
       lbImg.src = img.getAttribute('src');
       lbImg.alt = c.dataset.alt || c.dataset.name;
       lbTitle.textContent = c.dataset.name;
-      lbCat.textContent = c.dataset.catname || 'Catálogo';
+      var todas = $$('.gallery-item[data-name]');
+      var n = todas.indexOf(c) + 1;
+      lbCat.textContent = (c.dataset.catname || 'Catálogo') +
+        '  ·  N.º de corte ' + String(n).padStart(3, '0') + '/' + String(todas.length).padStart(3, '0');
       lbDesc.textContent = 'Se hace a medida: elegís tamaño, material y terminación. Contanos cuál querés y te pasamos el precio exacto.';
       lbWa.href = c.dataset.wa;
       lb._card = c;
@@ -542,6 +545,129 @@
     });
   }
   if (!window.sincroPick) window.sincroPick = function () {};
+
+
+  // ---------------------------------------------------------
+  // EL PROBADOR — la pieza sobre tu pared, a escala real
+  //
+  // Cómo se calcula: la escena mide un ancho conocido en cm
+  // (300 en la pared de ejemplo, o el que indiques para tu foto).
+  // El lado más largo de la pieza se lleva a ese mismo mundo:
+  //     ancho en píxeles = (cm de la pieza / cm de la pared) x ancho del cuadro
+  // Por eso cambiar de 25 a 50 cm duplica exacto lo que ves.
+  // ---------------------------------------------------------
+  var stage = $('#tryStage');
+  if (stage) {
+    var PIEZAS = [
+      { f: 'fases-lunares',  n: 'Fases Lunares',              r: 720 / 331 },
+      { f: 'luna-mandala',   n: 'Luna Mandala',               r: 720 / 719 },
+      { f: 'flor-colibries', n: 'Flor Mandala con Colibríes', r: 720 / 274 },
+      { f: 'buda',           n: 'Buda con árbol de la vida',  r: 720 / 513 },
+      { f: 'charly',         n: 'Charly García',              r: 443 / 720 },
+      { f: 'cruz',           n: 'Cruz con rostro',            r: 536 / 720 },
+      { f: 'vive-ama-suena', n: 'Vive, Ama, Sueña',           r: 693 / 720 },
+      { f: 'nails',          n: 'Nails',                      r: 523 / 701 }
+    ];
+
+    var piece = $('#tryPiece'), pieceImg = $('#tryPieceImg'), scene = $('#tryScene');
+    var thumbs = $('#tryThumbs'), waBtn = $('#tryWa');
+    var actual = 0, cm = 38, paredCm = 300;
+    var pos = { x: 50, y: 40 };   // en % de la escena
+
+    thumbs.innerHTML = PIEZAS.map(function (p, i) {
+      return '<button class="tryon-thumb' + (i === 0 ? ' on' : '') + '" type="button" data-i="' + i + '" ' +
+             'aria-label="' + p.n + '"><img src="images/probador/' + p.f + '.png" alt="" loading="lazy"></button>';
+    }).join('');
+
+    function pintar() {
+      var p = PIEZAS[actual];
+      // el lado más largo es el que mide "cm"
+      var anchoCm = p.r >= 1 ? cm : cm * p.r;
+      var pct = (anchoCm / paredCm) * 100;
+      piece.style.width = Math.min(pct, 96) + '%';
+      piece.style.left = pos.x + '%';
+      piece.style.top = pos.y + '%';
+      piece.dataset.size = p.r >= 1
+        ? Math.round(anchoCm) + ' × ' + Math.round(anchoCm / p.r) + ' cm'
+        : Math.round(anchoCm) + ' × ' + Math.round(cm) + ' cm';
+      pieceImg.src = 'images/probador/' + p.f + '.png';
+      pieceImg.alt = p.n + ' sobre la pared';
+      waBtn.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(
+        '¡Hola Pixel Labs! Probé "' + p.n + '" en el probador de la web, en ' +
+        piece.dataset.size + '. ¿Me pasan precio y plazo?');
+    }
+
+    thumbs.addEventListener('click', function (e) {
+      var b = e.target.closest('.tryon-thumb');
+      if (!b) return;
+      $$('.tryon-thumb', thumbs).forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      actual = +b.dataset.i;
+      pintar();
+      track('probador_pieza', { pieza: PIEZAS[actual].n });
+    });
+
+    $('#trySizes').addEventListener('click', function (e) {
+      var b = e.target.closest('.tryon-size');
+      if (!b) return;
+      $$('.tryon-size', $('#trySizes')).forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      cm = +b.dataset.cm;
+      pintar();
+      track('probador_medida', { medida: cm });
+    });
+
+    // pared de ejemplo / tu foto
+    var fileInput = $('#tryFile'), wallW = $('#tryWallW');
+    $('#tryUpload').addEventListener('click', function () { fileInput.click(); });
+    $('#tryDemo').addEventListener('click', function () {
+      stage.classList.remove('has-photo');
+      $('#tryDemo').classList.add('on'); $('#tryUpload').classList.remove('on');
+      wallW.classList.remove('on');
+      paredCm = 300; pintar();
+    });
+    fileInput.addEventListener('change', function () {
+      var f = fileInput.files && fileInput.files[0];
+      if (!f) return;
+      var url = URL.createObjectURL(f);     // se queda en el navegador, no se sube a ningún lado
+      $('#tryPhoto').src = url;
+      stage.classList.add('has-photo');
+      $('#tryUpload').classList.add('on'); $('#tryDemo').classList.remove('on');
+      wallW.classList.add('on');
+      paredCm = +$('#tryW').value;
+      pintar();
+      track('probador_foto', {});
+    });
+    $('#tryW').addEventListener('input', function () {
+      paredCm = +this.value;
+      $('#tryWOut').textContent = paredCm + ' cm';
+      pintar();
+    });
+
+    // arrastrar
+    var drag = false;
+    function xy(e) { return e.touches ? e.touches[0] : e; }
+    function mover(e) {
+      if (!drag) return;
+      var r = stage.getBoundingClientRect(), p = xy(e);
+      pos.x = Math.max(4, Math.min(96, ((p.clientX - r.left) / r.width) * 100));
+      pos.y = Math.max(6, Math.min(94, ((p.clientY - r.top) / r.height) * 100));
+      piece.style.left = pos.x + '%';
+      piece.style.top = pos.y + '%';
+      if (e.cancelable) e.preventDefault();
+    }
+    stage.addEventListener('pointerdown', function (e) {
+      drag = true; stage.classList.add('is-drag');
+      stage.setPointerCapture && stage.setPointerCapture(e.pointerId);
+      mover(e);
+    });
+    stage.addEventListener('pointermove', mover);
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
+      stage.addEventListener(ev, function () { drag = false; stage.classList.remove('is-drag'); });
+    });
+
+    pintar();
+  }
 
   // ---------------------------------------------------------
   // TRANSICIÓN ENTRE PÁGINAS
