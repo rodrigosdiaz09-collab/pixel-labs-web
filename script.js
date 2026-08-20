@@ -285,13 +285,28 @@
     });
   });
 
+  // Sincroniza el botón "Agregar a mi selección" del visor ampliado.
+  // Se declara acá arriba porque la usan dos bloques distintos (el visor y
+  // la bandeja); más abajo se reemplaza por la versión real si hay bandeja.
+  var sincroPick = function () {};
+
   // ---------------------------------------------------------
   // MEDICIÓN — cada clic a WhatsApp cuenta como conversión.
   // Se dispara solo cuando instales GA4 y/o el Píxel de Meta.
   // ---------------------------------------------------------
   function track(name, params) {
-    if (window.gtag) window.gtag('event', name, params || {});
-    if (window.fbq && name === 'contacto_whatsapp') window.fbq('track', 'Lead', params || {});
+    var p = params || {};
+    // Google Tag Manager: los eventos viajan por dataLayer.
+    // En GTM se usan como "Evento personalizado" con el nombre de abajo.
+    if (window.dataLayer) {
+      var payload = { event: name };
+      for (var k in p) { if (Object.prototype.hasOwnProperty.call(p, k)) payload[k] = p[k]; }
+      window.dataLayer.push(payload);
+    }
+    // Por si algún día se instala GA4 directo, sin GTM.
+    if (window.gtag) window.gtag('event', name, p);
+    // Píxel de Meta, si está cargado por fuera de GTM.
+    if (window.fbq && name === 'contacto_whatsapp') window.fbq('track', 'Lead', p);
   }
 
   // ---------------------------------------------------------
@@ -537,9 +552,8 @@
       if (i > -1) elegidas.splice(i, 1); else elegidas.push(nombre);
       refrescar();
     }
-    window.sincroPick = function () {};
     if (lb) {
-      window.sincroPick = function () {
+      sincroPick = function () {
         if (!lb._card || !lbPick) return;
         var on = elegidas.indexOf(lb._card.dataset.name) > -1;
         lbPick.textContent = on ? 'Quitar de mi selección' : 'Agregar a mi selección';
@@ -557,7 +571,6 @@
       track('contacto_whatsapp', { origen: 'seleccion multiple', destino: elegidas.length + ' piezas' });
     });
   }
-  if (!window.sincroPick) window.sincroPick = function () {};
 
 
   // ---------------------------------------------------------
@@ -595,7 +608,7 @@
       { f: 'flor-mandala-con-colibries', n: "Flor Mandala con Colibríes", c: 'Deco', r: 2.6271 }
     ];
 
-    var piece = $('#tryPiece'), pieceImg = $('#tryPieceImg'), scene = $('#tryScene');
+    var piece = $('#tryPiece'), pieceImg = $('#tryPieceImg');
     var thumbs = $('#tryThumbs'), waBtn = $('#tryWa');
     var actual = 0, cm = 38, paredCm = 300;
     var pos = { x: 50, y: 40 };   // en % de la escena
@@ -713,6 +726,21 @@
 
     pintar();
     window.PROBADOR_NOMBRES = PIEZAS.map(function (x) { return x.n; });
+  }
+
+
+  // ---------------------------------------------------------
+  // RESEÑAS — flechas del carrusel
+  // ---------------------------------------------------------
+  var stories = $('#stories');
+  if (stories) {
+    $$('.stories-nav button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var card = $('.story', stories);
+        var paso = card ? card.getBoundingClientRect().width + 16 : 300;
+        stories.scrollBy({ left: paso * (+b.dataset.dir), behavior: 'smooth' });
+      });
+    });
   }
 
   // ---------------------------------------------------------

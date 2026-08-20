@@ -1,5 +1,8 @@
 # Pixel Labs — SITIO COMPLETO, listo para publicar
 
+**Última tanda:** 7 reseñas reales de clientes y 6 productos nuevos en Deco.
+El catálogo pasó a **76 diseños**.
+
 Este zip trae **la carpeta entera**: todas las páginas, el CSS, el JavaScript, todas las
 imágenes y los archivos de configuración. No falta nada. Descomprimilo y ya tenés el
 sitio funcionando: abrí `index.html` con doble clic para verlo antes de publicar.
@@ -87,11 +90,17 @@ y cuando conectes el dominio, hacé el reemplazo al revés. Está anotado en el 
 
 ## Los dos pendientes de contenido, resueltos
 
-**Testimonios.** Saqué las tres tarjetas de relleno. En su lugar hay un bloque que manda a
-`@PixelLabs.ar`, donde están los comentarios reales de tus clientes. Es prueba social de
-verdad y no dice nada inventado. Cuando juntes tres testimonios reales (una captura de
-WhatsApp alcanza), pedime que los cargue y volvemos a las tarjetas — el comentario en
-`index.html` marca el lugar exacto.
+**Testimonios: resueltos con material real.** En Inicio hay un carrusel con **7 capturas de
+historias de Instagram** de clientes que etiquetaron a @PixelLabs.ar, cada una con su frase
+transcrita: Canela, Paco, los cuatro retratos en fila, el galgo con su cuadro colgado, el
+"pedacito de cielo", el shar-pei y el envío a Mendoza.
+
+Las capturas están en `images/resenas/` en WebP (340 KB las siete juntas). Para sumar más:
+poné el archivo ahí y copiá una tarjeta en `index.html` cambiando el nombre del archivo, la
+frase y el epígrafe.
+
+Un detalle de honestidad: la captura de Mendoza lleva una frase **tuya**, no del cliente. Esa
+tarjeta va sin comillas y con estilo distinto, para que no se lea como si fuera un testimonio.
 
 **Las tres respuestas del FAQ.** Las redacté sin inventar tus plazos ni tu política, así que
 son publicables tal cual:
@@ -105,6 +114,31 @@ son publicables tal cual:
 Son ciertas y no te atan a nada. **Cuando quieras hacerlas específicas** —"5 a 7 días
 hábiles", "transferencia y Mercado Pago", "seña del 50%"— convierten mejor, porque el que
 lee un número concreto duda menos. Pasame esos tres datos y las actualizo.
+
+## Productos nuevos en Deco
+
+Se sumaron seis, y el catálogo quedó en **76**. Los contadores de todo el sitio
+(el título de Productos, el buscador y las estadísticas de Inicio) se actualizan
+solos desde el catálogo, así que ya dicen 76 en todos lados.
+
+| Pieza | Nota |
+|---|---|
+| Gatos con Luz LED | Quedó también como foto del bloque "Piezas con luz" en Inicio: es la más impactante que tenés |
+| Íconos del Rock Nacional | Con luz LED sobre madera |
+| Latido Perruno | Latido con silueta de perro, corazón y huellas |
+| Sol Patrio · Sean Eternos los Laureles | Placa promocional |
+| Coronados de Gloria | Placa promocional |
+| Sol de Libertad | Placa promocional |
+
+**Ninguna entró al probador.** Probé las tres que parecían viables y salieron mal: la de
+los gatos se invierte porque el fondo es más claro que la pieza, el latido queda como un
+manchón por el fondo marrón, y la del rock recorta solo dos de las cuatro caras. El probador
+sigue con los 19 cuadros de Deco sobre pared lisa.
+
+Un detalle sobre las tres placas patrias: llevan el título impreso dentro de la imagen
+("CUADRO SOL PATRIO", "SOL DE LIBERTAD"). Funcionan igual en la grilla, pero si algún día
+sacás la foto de la pieza sola sobre pared blanca, entran al probador y se ven mejor en
+la vista ampliada.
 
 ## Lo que sigue pendiente
 
