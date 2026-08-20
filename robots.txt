@@ -1,4 +1,40 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pixellabs.ar/sitemap.xml
+# Bots de IA — acceso explícito para que puedan leer y analizar el sitio
+# (rastreo/entrenamiento y respuestas con fuentes). El "User-agent: *" de
+# arriba ya los permite; estas líneas lo dejan sin ambigüedad.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://pixellabs.com.ar/sitemap.xml

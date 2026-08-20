@@ -1,0 +1,8 @@
+# Archivos que NO se publican, aunque estén en la carpeta.
+# (Cloudflare Workers sube todo lo que hay en "directory" salvo lo que liste acá.)
+LEEME-CAMBIOS.md
+README.md
+wrangler.jsonc
+.assetsignore
+.git
+.gitignore
