@@ -958,11 +958,28 @@ section { padding: 4rem 5% 6rem; max-width: 1300px; margin: 0 auto; position: re
 .bp-spark { animation: bpSpark 1.6s ease-in-out infinite; transform-origin: center; }
 @keyframes bpSpark { 0%,100% { opacity: 0.35; r: 4; } 50% { opacity: 1; r: 7; } }
 
-/* el trazo se dibuja solo, como si lo estuviera cortando */
+/* el cartel se dibuja solo, como si el láser lo estuviera cortando */
 .bp-path {
-  fill: none; stroke: var(--gold-light); stroke-width: 1.6; opacity: 0.4;
+  fill: none; stroke: var(--gold-light); stroke-width: 1.8; opacity: 0.4;
   stroke-dasharray: 1500; stroke-dashoffset: 1500;
   animation: bpDraw 26s linear infinite;
+}
+.bp-path-b { stroke-width: 1; animation-delay: 1.6s; }
+.bp-sign-txt {
+  fill: var(--gold-light); font-family: var(--font-display); font-size: 62px;
+  letter-spacing: 2px; opacity: 0;
+  animation: bpSignIn 26s linear infinite;
+}
+.bp-sign-sub {
+  fill: var(--gold); font-family: var(--font-body); font-size: 15px;
+  letter-spacing: 6px; text-transform: uppercase; opacity: 0;
+  animation: bpSignIn 26s linear infinite; animation-delay: 1.2s;
+}
+@keyframes bpSignIn {
+  0%, 40%  { opacity: 0; }
+  56%      { opacity: 0.62; }
+  86%      { opacity: 0.62; }
+  100%     { opacity: 0; }
 }
 @keyframes bpDraw {
   0%   { stroke-dashoffset: 1500; opacity: 0; }

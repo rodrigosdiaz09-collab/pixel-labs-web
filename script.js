@@ -451,7 +451,7 @@
       var n = todas.indexOf(c) + 1;
       lbCat.textContent = (c.dataset.catname || 'Catálogo') +
         '  ·  N.º de corte ' + String(n).padStart(3, '0') + '/' + String(todas.length).padStart(3, '0');
-      lbDesc.textContent = 'Se hace a medida: elegís tamaño, material y terminación. Contanos cuál querés y te pasamos el precio exacto.';
+      lbDesc.textContent = 'Se hace a medida: elegís tamaño, material y terminación. Decinos cuál te gustó y te pasamos el valor exacto.';
       lbWa.href = c.dataset.wa;
       lb._card = c;
       var ver = $('#lbTry');
@@ -572,6 +572,7 @@
   var stage = $('#tryStage');
   if (stage) {
     // Generado desde el catálogo: 26 piezas con recorte transparente.
+    // Solo cuadros de Deco: son los que tienen sentido colgados en una pared.
     var PIEZAS = [
       { f: 'mujer-con-flores', n: "Mujer con Flores", c: 'Deco', r: 0.7371 },
       { f: 'cuadro-para-manicuras', n: "Cuadro para Manicuras", c: 'Deco', r: 0.7581 },
@@ -591,14 +592,7 @@
       { f: 'buda-con-arbol-de-la-vida', n: "Buda con Árbol de la Vida", c: 'Deco', r: 1.4027 },
       { f: 'cruz-con-rostro', n: "Cruz con Rostro", c: 'Deco', r: 0.7452 },
       { f: 'luna-mandala', n: "Luna Mandala", c: 'Deco', r: 1.0016 },
-      { f: 'flor-mandala-con-colibries', n: "Flor Mandala con Colibríes", c: 'Deco', r: 2.6271 },
-      { f: 'cartel-mis-15-con-mariposas', n: "Cartel Mis 15 con Mariposas", c: 'Souvenirs', r: 1.2039 },
-      { f: 'cartel-15-con-rosa', n: "Cartel 15 con Rosa", c: 'Souvenirs', r: 2.0946 },
-      { f: 'souvenir-mis-15-con-mariposa-3d', n: "Souvenir Mis 15 con Mariposa 3D", c: 'Souvenirs', r: 1.25 },
-      { f: 'cartel-corona-mis-15-anos', n: "Cartel Corona Mis 15 Años", c: 'Souvenirs', r: 0.9952 },
-      { f: 'cartel-luna-con-inicial', n: "Cartel Luna con Inicial", c: 'Souvenirs', r: 0.7855 },
-      { f: 'cartel-centro-psicologico', n: "Cartel Centro Psicológico", c: 'Cartelería', r: 0.6903 },
-      { f: 'logo-cartel-dental-studio', n: "Logo Cartel Dental Studio", c: 'Cartelería', r: 2.0395 }
+      { f: 'flor-mandala-con-colibries', n: "Flor Mandala con Colibríes", c: 'Deco', r: 2.6271 }
     ];
 
     var piece = $('#tryPiece'), pieceImg = $('#tryPieceImg'), scene = $('#tryScene');

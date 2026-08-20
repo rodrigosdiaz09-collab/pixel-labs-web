@@ -112,9 +112,48 @@ lee un número concreto duda menos. Pasame esos tres datos y las actualizo.
 2. **El formulario no guarda el email.** Abre WhatsApp pero no se queda con el contacto. Es el agujero más caro que tenés.
 3. **Fotos para sumar piezas al probador:** hoy hay 26 de 70. Con fotos de la pieza sola sobre pared lisa, sin manos, te agrego las que quieras.
 
+---
+
+## Cambios de esta versión
+
+**El fondo.** Los círculos de fases lunares salieron. Ahora el láser está cortando **un cartel con la marca**: una placa con sus agujeros de montaje y su colgante, donde aparece "PixelLabs · grabado y corte láser". El contorno se dibuja solo y después se enciende el texto, en loop.
+
+**La barra de anuncio** quedó con el texto y la cuenta regresiva nada más, sin el botón. Perdés un camino de contacto ahí, pero la barra se lee más limpia. Si algún día lo querés de vuelta, es una línea en `build`/en el HTML.
+
+**FAQ actualizado con tus datos reales:**
+- *¿Cuánto tardan?* → "La producción nos lleva **3 días**. A eso hay que sumarle el tiempo de Correo Argentino, que ya no depende de nosotros."
+- *¿Cómo se paga?* → "Se abona el valor del **producto más el costo del envío**. Te pasamos los dos números por separado."
+
+**El probador quedó solo con cuadros de Deco: 19 modelos.** Saqué los souvenirs y la cartelería, que colgados en una pared no tenían sentido.
+
+## SEO — lo que se hizo y por qué
+
+**Menos repetición.** Los 70 botones del catálogo decían todos "Cotizar esta pieza". Ahora rotan entre cinco textos (*La quiero · Pedir precio · Consultar · Quiero esta · Cotizar*). La palabra "pieza" pasó de 109 apariciones a 36, y "cotizar" de 86 a 27. Google penaliza el texto repetitivo, pero sobre todo: leído por una persona, sonaba a robot.
+
+**Cada página con su propia promesa.** Antes todos los títulos empezaban igual. Ahora cada uno ataca una búsqueda distinta:
+
+| Página | Título | A qué búsqueda apunta |
+|---|---|---|
+| Inicio | Cuadros y Regalos Personalizados en Corte Láser | "regalos personalizados", "cuadros personalizados" |
+| Productos | Catálogo: 70 Diseños en Madera y Acrílico | quien ya quiere ver y comparar |
+| Servicios | Grabado a Medida, Regalos con Logo y Souvenirs | empresas y eventos |
+| Ideas | Cómo elegir tamaño, foto y cantidad | quien todavía no decidió (tráfico frío) |
+| Nosotros | Quiénes Somos · El Taller en San Vicente | búsqueda de marca y confianza |
+| Contacto | Pedí tu Presupuesto | intención de compra directa |
+
+**Palabras clave orientadas al comprador,** no al oficio. Antes decían "grabado láser", "corte láser" — que es como te describís vos. Ahora dicen lo que la gente escribe en Google: *"regalo personalizado"*, *"retrato de perro en madera"*, *"souvenirs quince años"*, *"cuadro mandala madera"*, *"regalo para el día de la madre"*, *"cartel para local"*.
+
+> Nota honesta: la etiqueta `meta keywords` **Google la ignora desde 2009**. La dejé porque no molesta y algún buscador menor la mira, pero no es ahí donde se gana. Lo que sí pesa es el título, la descripción, los encabezados y el texto alto de las imágenes — y todo eso está trabajado.
+
+**La imagen para compartir: `images/compartir.jpg`.** Esto es lo más importante de todo el bloque de SEO para vos. Cuando mandabas el link por WhatsApp o lo ponías en Instagram, la vista previa mostraba el favicon diminuto. Ahora aparece una placa de 1200 × 630 con tu logo, "Cuadros y regalos personalizados", las tres categorías y el dominio. Es lo que ve alguien antes de decidir si toca el link.
+
+También sumé `og:site_name`, `og:image:alt`, `twitter:image` y etiquetas de geolocalización (`geo.region`, `geo.placename`) que ayudan en las búsquedas locales de San Vicente y alrededores.
+
 ## Ajustes de un renglón
 
 - **Fecha de la cuenta regresiva:** `data-deadline` en la barra de anuncio.
 - **Sumar una pieza al probador:** poné el PNG transparente en `images/probador/` y agregá una línea al array `PIEZAS` en `script.js`.
 - **Colores de marca:** variables en `:root`, arriba de `style.css`.
 - **Intensidad del plano de fondo:** `.blueprint svg { opacity: 0.72 }`.
+- **Texto del cartel del fondo:** buscá `bp-sign-txt` en los HTML.
+- **Imagen para compartir:** reemplazá `images/compartir.jpg` (tiene que medir 1200 × 630).

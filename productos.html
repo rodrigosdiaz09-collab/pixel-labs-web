@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo de Cuadros, Retratos y Souvenirs en Láser | Pixel Labs</title>
-<meta name="description" content="70 diseños en corte láser: cuadros, retratos de mascotas, souvenirs y cartelería. Probá la pieza en tu pared antes de encargarla. Envíos a todo el país.">
-<meta name="keywords" content="cuadros decorativos láser, retrato de mascota personalizado, souvenirs 15 años, cartelería láser, decoración madera Buenos Aires">
+<title>Catálogo: 70 Diseños en Madera y Acrílico | Pixel Labs</title>
+<meta name="description" content="Mandalas, retratos de tu mascota, frases, coronas de 15 y carteles para tu local. Mirá cómo queda cada modelo en tu pared antes de decidir.">
+<meta name="keywords" content="cuadro mandala madera, retrato de perro personalizado, souvenirs quince años, cartel para local, deco de pared calada, regalo para el día de la madre">
 <meta name="theme-color" content="#0D0D0D">
 <!-- ===== DOMINIO =====
      Estas URLs apuntan a https://pixellabs.com.ar
@@ -21,12 +21,20 @@
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta property="og:title" content="Catálogo de Cuadros, Retratos y Souvenirs en Láser | Pixel Labs">
-<meta property="og:description" content="70 diseños en corte láser: cuadros, retratos de mascotas, souvenirs y cartelería. Probá la pieza en tu pared antes de encargarla. Envíos a todo el país.">
+<meta property="og:title" content="Catálogo: 70 Diseños en Madera y Acrílico | Pixel Labs">
+<meta property="og:description" content="Mandalas, retratos de tu mascota, frases, coronas de 15 y carteles para tu local. Mirá cómo queda cada modelo en tu pared antes de decidir.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
-<meta property="og:image" content="https://pixellabs.com.ar/favicon-512.png">
+<meta property="og:image" content="https://pixellabs.com.ar/images/compartir.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pixel Labs — grabado y corte láser en San Vicente, Buenos Aires">
+<meta property="og:site_name" content="Pixel Labs">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pixellabs.com.ar/images/compartir.jpg">
+<meta name="author" content="Pixel Labs">
+<meta name="geo.region" content="AR-B">
+<meta name="geo.placename" content="San Vicente, Buenos Aires">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -119,8 +127,22 @@
     </g>
   </g>
 
-  <!-- trazo que se dibuja solo: fases lunares -->
-  <path class="bp-path" d="M520 640 a60 60 0 1 0 0.1 0 M660 640 a60 60 0 1 0 0.1 0 M660 580 a60 60 0 0 0 0 120 M800 640 a60 60 0 1 0 0.1 0 M800 580 a60 60 0 0 1 0 120"/>
+  <!-- lo que el láser está cortando: un cartel con la marca.
+       pathLength normaliza el trazo para que la animación funcione
+       sin importar el largo real del contorno. -->
+  <g class="bp-sign">
+    <path class="bp-path" pathLength="1500"
+          d="M492 548 h416 a22 22 0 0 1 22 22 v112 a22 22 0 0 1 -22 22 h-416 a22 22 0 0 1 -22 -22 v-112 a22 22 0 0 1 22 -22 z"/>
+    <path class="bp-path bp-path-b" pathLength="1500"
+          d="M510 566 h380 a9 9 0 0 1 9 9 v102 a9 9 0 0 1 -9 9 h-380 a9 9 0 0 1 -9 -9 v-102 a9 9 0 0 1 9 -9 z"/>
+    <circle cx="512" cy="568" r="5.5" class="bp-faint"/>
+    <circle cx="888" cy="568" r="5.5" class="bp-faint"/>
+    <circle cx="512" cy="684" r="5.5" class="bp-faint"/>
+    <circle cx="888" cy="684" r="5.5" class="bp-faint"/>
+    <path d="M700 548 V512 M676 512 h48" class="bp-faint"/>
+    <text x="700" y="648" class="bp-sign-txt" text-anchor="middle">PixelLabs</text>
+    <text x="700" y="676" class="bp-sign-sub" text-anchor="middle">grabado y corte láser</text>
+  </g>
 
   <!-- cotas -->
   <path d="M330 940 H1070 M330 932 V948 M1070 932 V948" class="bp-faint"/>
@@ -141,10 +163,9 @@
 </svg>
 </div>
 
-<!-- BARRA DE ANUNCIO: cambiá el texto según la temporada. Para ocultarla, borrá este bloque entero. -->
+<!-- BARRA DE ANUNCIO: cambiá el texto y la fecha según la temporada. Para ocultarla, borrá este bloque entero. -->
 <div class="announce">
   <span>Día de la Madre · cerramos agenda el 5 de octubre <span class="count-down" data-deadline="2026-10-05T23:59:59-03:00"></span></span>
-  <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20reservar%20un%20pedido%20para%20el%20D%C3%ADa%20de%20la%20Madre." target="_blank" rel="noopener">Reservar mi lugar</a>
   <button class="announce-close" aria-label="Cerrar aviso">✕</button>
 </div>
 
@@ -184,7 +205,7 @@
   <div class="section-head" data-reveal>
     <p class="eyebrow">El probador</p>
     <h2 id="t-probador" data-engrave>Vela en tu pared antes de encargarla</h2>
-    <p class="lede">La duda de siempre es el tamaño. Elegí una pieza, elegí la medida y mirá cuánto ocupa de verdad. Si querés, subí una foto de tu pared: la imagen no sale de tu teléfono.</p>
+    <p class="lede">La duda de siempre es el tamaño. Elegí un cuadro, elegí la medida y mirá cuánto ocupa de verdad. Si querés, subí una foto de tu pared: la imagen no sale de tu teléfono.</p>
   </div>
 
   <div class="tryon-wrap">
@@ -282,7 +303,7 @@
       </div>
 
       <a class="btn btn-solid spark-hover" id="tryWa" href="#" target="_blank" rel="noopener">Me gusta así, cotizala</a>
-      <p class="tryon-note">Es una vista previa, no una maqueta exacta. Sirve para elegir el tamaño, que es donde todo el mundo duda. Tu foto se procesa en tu propio teléfono: no la subimos a ningún servidor.</p>
+      <p class="tryon-note">Es una vista previa, no una maqueta exacta. Sirve para decidir el tamaño, que es donde todo el mundo duda. Tu foto se procesa en tu propio teléfono: no la subimos a ningún servidor.</p>
     </aside>
   </div>
 </section>
@@ -329,7 +350,7 @@
       <img src="images/thumb/cuadro-mujer-flores.webp" alt="Cuadro de mujer con flores en corte láser, línea continua - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Mujer con Flores</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Mujer%20con%20Flores" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Mujer%20con%20Flores" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -339,7 +360,7 @@
       <img src="images/thumb/cuadro-islas-malvinas.webp" alt="Cuadro Islas Malvinas hoy y siempre en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Islas Malvinas, Hoy y Siempre</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Islas%20Malvinas%2C%20Hoy%20y%20Siempre" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Islas%20Malvinas%2C%20Hoy%20y%20Siempre" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -349,7 +370,7 @@
       <img src="images/thumb/cuadro-manicuras.webp" alt="Cuadro decorativo para salón de manicuras en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cuadro para Manicuras</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Cuadro%20para%20Manicuras" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Cuadro%20para%20Manicuras" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -359,7 +380,7 @@
       <img src="images/thumb/cuadro-indio-solari.webp" alt="Cuadro grabado de Indio Solari en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Indio Solari</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Indio%20Solari" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Indio%20Solari" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -369,7 +390,7 @@
       <img src="images/thumb/cuadro-mate-signos-vitales.webp" alt="Cuadro de mate y signos vitales en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Mate y Signos Vitales</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Mate%20y%20Signos%20Vitales" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Mate%20y%20Signos%20Vitales" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -379,7 +400,7 @@
       <img src="images/thumb/cuadro-charly-garcia.webp" alt="Cuadro grabado de Charly García en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Charly García</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Charly%20García" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Charly%20García" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -389,7 +410,7 @@
       <img src="images/thumb/cuadro-frase-vive-ama-suena.webp" alt="Cuadro con frase Vive cada segundo, Ama siempre, Sueña sin límite - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Frase Vive, Ama, Sueña</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Frase%20Vive%2C%20Ama%2C%20Sueña" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Frase%20Vive%2C%20Ama%2C%20Sueña" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -399,7 +420,7 @@
       <img src="images/thumb/cuadro-fases-lunares.webp" alt="Cuadro de fases lunares con mándala en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Fases Lunares</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Fases%20Lunares" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Fases%20Lunares" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -409,7 +430,7 @@
       <img src="images/thumb/cuadro-paz-y-armonia-triptico.webp" alt="Tríptico decorativo Paz y Armonía con Buda y mándala en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Paz y Armonía</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Paz%20y%20Armonía" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Paz%20y%20Armonía" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -419,7 +440,7 @@
       <img src="images/thumb/cuadro-detalles-mandala-triptico.webp" alt="Tríptico decorativo floral tipo mándala en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Detalles que Hablan de Vos</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Detalles%20que%20Hablan%20de%20Vos" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Detalles%20que%20Hablan%20de%20Vos" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -429,7 +450,7 @@
       <img src="images/thumb/cuadro-equilibrio-energia-paz-triptico.webp" alt="Tríptico decorativo con loto, flor de la vida y símbolo Om en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Equilibrio, Energía y Paz</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Equilibrio%2C%20Energía%20y%20Paz" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Equilibrio%2C%20Energía%20y%20Paz" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -439,7 +460,7 @@
       <img src="images/thumb/cuadro-home-triptico.webp" alt="Tríptico decorativo Home con hojas en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Home</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Home" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Home" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -449,7 +470,7 @@
       <img src="images/thumb/cuadro-fe-esperanza-amor-triptico.webp" alt="Tríptico decorativo Fe, Esperanza y Amor con cruz, pulso y corazón en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Fe, Esperanza y Amor</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Fe%2C%20Esperanza%20y%20Amor" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Fe%2C%20Esperanza%20y%20Amor" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -459,7 +480,7 @@
       <img src="images/thumb/cuadro-arbol-de-vida-triptico.webp" alt="Tríptico decorativo Árbol de Vida con pajaritos en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Árbol de Vida</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Árbol%20de%20Vida" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Árbol%20de%20Vida" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -469,7 +490,7 @@
       <img src="images/thumb/cuadro-inhala-exhala-triptico.webp" alt="Tríptico decorativo Inhala Exhala con mándala en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Inhala Exhala</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Inhala%20Exhala" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Inhala%20Exhala" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -479,7 +500,7 @@
       <img src="images/thumb/cuadro-colibri-floral-triptico.webp" alt="Cuadro decorativo de colibríes con flor mándala en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Colibrí Floral</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20comprar:%20Colibrí%20Floral%20-%20%2416.500" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20comprar:%20Colibrí%20Floral%20-%20%2416.500" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -489,7 +510,7 @@
       <img src="images/thumb/cuadro-trio-butterfly-triptico.webp" alt="Tríptico decorativo de mariposas en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Trío Butterfly</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Trío%20Butterfly" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Trío%20Butterfly" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -499,7 +520,7 @@
       <img src="images/thumb/cuadro-homero-2-actos-triptico.webp" alt="Tríptico decorativo Homero en 2 Actos, mate y birra, en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Homero en 2 Actos</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20comprar:%20Homero%20en%202%20Actos%20-%20%2413.000" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20comprar:%20Homero%20en%202%20Actos%20-%20%2413.000" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -509,7 +530,7 @@
       <img src="images/thumb/cuadro-mandala-triptico-blanco.webp" alt="Tríptico decorativo de mándala en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Mándala Tríptico</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Mándala%20Tríptico" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Mándala%20Tríptico" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -519,7 +540,7 @@
       <img src="images/thumb/cuadro-buda-arbol-vida.webp" alt="Cuadro de Buda con árbol de la vida en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Buda con Árbol de la Vida</h4>
-        <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Buda%20con%20%C3%81rbol%20de%20la%20Vida" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Buda%20con%20%C3%81rbol%20de%20la%20Vida" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -529,7 +550,7 @@
       <img src="images/thumb/cuadro-cruz-jesus.webp" alt="Cruz con rostro de Jesús en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cruz con Rostro</h4>
-        <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Cruz%20con%20Rostro" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Cruz%20con%20Rostro" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -539,7 +560,7 @@
       <img src="images/thumb/cuadro-luna-mandala.webp" alt="Cuadro de luna con mandala en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Luna Mandala</h4>
-        <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Luna%20Mandala" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Luna%20Mandala" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -549,7 +570,7 @@
       <img src="images/thumb/cuadro-flor-mandala-colibries.webp" alt="Cuadro de flor mandala con colibríes en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Flor Mandala con Colibríes</h4>
-        <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Flor%20Mandala%20con%20Colibr%C3%ADes" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Flor%20Mandala%20con%20Colibr%C3%ADes" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
   </div>
@@ -569,7 +590,7 @@
       <img src="images/thumb/cuadro-mascota-personalizada-01.webp" alt="Retrato geométrico de mascota personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Mascota a Medida</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Retrato%20de%20Mascota%20a%20Medida" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Retrato%20de%20Mascota%20a%20Medida" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -579,7 +600,7 @@
       <img src="images/thumb/cuadro-mascota-personalizada-02.webp" alt="Retrato de perro personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Mascota a Medida</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Retrato%20de%20Mascota%20a%20Medida" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Retrato%20de%20Mascota%20a%20Medida" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -589,7 +610,7 @@
       <img src="images/thumb/cuadro-mascota-personalizada-03.webp" alt="Retrato de mascota a medida en corte láser a partir de una foto - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Mascota a Medida</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Retrato%20de%20Mascota%20a%20Medida" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar%3A%20Retrato%20de%20Mascota%20a%20Medida" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -599,7 +620,7 @@
       <img src="images/thumb/cuadro-mascota-bulldog-frances-01.webp" alt="Retrato de Bulldog Francés personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Bulldog Francés</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Bulldog%20Francés" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Bulldog%20Francés" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -609,7 +630,7 @@
       <img src="images/thumb/cuadro-mascota-cachorro-mestizo.webp" alt="Retrato de Cachorro Mestizo personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Cachorro Mestizo</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Cachorro%20Mestizo" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Cachorro%20Mestizo" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -619,7 +640,7 @@
       <img src="images/thumb/cuadro-mascota-labrador-negro.webp" alt="Retrato de Labrador Negro personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Labrador Negro</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Labrador%20Negro" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Labrador%20Negro" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -629,7 +650,7 @@
       <img src="images/thumb/cuadro-mascota-dueno-y-perro.webp" alt="Retrato de Dueño con su Perro personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Dueño con su Perro</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Dueño%20con%20su%20Perro" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Dueño%20con%20su%20Perro" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -639,7 +660,7 @@
       <img src="images/thumb/cuadro-mascota-caniche-camisa.webp" alt="Retrato de Caniche con Camisa personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Caniche con Camisa</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Caniche%20con%20Camisa" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Caniche%20con%20Camisa" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -649,7 +670,7 @@
       <img src="images/thumb/cuadro-mascota-caballo.webp" alt="Retrato de Caballo personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Caballo</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Caballo" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Caballo" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -659,7 +680,7 @@
       <img src="images/thumb/cuadro-mascota-cachorro-canela.webp" alt="Retrato de Cachorro Color Canela personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Cachorro Color Canela</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Cachorro%20Color%20Canela" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Cachorro%20Color%20Canela" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -669,7 +690,7 @@
       <img src="images/thumb/cuadro-mascota-border-collie.webp" alt="Retrato de Border Collie personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Border Collie</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Border%20Collie" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Border%20Collie" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -679,7 +700,7 @@
       <img src="images/thumb/cuadro-mascota-pastor-aleman-cachorro.webp" alt="Retrato de Cachorro Pastor Alemán personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Cachorro Pastor Alemán</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Cachorro%20Pastor%20Alemán" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Cachorro%20Pastor%20Alemán" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -689,7 +710,7 @@
       <img src="images/thumb/cuadro-mascota-oveja.webp" alt="Retrato de Oveja personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Oveja</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Oveja" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Oveja" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -699,7 +720,7 @@
       <img src="images/thumb/cuadro-mascota-perro-orejas-largas.webp" alt="Retrato de Perro Orejas Largas personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Perro Orejas Largas</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Perro%20Orejas%20Largas" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Perro%20Orejas%20Largas" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -709,7 +730,7 @@
       <img src="images/thumb/cuadro-mascota-terrier-gris.webp" alt="Retrato de Terrier Gris personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Terrier Gris</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Terrier%20Gris" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Terrier%20Gris" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -719,7 +740,7 @@
       <img src="images/thumb/cuadro-mascota-pitbull.webp" alt="Retrato de Pitbull personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Pitbull</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Pitbull" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Pitbull" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -729,7 +750,7 @@
       <img src="images/thumb/cuadro-mascota-perra-canela.webp" alt="Retrato de Perra Canela personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Perra Canela</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Perra%20Canela" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Perra%20Canela" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -739,7 +760,7 @@
       <img src="images/thumb/cuadro-mascota-galgo.webp" alt="Retrato de Galgo personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Galgo</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Galgo" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Galgo" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -749,7 +770,7 @@
       <img src="images/thumb/cuadro-mascota-cordero-negro.webp" alt="Retrato de Cordero Negro personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Cordero Negro</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Cordero%20Negro" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Cordero%20Negro" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -759,7 +780,7 @@
       <img src="images/thumb/cuadro-mascota-bulldog-frances-02.webp" alt="Retrato de Bulldog Francés personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Bulldog Francés</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Bulldog%20Francés" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Bulldog%20Francés" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -769,7 +790,7 @@
       <img src="images/thumb/cuadro-mascota-corgi-flores.webp" alt="Retrato de Corgi con Flores personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Corgi con Flores</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Corgi%20con%20Flores" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Corgi%20con%20Flores" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -779,7 +800,7 @@
       <img src="images/thumb/cuadro-mascota-caniche-blanco.webp" alt="Retrato de Caniche Blanco personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Caniche Blanco</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Caniche%20Blanco" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Caniche%20Blanco" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -789,7 +810,7 @@
       <img src="images/thumb/cuadro-mascota-golden-retriever.webp" alt="Retrato de Golden Retriever personalizado a partir de una foto, corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Retrato de Golden Retriever</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Golden%20Retriever" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Retrato%20de%20Golden%20Retriever" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
   </div>
@@ -799,7 +820,7 @@
   <div class="section-head" data-reveal>
     <p class="eyebrow">Souvenirs</p>
     <h2 data-engrave>Souvenirs que no terminan en la basura</h2>
-    <p class="lede">Piezas chicas con nombre propio, para que cada invitado se lleve algo que era suyo. Pedido mínimo de 10 unidades.</p>
+    <p class="lede">Recuerdos chicos con nombre propio, para que cada invitado se lleve algo que era suyo. Pedido mínimo de 10 unidades.</p>
   </div>
   <div class="section-head" data-reveal style="margin:1rem 0 1.6rem;"><p class="eyebrow">Fiesta de 15</p><h3 style="font-family:var(--font-display);font-size:1.5rem;font-weight:400;">Coronas, mariposas y lunas con nombre</h3></div>
   <div class="gallery-grid">
@@ -810,7 +831,7 @@
       <img src="images/thumb/souvenir-15-cartel-mariposas.webp" alt="Cartel Mis 15 con Mariposas, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cartel Mis 15 con Mariposas</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Mis%2015%20con%20Mariposas" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Mis%2015%20con%20Mariposas" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -820,7 +841,7 @@
       <img src="images/thumb/souvenir-llavero-frase.webp" alt="Llavero con Frase Personalizada, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Llavero con Frase Personalizada</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20con%20Frase%20Personalizada" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20con%20Frase%20Personalizada" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -830,7 +851,7 @@
       <img src="images/thumb/souvenir-15-corazon-nombre.webp" alt="Souvenirs Corazón con Nombre, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Souvenirs Corazón con Nombre</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Souvenirs%20Corazón%20con%20Nombre" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Souvenirs%20Corazón%20con%20Nombre" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -840,7 +861,7 @@
       <img src="images/thumb/souvenir-15-set-lunas-estrella.webp" alt="Set de Lunas con Estrella 15, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Set de Lunas con Estrella 15</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Set%20de%20Lunas%20con%20Estrella%2015" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Set%20de%20Lunas%20con%20Estrella%2015" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -850,7 +871,7 @@
       <img src="images/thumb/souvenir-15-luna-estrella-detalle.webp" alt="Luna con Estrella 15, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Luna con Estrella 15</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Luna%20con%20Estrella%2015" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Luna%20con%20Estrella%2015" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -860,7 +881,7 @@
       <img src="images/thumb/souvenir-15-cartel-rosa.webp" alt="Cartel 15 con Rosa, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cartel 15 con Rosa</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%2015%20con%20Rosa" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%2015%20con%20Rosa" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -870,7 +891,7 @@
       <img src="images/thumb/souvenir-15-mariposa-3d.webp" alt="Souvenir Mis 15 con Mariposa 3D, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Souvenir Mis 15 con Mariposa 3D</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Souvenir%20Mis%2015%20con%20Mariposa%203D" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Souvenir%20Mis%2015%20con%20Mariposa%203D" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -880,7 +901,7 @@
       <img src="images/thumb/souvenir-15-cartel-mariposa.webp" alt="Cartel Mis 15 con Mariposa, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cartel Mis 15 con Mariposa</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Mis%2015%20con%20Mariposa" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Mis%2015%20con%20Mariposa" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -890,7 +911,7 @@
       <img src="images/thumb/souvenir-15-mariposas-dos-tamanos.webp" alt="Cartel 15 con Mariposas, Grande y Chico, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cartel 15 con Mariposas, Grande y Chico</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%2015%20con%20Mariposas%2C%20Grande%20y%20Chico" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%2015%20con%20Mariposas%2C%20Grande%20y%20Chico" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -900,7 +921,7 @@
       <img src="images/thumb/souvenir-15-servilletero.webp" alt="Servilletero Mis 15 Años, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Servilletero Mis 15 Años</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Servilletero%20Mis%2015%20Años" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Servilletero%20Mis%2015%20Años" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -910,7 +931,7 @@
       <img src="images/thumb/souvenir-15-llavero-corona.webp" alt="Llavero Corona 15, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Llavero Corona 15</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20Corona%2015" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20Corona%2015" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -920,7 +941,7 @@
       <img src="images/thumb/souvenir-15-cartel-corona-hojas.webp" alt="Cartel Corona Mis 15 Años, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cartel Corona Mis 15 Años</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Corona%20Mis%2015%20Años" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Corona%20Mis%2015%20Años" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -930,7 +951,7 @@
       <img src="images/thumb/souvenir-15-servilletero-corona.webp" alt="Servilletero Corona 15, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Servilletero Corona 15</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Servilletero%20Corona%2015" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Servilletero%20Corona%2015" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -940,7 +961,7 @@
       <img src="images/thumb/souvenir-15-luna-inicial.webp" alt="Cartel Luna con Inicial, souvenir personalizado para fiesta de 15 años en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cartel Luna con Inicial</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Luna%20con%20Inicial" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Luna%20con%20Inicial" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
   </div>
@@ -953,7 +974,7 @@
       <img src="images/thumb/infantil-llaveros-globo-nube.webp" alt="Llaveros Globo Aerostático y Nube, souvenir infantil personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Llaveros Globo Aerostático y Nube</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llaveros%20Globo%20Aerostático%20y%20Nube" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llaveros%20Globo%20Aerostático%20y%20Nube" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -963,7 +984,7 @@
       <img src="images/thumb/infantil-portarretrato-avioncito.webp" alt="Portarretrato Avioncito, souvenir infantil personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Portarretrato Avioncito</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Portarretrato%20Avioncito" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Portarretrato%20Avioncito" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -973,7 +994,7 @@
       <img src="images/thumb/infantil-alcancia-casita-avion.webp" alt="Alcancía Casita con Avión, souvenir infantil personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Alcancía Casita con Avión</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Alcancía%20Casita%20con%20Avión" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Alcancía%20Casita%20con%20Avión" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -983,7 +1004,7 @@
       <img src="images/thumb/infantil-llavero-dinosaurio-primer-anito.webp" alt="Llavero Dinosaurio Mi Primer Añito, souvenir infantil personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Llavero Dinosaurio Mi Primer Añito</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20Dinosaurio%20Mi%20Primer%20Añito" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20Dinosaurio%20Mi%20Primer%20Añito" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:220ms"
@@ -993,7 +1014,7 @@
       <img src="images/thumb/infantil-llavero-camiseta-dad-team.webp" alt="Llavero Camiseta Personalizada, souvenir infantil personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Llavero Camiseta Personalizada</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20Camiseta%20Personalizada" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20Camiseta%20Personalizada" target="_blank" rel="noopener">Cotizar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:0ms"
@@ -1003,7 +1024,7 @@
       <img src="images/thumb/infantil-llavero-dinosaurio-huevo.webp" alt="Llavero Dinosaurio en Huevo, souvenir infantil personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Llavero Dinosaurio en Huevo</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20Dinosaurio%20en%20Huevo" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Llavero%20Dinosaurio%20en%20Huevo" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
   </div>
@@ -1023,7 +1044,7 @@
       <img src="images/thumb/carteleria-centro-psicologico.webp" alt="Cartel Centro Psicológico, cartel personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cartel Centro Psicológico</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Centro%20Psicológico" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Centro%20Psicológico" target="_blank" rel="noopener">La quiero</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:55ms"
@@ -1033,7 +1054,7 @@
       <img src="images/thumb/carteleria-logo-dental-studio.webp" alt="Logo Cartel Dental Studio, cartel personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Logo Cartel Dental Studio</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Logo%20Cartel%20Dental%20Studio" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Logo%20Cartel%20Dental%20Studio" target="_blank" rel="noopener">Pedir precio</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:110ms"
@@ -1043,7 +1064,7 @@
       <img src="images/thumb/carteleria-abierto.webp" alt="Cartel Abierto para Local, cartel personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cartel Abierto para Local</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Abierto%20para%20Local" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Abierto%20para%20Local" target="_blank" rel="noopener">Consultar</a>
       </div>
     </article>
     <article class="gallery-item" data-reveal="zoom" style="--d:165ms"
@@ -1053,7 +1074,7 @@
       <img src="images/thumb/carteleria-cerrado.webp" alt="Cartel Cerrado para Local, cartel personalizado en corte láser - Pixel Labs" loading="lazy" decoding="async" width="560" height="560">
       <div class="gallery-overlay">
         <h4>Cartel Cerrado para Local</h4>
-        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Cerrado%20para%20Local" target="_blank" rel="noopener">Cotizar esta pieza</a>
+        <a href="https://wa.me/542224642172?text=Hola%20Pixel%20Labs%21%20Quiero%20cotizar:%20Cartel%20Cerrado%20para%20Local" target="_blank" rel="noopener">Quiero esta</a>
       </div>
     </article>
   </div>
@@ -1083,7 +1104,7 @@
   <div class="section-head" data-reveal>
     <p class="eyebrow">Comercio</p>
     <h2 data-engrave>Identidad para tu negocio</h2>
-    <p class="lede">Piezas con tu logo: cartelería interior, señalética, exhibidores y detalles de marca.</p>
+    <p class="lede">Todo con tu logo: cartelería interior, señalética, exhibidores y detalles de marca.</p>
   </div>
   <p class="lede" data-reveal style="margin-bottom:1.8rem;">Todavía no subimos las fotos de esta categoría, pero el láser ya la conoce bien. Escribinos y te mandamos lo que tenemos disponible.</p>
   <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20ver%20lo%20que%20tienen%20en%20la%20categor%C3%ADa%20Comercio." target="_blank" rel="noopener" class="btn btn-solid spark-hover">Pedir fotos por WhatsApp</a>

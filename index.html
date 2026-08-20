@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pixel Labs | Grabado y Corte Láser en San Vicente, Buenos Aires</title>
-<meta name="description" content="Grabado y corte láser en madera, acrílico y cuero. Cuadros, retratos de mascotas y souvenirs. Probá la pieza en tu pared antes de encargarla. Envíos a todo el país.">
-<meta name="keywords" content="grabado láser San Vicente, corte láser Buenos Aires, cuadros personalizados, souvenirs para eventos, retrato de mascota, cartelería láser, regalos corporativos">
+<title>Cuadros y Regalos Personalizados en Corte Láser | Pixel Labs</title>
+<meta name="description" content="Cuadros calados, retratos de tu mascota y souvenirs personalizados en madera y acrílico. Probá cómo queda en tu pared antes de encargarlo. Envíos a todo el país.">
+<meta name="keywords" content="cuadros personalizados, retrato de mascota en madera, regalos personalizados Argentina, souvenirs 15 años, corte láser San Vicente, decoración de pared, regalos corporativos con logo">
 <meta name="theme-color" content="#0D0D0D">
 <!-- ===== DOMINIO =====
      Estas URLs apuntan a https://pixellabs.com.ar
@@ -21,12 +21,20 @@
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta property="og:title" content="Pixel Labs | Grabado y Corte Láser en San Vicente, Buenos Aires">
-<meta property="og:description" content="Grabado y corte láser en madera, acrílico y cuero. Cuadros, retratos de mascotas y souvenirs. Probá la pieza en tu pared antes de encargarla. Envíos a todo el país.">
+<meta property="og:title" content="Cuadros y Regalos Personalizados en Corte Láser | Pixel Labs">
+<meta property="og:description" content="Cuadros calados, retratos de tu mascota y souvenirs personalizados en madera y acrílico. Probá cómo queda en tu pared antes de encargarlo. Envíos a todo el país.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
-<meta property="og:image" content="https://pixellabs.com.ar/favicon-512.png">
+<meta property="og:image" content="https://pixellabs.com.ar/images/compartir.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pixel Labs — grabado y corte láser en San Vicente, Buenos Aires">
+<meta property="og:site_name" content="Pixel Labs">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pixellabs.com.ar/images/compartir.jpg">
+<meta name="author" content="Pixel Labs">
+<meta name="geo.region" content="AR-B">
+<meta name="geo.placename" content="San Vicente, Buenos Aires">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -139,8 +147,22 @@
     </g>
   </g>
 
-  <!-- trazo que se dibuja solo: fases lunares -->
-  <path class="bp-path" d="M520 640 a60 60 0 1 0 0.1 0 M660 640 a60 60 0 1 0 0.1 0 M660 580 a60 60 0 0 0 0 120 M800 640 a60 60 0 1 0 0.1 0 M800 580 a60 60 0 0 1 0 120"/>
+  <!-- lo que el láser está cortando: un cartel con la marca.
+       pathLength normaliza el trazo para que la animación funcione
+       sin importar el largo real del contorno. -->
+  <g class="bp-sign">
+    <path class="bp-path" pathLength="1500"
+          d="M492 548 h416 a22 22 0 0 1 22 22 v112 a22 22 0 0 1 -22 22 h-416 a22 22 0 0 1 -22 -22 v-112 a22 22 0 0 1 22 -22 z"/>
+    <path class="bp-path bp-path-b" pathLength="1500"
+          d="M510 566 h380 a9 9 0 0 1 9 9 v102 a9 9 0 0 1 -9 9 h-380 a9 9 0 0 1 -9 -9 v-102 a9 9 0 0 1 9 -9 z"/>
+    <circle cx="512" cy="568" r="5.5" class="bp-faint"/>
+    <circle cx="888" cy="568" r="5.5" class="bp-faint"/>
+    <circle cx="512" cy="684" r="5.5" class="bp-faint"/>
+    <circle cx="888" cy="684" r="5.5" class="bp-faint"/>
+    <path d="M700 548 V512 M676 512 h48" class="bp-faint"/>
+    <text x="700" y="648" class="bp-sign-txt" text-anchor="middle">PixelLabs</text>
+    <text x="700" y="676" class="bp-sign-sub" text-anchor="middle">grabado y corte láser</text>
+  </g>
 
   <!-- cotas -->
   <path d="M330 940 H1070 M330 932 V948 M1070 932 V948" class="bp-faint"/>
@@ -161,10 +183,9 @@
 </svg>
 </div>
 
-<!-- BARRA DE ANUNCIO: cambiá el texto según la temporada. Para ocultarla, borrá este bloque entero. -->
+<!-- BARRA DE ANUNCIO: cambiá el texto y la fecha según la temporada. Para ocultarla, borrá este bloque entero. -->
 <div class="announce">
   <span>Día de la Madre · cerramos agenda el 5 de octubre <span class="count-down" data-deadline="2026-10-05T23:59:59-03:00"></span></span>
-  <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Quiero%20reservar%20un%20pedido%20para%20el%20D%C3%ADa%20de%20la%20Madre." target="_blank" rel="noopener">Reservar mi lugar</a>
   <button class="announce-close" aria-label="Cerrar aviso">✕</button>
 </div>
 
@@ -191,7 +212,7 @@
   <div class="hero-content">
     <p class="eyebrow">Grabado y corte láser · San Vicente, Buenos Aires</p>
     <h1 data-engrave>La luz corta.<span class="accent">Vos decidís dónde.</span></h1>
-    <p class="lede">Cuadros, souvenirs y cartelería en madera, acrílico y cuero. Por el láser cada pieza pasa una sola vez, así que la hacemos bien la primera. Envíos a todo el país.</p>
+    <p class="lede">Cuadros, souvenirs y cartelería en madera, acrílico y cuero. Por el láser cada trabajo pasa una sola vez, así que lo hacemos bien la primera. Envíos a todo el país.</p>
     <div class="hero-actions">
       <a href="productos.html" class="btn btn-solid spark-hover">Ver el catálogo</a>
       <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Tengo%20una%20idea%20y%20quiero%20cotizarla." target="_blank" rel="noopener" class="btn spark-hover">Cotizar mi idea</a>
@@ -221,7 +242,7 @@
   </div>
   <div class="trust-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-    <span><b>Aprobás antes de cortar</b>El láser no arranca sin tu OK</span>
+    <span><b>Vos aprobás el boceto</b>El láser no arranca sin tu OK</span>
   </div>
   <div class="trust-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="1"/><path d="M8 21h8M12 18v3"/><path d="M9 11l2.2 2.2L15 9"/></svg>
@@ -244,8 +265,8 @@
   <div class="service-row" data-reveal>
     <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M6 40 L42 40 M12 40 V16 L24 6 L36 16 V40" stroke="currentColor" stroke-width="1.2"/></svg>
     <div>
-      <h3>Piezas a medida para cada evento</h3>
-      <p>Casamientos, quince, cumpleaños, bautismos y eventos de empresa. Cortadas al detalle, en la cantidad exacta que necesitás. <a href="servicios.html">Ver todos los servicios →</a></p>
+      <h3>Todo lo que necesita tu evento</h3>
+      <p>Casamientos, quince, cumpleaños, bautismos y eventos de empresa. Cortado al detalle, en la cantidad exacta que necesitás. <a href="servicios.html">Ver todos los servicios →</a></p>
     </div>
   </div>
   <div class="service-row" data-reveal style="--d:90ms">
@@ -277,7 +298,7 @@
     <article class="step" data-reveal style="--d:200ms">
       <span class="step-n">03</span>
       <h3>Lo hacemos y te lo mandamos</h3>
-      <p>Producimos, embalamos como si el paquete viajara solo y despachamos a todo el país con seguimiento.</p>
+      <p>Lo fabricamos, lo embalamos como si el paquete viajara solo y lo despachamos con seguimiento.</p>
     </article>
   </div>
 </section>
@@ -373,7 +394,7 @@
   </div>
   <div class="about-grid">
     <div data-reveal="left">
-      <p class="lede">Antes de que la máquina toque el material, el diseño ya pasó por tus manos. Ese paso de más es la diferencia entre un regalo lindo y un regalo que nadie olvida.</p>
+      <p class="lede">Antes de que la máquina toque el material, el boceto ya pasó por tus manos. Ese paso de más es la diferencia entre un regalo lindo y un regalo que nadie olvida.</p>
       <blockquote class="pull-quote">Creamos recuerdos que le ganan al tiempo.</blockquote>
     </div>
     <div data-reveal="right">
