@@ -8,12 +8,16 @@
 <meta name="keywords" content="contacto Pixel Labs, corte láser San Vicente contacto, presupuesto grabado láser">
 <meta name="theme-color" content="#0D0D0D">
 <!-- ===== DOMINIO =====
-     Hoy apunta a workers.dev, que es donde el sitio vive de verdad.
-     Cuando conectes pixellabs.ar: buscá y reemplazá en los 6 HTML
-       https://pixel-labs-web.rodrigo-s-diaz09.workers.dev   ->   https://pixellabs.ar
-     y hacé lo mismo en sitemap.xml y robots.txt. Es un buscar-y-reemplazar y nada más. -->
-<link rel="canonical" href="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/contacto">
-<meta property="og:url" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/contacto">
+     Estas URLs apuntan a https://pixellabs.com.ar
+     ORDEN IMPORTANTE al publicar:
+       1) conectá pixellabs.com.ar como Custom Domain del Worker en Cloudflare
+       2) recién ahí hacé el deploy
+     Si deployás antes de conectar el dominio, Google va a leer un canonical
+     que todavía no resuelve. Si necesitás publicar ya y conectar el dominio
+     después, reemplazá en los 7 HTML + sitemap.xml + robots.txt:
+       https://pixellabs.com.ar  ->  https://pixel-labs-web.rodrigo-s-diaz09.workers.dev -->
+<link rel="canonical" href="https://pixellabs.com.ar/contacto">
+<meta property="og:url" content="https://pixellabs.com.ar/contacto">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -21,7 +25,7 @@
 <meta property="og:description" content="Escribinos y armamos tu pieza a medida. Corte láser en San Vicente, Buenos Aires. Preguntas frecuentes sobre plazos, pagos y envíos a todo el país.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
-<meta property="og:image" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/favicon-512.png">
+<meta property="og:image" content="https://pixellabs.com.ar/favicon-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +52,7 @@
    "name": "¿Cuánto tardan en hacer mi pedido?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "El plazo habitual de producción es de [COMPLETAR: 5 a 7] días hábiles desde que aprobás el diseño, más el tiempo de envío. Para eventos con fecha, pedinos con [COMPLETAR: 15] días de anticipación y dormís tranquilo."
+    "text": "Depende de la pieza y de cómo venga la agenda del taller esa semana. Te confirmamos el plazo exacto junto con el presupuesto, antes de que pagues nada, y desde ahí no se mueve. Si es para un evento con fecha, avisanos apenas la tengas: trabajamos hacia atrás desde ese día y te decimos si llegamos."
    }
   },
   {
@@ -56,7 +60,7 @@
    "name": "¿Cómo se paga?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Aceptamos [COMPLETAR: transferencia y Mercado Pago]. Para arrancar la producción pedimos una seña del [COMPLETAR: 50%] y el resto antes del despacho."
+    "text": "Te pasamos los medios disponibles junto con el presupuesto. Para arrancar la producción pedimos una seña, y el resto se abona antes del despacho. Nada se cobra hasta que el diseño esté aprobado por vos."
    }
   },
   {
@@ -88,7 +92,7 @@
    "name": "¿Qué pasa si la pieza llega dañada?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "[COMPLETAR: confirmá tu política] — la recomendación es: si llega rota por el transporte, la rehacemos sin cargo. Mandanos una foto del paquete y de la pieza apenas la abrís."
+    "text": "Embalamos pensando en el peor viaje posible, pero si algo llega dañado nos hacemos cargo. Sacale una foto al paquete y a la pieza apenas la abras, mandanosla por WhatsApp y lo resolvemos. Nunca dejamos a nadie con una pieza rota en la mano."
    }
   },
   {
@@ -309,11 +313,11 @@
   <div class="faq">
   <div class="faq-item" data-reveal style="--d:0ms">
     <button class="faq-q" type="button">¿Cuánto tardan en hacer mi pedido?</button>
-    <div class="faq-a"><p>El plazo habitual de producción es de <strong>[COMPLETAR: 5 a 7]</strong> días hábiles desde que aprobás el diseño, más el tiempo de envío. Para eventos con fecha, pedinos con <strong>[COMPLETAR: 15]</strong> días de anticipación y dormís tranquilo.</p></div>
+    <div class="faq-a"><p>Depende de la pieza y de cómo venga la agenda del taller esa semana. Te confirmamos el plazo exacto junto con el presupuesto, antes de que pagues nada, y desde ahí no se mueve. Si es para un evento con fecha, avisanos apenas la tengas: trabajamos hacia atrás desde ese día y te decimos si llegamos.</p></div>
   </div>
   <div class="faq-item" data-reveal style="--d:40ms">
     <button class="faq-q" type="button">¿Cómo se paga?</button>
-    <div class="faq-a"><p>Aceptamos <strong>[COMPLETAR: transferencia y Mercado Pago]</strong>. Para arrancar la producción pedimos una seña del <strong>[COMPLETAR: 50%]</strong> y el resto antes del despacho.</p></div>
+    <div class="faq-a"><p>Te pasamos los medios disponibles junto con el presupuesto. Para arrancar la producción pedimos una seña, y el resto se abona antes del despacho. Nada se cobra hasta que el diseño esté aprobado por vos.</p></div>
   </div>
   <div class="faq-item" data-reveal style="--d:80ms">
     <button class="faq-q" type="button">¿Hacen envíos a todo el país?</button>
@@ -329,7 +333,7 @@
   </div>
   <div class="faq-item" data-reveal style="--d:200ms">
     <button class="faq-q" type="button">¿Qué pasa si la pieza llega dañada?</button>
-    <div class="faq-a"><p><strong>[COMPLETAR: confirmá tu política]</strong> — la recomendación es: si llega rota por el transporte, la rehacemos sin cargo. Mandanos una foto del paquete y de la pieza apenas la abrís.</p></div>
+    <div class="faq-a"><p>Embalamos pensando en el peor viaje posible, pero si algo llega dañado nos hacemos cargo. Sacale una foto al paquete y a la pieza apenas la abras, mandanosla por WhatsApp y lo resolvemos. Nunca dejamos a nadie con una pieza rota en la mano.</p></div>
   </div>
   <div class="faq-item" data-reveal style="--d:240ms">
     <button class="faq-q" type="button">¿Trabajan con empresas?</button>

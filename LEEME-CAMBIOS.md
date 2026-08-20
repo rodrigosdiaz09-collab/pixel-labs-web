@@ -1,4 +1,11 @@
-# Pixel Labs — v5 · lista para publicar
+# Pixel Labs — SITIO COMPLETO, listo para publicar
+
+Este zip trae **la carpeta entera**: todas las páginas, el CSS, el JavaScript, todas las
+imágenes y los archivos de configuración. No falta nada. Descomprimilo y ya tenés el
+sitio funcionando: abrí `index.html` con doble clic para verlo antes de publicar.
+
+**No queda ningún texto de relleno.** Los testimonios inventados salieron y los tres
+`[COMPLETAR]` del FAQ están redactados de forma honesta (ver más abajo).
 
 Descomprimí sobre `pixel-labs-web/` y reemplazá todo. Después:
 
@@ -39,7 +46,7 @@ Lo que faltaba y ahora está:
 - **`404.html`** — tu `wrangler.jsonc` declara `not_found_handling: "404-page"`, que espera ese archivo. No existía, así que cualquier link roto mostraba el 404 pelado de Cloudflare. Ahora hay uno con la marca ("Este corte no salió").
 - **`_headers`** — cabeceras de seguridad (nosniff, anti-clickjacking, HSTS, referrer, permissions) y caché: los HTML se revalidan siempre para que un cambio se vea al toque; imágenes, CSS y JS quedan cacheados.
 - **`.assetsignore`** — `assets.directory` es `"./"`, así que Cloudflare subía **todo**, incluido este archivo con tus notas internas. Ahora quedan fuera del deploy este LEEME, el README y el `wrangler.jsonc`.
-- **Canonical, `og:url`, sitemap y robots** apuntan a **workers.dev**, que es donde el sitio vive de verdad. Antes decían `pixellabs.ar`, un dominio que no existe, y eso le pedía a Google que indexara una URL rota. Hay un comentario en el `<head>` de cada página con la instrucción exacta para cambiarlo el día que conectes el dominio: un buscar-y-reemplazar.
+- **Canonical, `og:url`, sitemap, robots y schema** apuntan a **https://pixellabs.com.ar**. Antes decían `pixellabs.ar` (sin el `.com`), un dominio que no existe: eso le pedía a Google que indexara una URL rota. Ver la sección de dominio más abajo para el orden de publicación.
 - **Sitemap** con las 6 páginas (faltaba `ideas`).
 
 ## 4. Peso
@@ -56,25 +63,54 @@ La grilla carga miniaturas WebP de 560 px y el JPG grande se pide **solo** cuand
 
 ---
 
-## Cuando conectes pixellabs.ar
+## Dominio: pixellabs.com.ar
 
-Buscar y reemplazar en los 7 HTML, en `sitemap.xml` y en `robots.txt`:
+Todo el sitio (canonical, og:url, sitemap, robots, schema) ya apunta a **https://pixellabs.com.ar**.
+
+**El orden importa:**
+
+1. **Registrar / verificar el dominio** en [nic.ar](https://nic.ar). Los `.com.ar` se gestionan ahí y hace falta CUIT/CUIL.
+2. **Pasar el dominio a Cloudflare.** En Cloudflare: *Add a site* → `pixellabs.com.ar`. Te va a dar dos nameservers. Cargalos en NIC.ar reemplazando los que tenga. Tarda entre minutos y algunas horas en propagar.
+3. **Conectar el dominio al Worker.** Cloudflare → Workers & Pages → `pixel-labs-web` → Settings → Domains & Routes → **Add Custom Domain** → `pixellabs.com.ar`. Repetí con `www.pixellabs.com.ar` si querés que también funcione.
+4. **Recién ahí:** `npx wrangler deploy`.
+5. **Google Search Console:** agregá la propiedad `pixellabs.com.ar`, verificala (con Cloudflare es un clic por DNS) y subí `https://pixellabs.com.ar/sitemap.xml`.
+
+**Si querés publicar hoy y conectar el dominio después,** reemplazá en los 7 HTML + `sitemap.xml` + `robots.txt`:
 
 ```
-https://pixel-labs-web.rodrigo-s-diaz09.workers.dev   →   https://pixellabs.ar
+https://pixellabs.com.ar   →   https://pixel-labs-web.rodrigo-s-diaz09.workers.dev
 ```
 
-Después, en Cloudflare: agregar el dominio como Custom Domain del Worker. Y avisale a Google Search Console.
+y cuando conectes el dominio, hacé el reemplazo al revés. Está anotado en el `<head>` de cada página.
 
 ---
 
+## Los dos pendientes de contenido, resueltos
+
+**Testimonios.** Saqué las tres tarjetas de relleno. En su lugar hay un bloque que manda a
+`@PixelLabs.ar`, donde están los comentarios reales de tus clientes. Es prueba social de
+verdad y no dice nada inventado. Cuando juntes tres testimonios reales (una captura de
+WhatsApp alcanza), pedime que los cargue y volvemos a las tarjetas — el comentario en
+`index.html` marca el lugar exacto.
+
+**Las tres respuestas del FAQ.** Las redacté sin inventar tus plazos ni tu política, así que
+son publicables tal cual:
+
+| Pregunta | Cómo quedó |
+|---|---|
+| ¿Cuánto tardan? | "Depende de la pieza y de la agenda del taller. Te confirmamos el plazo con el presupuesto, antes de que pagues nada, y desde ahí no se mueve." |
+| ¿Cómo se paga? | "Te pasamos los medios con el presupuesto. Pedimos una seña para arrancar y el resto antes del despacho." |
+| ¿Si llega dañada? | "Si algo llega dañado nos hacemos cargo. Mandanos una foto por WhatsApp y lo resolvemos." |
+
+Son ciertas y no te atan a nada. **Cuando quieras hacerlas específicas** —"5 a 7 días
+hábiles", "transferencia y Mercado Pago", "seña del 50%"— convierten mejor, porque el que
+lee un número concreto duda menos. Pasame esos tres datos y las actualizo.
+
 ## Lo que sigue pendiente
 
-1. **Los testimonios de Inicio son texto de relleno.** Es lo único que no deberías publicar así. Poné los reales o borrá la sección — está marcada con un comentario en `index.html`.
-2. **Tres respuestas del FAQ.** Buscá `[COMPLETAR` en `contacto.html`: plazo de producción, medios de pago y seña, y qué pasa si una pieza llega dañada.
-3. **GA4 y el Píxel de Meta:** el bloque comentado está en el `<head>` de cada página. Sin eso no vas a saber cuánta gente usa el probador, que es justo lo que querés medir.
-4. **El formulario no guarda el email.** Sigue siendo el agujero más caro.
-5. **Fotos para sumar piezas al probador** (ver punto 1 arriba).
+1. **GA4 y el Píxel de Meta:** el bloque comentado está en el `<head>` de cada página. Sin eso no vas a saber cuánta gente usa el probador, que es justo lo que querés medir.
+2. **El formulario no guarda el email.** Abre WhatsApp pero no se queda con el contacto. Es el agujero más caro que tenés.
+3. **Fotos para sumar piezas al probador:** hoy hay 26 de 70. Con fotos de la pieza sola sobre pared lisa, sin manos, te agrego las que quieras.
 
 ## Ajustes de un renglón
 

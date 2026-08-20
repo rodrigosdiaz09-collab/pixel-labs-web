@@ -8,12 +8,16 @@
 <meta name="keywords" content="grabado láser San Vicente, corte láser Buenos Aires, cuadros personalizados, souvenirs para eventos, retrato de mascota, cartelería láser, regalos corporativos">
 <meta name="theme-color" content="#0D0D0D">
 <!-- ===== DOMINIO =====
-     Hoy apunta a workers.dev, que es donde el sitio vive de verdad.
-     Cuando conectes pixellabs.ar: buscá y reemplazá en los 6 HTML
-       https://pixel-labs-web.rodrigo-s-diaz09.workers.dev   ->   https://pixellabs.ar
-     y hacé lo mismo en sitemap.xml y robots.txt. Es un buscar-y-reemplazar y nada más. -->
-<link rel="canonical" href="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/">
-<meta property="og:url" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/">
+     Estas URLs apuntan a https://pixellabs.com.ar
+     ORDEN IMPORTANTE al publicar:
+       1) conectá pixellabs.com.ar como Custom Domain del Worker en Cloudflare
+       2) recién ahí hacé el deploy
+     Si deployás antes de conectar el dominio, Google va a leer un canonical
+     que todavía no resuelve. Si necesitás publicar ya y conectar el dominio
+     después, reemplazá en los 7 HTML + sitemap.xml + robots.txt:
+       https://pixellabs.com.ar  ->  https://pixel-labs-web.rodrigo-s-diaz09.workers.dev -->
+<link rel="canonical" href="https://pixellabs.com.ar/">
+<meta property="og:url" content="https://pixellabs.com.ar/">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -21,7 +25,7 @@
 <meta property="og:description" content="Grabado y corte láser en madera, acrílico y cuero. Cuadros, retratos de mascotas y souvenirs. Probá la pieza en tu pared antes de encargarla. Envíos a todo el país.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
-<meta property="og:image" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/favicon-512.png">
+<meta property="og:image" content="https://pixellabs.com.ar/favicon-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +47,7 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Pixel Labs",
-  "image": "https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/favicon-512.png",
+  "image": "https://pixellabs.com.ar/favicon-512.png",
   "description": "Estudio de grabado y corte láser en madera, acrílico y cuero. Cuadros, souvenirs, cartelería y regalos personalizados, con envíos a todo el país.",
   "address": {"@type": "PostalAddress", "addressLocality": "San Vicente", "addressRegion": "Buenos Aires", "addressCountry": "AR"},
   "areaServed": "AR",
@@ -384,33 +388,22 @@
 <div class="hr-divider"></div>
 
 <!-- ==========================================================================
-     TESTIMONIOS — ⚠️ CONTENIDO DE RELLENO, NO PUBLICAR ASÍ.
-     Reemplazá cada texto por lo que te escribieron clientes reales
-     (una captura de WhatsApp alcanza). Cambiá también nombre e inicial.
-     Si todavía no tenés ninguno, borrá esta sección entera hasta juntarlos.
+     PRUEBA SOCIAL — Cuando tengas 3 testimonios reales de clientes
+     (una captura de WhatsApp alcanza), pedime que los cargue acá en
+     lugar de este bloque. Mientras tanto esto manda a Instagram, que
+     es prueba social de verdad y no texto inventado.
      ========================================================================== -->
-<section aria-labelledby="t-quotes">
+<section aria-labelledby="t-ig">
   <div class="section-head" data-reveal>
-    <p class="eyebrow">Lo que dicen</p>
-    <h2 id="t-quotes" data-engrave>La parte que no escribimos nosotros</h2>
+    <p class="eyebrow">La parte que no escribimos nosotros</p>
+    <h2 id="t-ig" data-engrave>Mirá lo que sale del taller</h2>
+    <p class="lede">Subimos cada pieza terminada a Instagram, con la historia de para quién era. Ahí vas a encontrar los comentarios de la gente que ya recibió la suya, que valen más que cualquier cosa que podamos escribir en esta página.</p>
   </div>
-  <div class="quotes">
-    <article class="quote" data-reveal>
-      <div class="quote-stars" aria-label="5 de 5">★★★★★</div>
-      <p>[Reemplazá este texto por el testimonio real de tu cliente.]</p>
-      <footer><span class="quote-av" aria-hidden="true">–</span><cite>Nombre del cliente<span>Localidad</span></cite></footer>
-    </article>
-    <article class="quote" data-reveal style="--d:90ms">
-      <div class="quote-stars" aria-label="5 de 5">★★★★★</div>
-      <p>[Reemplazá este texto por el testimonio real de tu cliente.]</p>
-      <footer><span class="quote-av" aria-hidden="true">–</span><cite>Nombre del cliente<span>Localidad</span></cite></footer>
-    </article>
-    <article class="quote" data-reveal style="--d:180ms">
-      <div class="quote-stars" aria-label="5 de 5">★★★★★</div>
-      <p>[Reemplazá este texto por el testimonio real de tu cliente.]</p>
-      <footer><span class="quote-av" aria-hidden="true">–</span><cite>Nombre del cliente<span>Localidad</span></cite></footer>
-    </article>
+  <div class="hero-actions" data-reveal>
+    <a href="https://instagram.com/PixelLabs.ar" target="_blank" rel="noopener" class="btn btn-solid spark-hover">Ver @PixelLabs.ar</a>
+    <a href="productos.html#probador" class="btn spark-hover">Probar una pieza en mi pared</a>
   </div>
+  <p class="hero-joke" data-reveal>Spoiler: hay muchas fotos de perros. No pedimos disculpas.</p>
 </section>
 
 <section class="cta-final">

@@ -8,12 +8,16 @@
 <meta name="keywords" content="Pixel Labs, error 404">
 <meta name="theme-color" content="#0D0D0D">
 <!-- ===== DOMINIO =====
-     Hoy apunta a workers.dev, que es donde el sitio vive de verdad.
-     Cuando conectes pixellabs.ar: buscá y reemplazá en los 6 HTML
-       https://pixel-labs-web.rodrigo-s-diaz09.workers.dev   ->   https://pixellabs.ar
-     y hacé lo mismo en sitemap.xml y robots.txt. Es un buscar-y-reemplazar y nada más. -->
-<link rel="canonical" href="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/404">
-<meta property="og:url" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/404">
+     Estas URLs apuntan a https://pixellabs.com.ar
+     ORDEN IMPORTANTE al publicar:
+       1) conectá pixellabs.com.ar como Custom Domain del Worker en Cloudflare
+       2) recién ahí hacé el deploy
+     Si deployás antes de conectar el dominio, Google va a leer un canonical
+     que todavía no resuelve. Si necesitás publicar ya y conectar el dominio
+     después, reemplazá en los 7 HTML + sitemap.xml + robots.txt:
+       https://pixellabs.com.ar  ->  https://pixel-labs-web.rodrigo-s-diaz09.workers.dev -->
+<link rel="canonical" href="https://pixellabs.com.ar/404">
+<meta property="og:url" content="https://pixellabs.com.ar/404">
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -21,7 +25,7 @@
 <meta property="og:description" content="La página que buscabas no existe. Volvé al catálogo de Pixel Labs: cuadros, souvenirs y cartelería en corte láser.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
-<meta property="og:image" content="https://pixel-labs-web.rodrigo-s-diaz09.workers.dev/favicon-512.png">
+<meta property="og:image" content="https://pixellabs.com.ar/favicon-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
