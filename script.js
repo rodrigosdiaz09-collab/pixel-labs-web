@@ -351,7 +351,13 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos),
         keepalive: true
-      }).then(function (r) { return r.ok; }).catch(function () { return false; });
+      }).then(function (r) {
+        // Ojo: que responda 200 no significa que haya guardado. Si el campo
+        // trampa venía lleno, el servidor contesta ok pero con guardado:false.
+        // Hay que mirar ese dato, si no mostramos un éxito que no ocurrió.
+        return r.json().then(function (j) { return !!(j && j.guardado); })
+                       .catch(function () { return false; });
+      }).catch(function () { return false; });
     } catch (err) {
       return Promise.resolve(false);
     }
@@ -395,7 +401,7 @@
         tipo:    d.get('tipo')    || '',
         medida:  d.get('medida')  || '',
         mensaje: d.get('mensaje') || '',
-        web:     d.get('web')     || '',
+        pl_ref:  d.get('pl_ref')  || '',
         origen:  'formulario'
       });
 
@@ -434,7 +440,7 @@
       guardarContacto({
         email:   d.get('email') || '',
         mensaje: d.get('cuando') || '',
-        web:     d.get('web') || '',
+        pl_ref:  d.get('pl_ref') || '',
         origen:  'novedades'
       }).then(function (ok) {
         if (btn) { btn.disabled = false; btn.textContent = 'Avisame'; }

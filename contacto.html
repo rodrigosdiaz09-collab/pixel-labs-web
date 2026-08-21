@@ -280,11 +280,14 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
 
 <section class="contact-grid">
   <form id="contactForm" data-reveal="left">
-    <!-- Campo trampa: no se ve ni se puede tabular. Los robots lo completan
-         igual, y así el servidor los descarta sin molestar a nadie. -->
+    <!-- Campo trampa: invisible y no tabulable. Los robots lo completan y así
+         el servidor los descarta. OJO con el nombre: no puede ser "web", "url",
+         "email" ni nada que el navegador reconozca, porque lo autocompleta solo
+         y terminaría descartando personas reales. -->
     <div class="trampa" aria-hidden="true">
-      <label for="web">No completar</label>
-      <input type="text" id="web" name="web" tabindex="-1" autocomplete="off">
+      <label for="plRef">No completar</label>
+      <input type="text" id="plRef" name="pl_ref" tabindex="-1"
+             autocomplete="off" data-lpignore="true" data-1p-ignore data-form-type="other">
     </div>
     <div class="form-field">
       <label for="nombre">Cómo te llamás</label>
@@ -398,8 +401,9 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
   </div>
   <form id="novedadesForm" class="avisame-form" data-reveal>
     <div class="trampa" aria-hidden="true">
-      <label for="web2">No completar</label>
-      <input type="text" id="web2" name="web" tabindex="-1" autocomplete="off">
+      <label for="plRef2">No completar</label>
+      <input type="text" id="plRef2" name="pl_ref" tabindex="-1"
+             autocomplete="off" data-lpignore="true" data-1p-ignore data-form-type="other">
     </div>
     <div class="avisame-fila">
       <div class="form-field">

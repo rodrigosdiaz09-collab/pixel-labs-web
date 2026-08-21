@@ -81,7 +81,12 @@ async function guardarLead(request, env) {
 
   // Campo trampa: es invisible en la página, así que si viene lleno
   // lo completó un robot. Respondemos ok para que no siga probando.
-  if (limpiar(body.web, 100)) return json({ ok: true, guardado: false });
+  //
+  // Se mira SOLO "pl_ref". Antes se llamaba "web", y ese nombre lo
+  // autocompletaban los navegadores solos: se descartaban consultas de
+  // personas reales sin que nadie se enterara. Si alguna vez cambiás este
+  // nombre, que no se parezca a un campo de verdad (web, url, email, tel...).
+  if (limpiar(body.pl_ref, 100)) return json({ ok: true, guardado: false });
 
   const email = limpiar(body.email, MAX.email).toLowerCase();
   if (!emailValido(email)) return json({ ok: false, error: 'email' }, 400);

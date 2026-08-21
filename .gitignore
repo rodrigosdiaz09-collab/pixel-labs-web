@@ -9,6 +9,7 @@ node_modules/
 
 # Ayudantes de instalación: sirven una vez y no hacen falta en el repositorio
 arreglar.mjs
+poner-al-dia.mjs
 archivos/
 LEEME-PRIMERO.txt
 wrangler.jsonc.respaldo
