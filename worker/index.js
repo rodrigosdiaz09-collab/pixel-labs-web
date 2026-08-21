@@ -12,11 +12,47 @@
 
 const MAX = { nombre: 120, email: 160, tipo: 80, medida: 80, mensaje: 2000, origen: 40 };
 
-function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
+// Tamaño máximo del pedido entero. El formulario más largo posible no llega
+// ni a 3 KB; 16 KB deja aire de sobra. Sin esto, alguien puede mandar 10 MB
+// de basura y hacernos gastar tiempo y plata en procesarla.
+const MAX_CUERPO = 16 * 1024;
+
+// De dónde se acepta que venga un envío del formulario.
+const ORIGENES = [
+  'https://pixellabs.com.ar',
+  'https://www.pixellabs.com.ar',
+];
+
+// Cuántos envíos y cuántos intentos de clave se permiten por IP.
+const TOPE = {
+  lead:  { veces: 8,  minutos: 10 },   // 8 consultas cada 10 min por IP
+  panel: { veces: 10, minutos: 15 },   // 10 claves erradas cada 15 min por IP
+};
+
+function json(data, status = 200, extra) {
+  return conSeguridad(new Response(JSON.stringify(data), {
     status,
-    headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
-  });
+    headers: Object.assign({ 'content-type': 'application/json; charset=utf-8' }, extra || {}),
+  }));
+}
+
+// Cabeceras de seguridad para TODO lo que genera este archivo.
+// Ojo: el archivo `_headers` sólo se aplica a los archivos estáticos (las
+// páginas, el css, las imágenes). Las respuestas que arma el worker —el
+// panel y la API— no pasan por ahí, así que hay que ponérselas acá.
+const SEGURIDAD = {
+  'x-content-type-options': 'nosniff',
+  'x-frame-options': 'DENY',            // que nadie meta el panel en un iframe
+  'referrer-policy': 'no-referrer',
+  'x-robots-tag': 'noindex, nofollow, noarchive',
+  'cache-control': 'no-store',
+};
+
+function conSeguridad(resp, extra) {
+  const h = new Headers(resp.headers);
+  for (const [k, v] of Object.entries(SEGURIDAD)) h.set(k, v);
+  if (extra) for (const [k, v] of Object.entries(extra)) h.set(k, v);
+  return new Response(resp.body, { status: resp.status, headers: h });
 }
 
 function limpiar(v, max) {
@@ -41,13 +77,13 @@ function igualSeguro(a, b) {
 }
 
 function pedirClave() {
-  return new Response('Necesitás la clave para ver esto.', {
+  return conSeguridad(new Response('Necesitás la clave para ver esto.', {
     status: 401,
     headers: {
       'WWW-Authenticate': 'Basic realm="Panel Pixel Labs", charset="UTF-8"',
       'content-type': 'text/plain; charset=utf-8',
     },
-  });
+  }));
 }
 
 function autorizado(request, env) {
@@ -65,17 +101,169 @@ const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+/**
+ * Deja una celda del CSV inofensiva para Excel.
+ *
+ * Excel y Google Sheets tratan como FÓRMULA a todo lo que arranca con
+ * = + - @ (o con un tabulador). Si alguien completa el formulario poniéndose
+ * de nombre  =HYPERLINK("http://sitio-falso","Actualizá tu cuenta")  o algo
+ * peor, la fórmula no ataca a la web: se ejecuta en TU computadora, el día
+ * que abrís el archivo de contactos.
+ *
+ * Poniéndole una comilla simple adelante, Excel lo muestra como texto y no
+ * lo evalúa. La comilla no se ve al abrir la planilla.
+ */
+function neutralizar(v) {
+  const s = String(v == null ? '' : v);
+  return /^[=+\-@\t\r]/.test(s) ? "'" + s : s;
+}
+
+/**
+ * Portero del panel. Devuelve una respuesta si hay que cortar, o null si
+ * puede pasar. Sólo cuentan los intentos FALLIDOS: entrar bien mil veces
+ * no te bloquea, errarle diez seguidas sí.
+ */
+async function guardiaPanel(request, env) {
+  if (autorizado(request, env)) return null;
+
+  // Sólo cuentan los pedidos que TRAJERON una clave y le erraron.
+  // Un pedido sin clave es el primer paso normal de cualquier visita al
+  // panel (el navegador pregunta, recién ahí mandás la clave). Si eso
+  // contara, te bloquearías vos solo abriendo el panel varias veces.
+  if (!request.headers.get('Authorization')) return pedirClave();
+
+  const puede = await pasaElFreno(env, request, 'panel');
+  if (!puede) {
+    return conSeguridad(new Response(
+      'Demasiados intentos. Esperá unos minutos.',
+      { status: 429, headers: { 'content-type': 'text/plain; charset=utf-8',
+                                'retry-after': String(TOPE.panel.minutos * 60) } }));
+  }
+  return pedirClave();
+}
+
+// ------------------------------------------------------- freno por IP
+//
+// Tabla chiquita de control. Se crea sola la primera vez que hace falta,
+// así no hay que correr ningún comando a mano.
+const SQL_FRENO = `CREATE TABLE IF NOT EXISTS frenos (
+  clave  TEXT NOT NULL,
+  cuando TEXT NOT NULL
+)`;
+const SQL_FRENO_IDX = 'CREATE INDEX IF NOT EXISTS idx_frenos ON frenos (clave, cuando)';
+
+function ipDe(request) {
+  // Cloudflare siempre pone la IP real acá y no se puede falsear desde afuera:
+  // la reescribe en el borde, pisando lo que haya mandado el cliente.
+  return request.headers.get('CF-Connecting-IP') || 'desconocida';
+}
+
+// No guardamos la IP en claro: es un dato personal y no lo necesitamos.
+// Con el hash alcanza para contar cuántas veces vino el mismo.
+async function huella(request, etiqueta) {
+  const datos = new TextEncoder().encode(etiqueta + '|' + ipDe(request));
+  const h = await crypto.subtle.digest('SHA-256', datos);
+  return [...new Uint8Array(h)].slice(0, 12)
+    .map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+/**
+ * Devuelve true si hay que frenar. Cuenta los intentos de esa IP en la
+ * ventana de tiempo y anota el actual.
+ *
+ * Si la base falla por lo que sea, NO frena: prefiero dejar entrar una
+ * consulta de más antes que perder la de un cliente real.
+ */
+async function pasaElFreno(env, request, tipo) {
+  const cfg = TOPE[tipo];
+  if (!env.DB || !cfg) return true;
+  const clave = await huella(request, tipo);
+  const desde = `datetime('now','-${cfg.minutos} minutes')`;
+  try {
+    const contar = () => env.DB.prepare(
+      `SELECT COUNT(*) AS n FROM frenos WHERE clave = ? AND cuando > ${desde}`
+    ).bind(clave).first();
+
+    let fila;
+    try {
+      fila = await contar();
+    } catch {
+      // Primera vez: todavía no existe la tabla. La creamos y seguimos.
+      await env.DB.prepare(SQL_FRENO).run();
+      await env.DB.prepare(SQL_FRENO_IDX).run();
+      fila = await contar();
+    }
+
+    if (fila && fila.n >= cfg.veces) return false;
+
+    await env.DB.prepare("INSERT INTO frenos (clave, cuando) VALUES (?, datetime('now'))")
+      .bind(clave).run();
+
+    // Limpieza barata: de vez en cuando borra lo viejo para que la tabla no
+    // crezca para siempre. No hace falta que sea exacto.
+    if (!fila || fila.n === 0) {
+      await env.DB.prepare("DELETE FROM frenos WHERE cuando < datetime('now','-1 day')").run();
+    }
+    return true;
+  } catch (e) {
+    console.error('freno', tipo, e && e.message);
+    return true;
+  }
+}
+
+// ¿El envío viene de nuestro propio sitio?
+// Los navegadores mandan Origin en todo POST entre sitios, así que esto corta
+// a cualquiera que arme un formulario en otra página apuntando al nuestro.
+// Si no viene ninguno de los dos datos (navegador raro, alguna extensión),
+// se deja pasar: perder una consulta real es peor que aceptar una dudosa.
+function origenPropio(request) {
+  // Además del dominio real, se acepta la dirección por la que entró este
+  // mismo pedido. Así sigue andando en la dirección de prueba de Cloudflare
+  // (…workers.dev) y en las vistas previas, sin tener que anotarlas acá.
+  let propia = null;
+  try { propia = new URL(request.url).origin; } catch { /* nada */ }
+  const vale = (x) => x === propia || ORIGENES.includes(x);
+
+  const o = request.headers.get('Origin');
+  if (o) return vale(o);
+  const r = request.headers.get('Referer');
+  if (r) { try { return vale(new URL(r).origin); } catch { return false; } }
+  return true;
+}
+
 // ---------------------------------------------------------------- guardar
 async function guardarLead(request, env) {
   if (request.method !== 'POST') return json({ ok: false, error: 'metodo' }, 405);
 
+  if (!origenPropio(request)) return json({ ok: false, error: 'origen' }, 403);
+
+  const largo = Number(request.headers.get('content-length') || 0);
+  if (largo > MAX_CUERPO) return json({ ok: false, error: 'muy largo' }, 413);
+
+  if (!(await pasaElFreno(env, request, 'lead'))) {
+    return json(
+      { ok: false, error: 'demasiados', mensaje: 'Recibimos varias consultas tuyas recién. Probá de nuevo en unos minutos o escribinos por WhatsApp.' },
+      429, { 'retry-after': String(TOPE.lead.minutos * 60) });
+  }
+
   let body;
   try {
     const ct = request.headers.get('content-type') || '';
-    body = ct.includes('application/json')
-      ? await request.json()
-      : Object.fromEntries(await request.formData());
+    // No alcanza con content-length: puede venir sin declarar. Leemos como
+    // texto con un tope duro antes de intentar interpretarlo.
+    const crudo = await request.text();
+    if (crudo.length > MAX_CUERPO) return json({ ok: false, error: 'muy largo' }, 413);
+    if (ct.includes('application/json')) {
+      body = JSON.parse(crudo);
+    } else if (ct.includes('multipart/form-data')) {
+      body = Object.fromEntries(await new Response(crudo, { headers: { 'content-type': ct } }).formData());
+    } else {
+      body = Object.fromEntries(new URLSearchParams(crudo));
+    }
   } catch {
+    return json({ ok: false, error: 'formato' }, 400);
+  }
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
     return json({ ok: false, error: 'formato' }, 400);
   }
 
@@ -108,7 +296,12 @@ async function guardarLead(request, env) {
        VALUES (?, ?, ?, ?, ?, ?, datetime('now'))`
     ).bind(lead.nombre, lead.email, lead.tipo, lead.medida, lead.mensaje, lead.origen).run();
   } catch (e) {
-    return json({ ok: false, error: 'base', detalle: String(e && e.message || e) }, 500);
+    // El detalle va al registro de Cloudflare (Workers → Logs), no a la
+    // respuesta. Antes se lo mandábamos al visitante: eso le contaba a
+    // cualquiera cómo está armada la tabla, que es justo lo que necesita
+    // alguien para atacarla.
+    console.error('INSERT lead falló:', e && e.message || e);
+    return json({ ok: false, error: 'base' }, 500);
   }
 
   return json({ ok: true, guardado: true });
@@ -116,7 +309,12 @@ async function guardarLead(request, env) {
 
 // ---------------------------------------------------------------- panel
 async function verPanel(request, env) {
-  if (!autorizado(request, env)) return pedirClave();
+  const paso = await guardiaPanel(request, env);
+  if (paso) return paso;
+
+  // Permiso de un solo uso para el <style> y el <script> de esta página.
+  // Cambia en cada visita, así que no sirve copiarlo.
+  const nonce = crypto.randomUUID().replace(/-/g, '');
 
   const { results } = await env.DB.prepare(
     `SELECT id, nombre, email, tipo, medida, mensaje, origen, creado
@@ -141,7 +339,7 @@ async function verPanel(request, env) {
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Contactos · Pixel Labs</title>
-<style>
+<style nonce="${nonce}">
   :root { --bg:#0D0D0D; --pan:#16150F; --ln:#3A3428; --ink:#F4EFE4; --sf:#A79A82; --or:#C9A24B; }
   * { box-sizing:border-box; }
   body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,-apple-system,sans-serif; padding:22px; }
@@ -184,7 +382,7 @@ ${filas ? `<div class="caja"><table>
   <thead><tr><th>Fecha</th><th>Nombre</th><th>Email</th><th>Necesita</th><th>Medida</th><th>Mensaje</th><th>Origen</th></tr></thead>
   <tbody id="cuerpo">${filas}</tbody></table></div>`
         : `<p class="nada">Todavía no entró ninguna consulta. Cuando alguien complete el formulario del sitio, aparece acá.</p>`}
-<script>
+<script nonce="${nonce}">
   var q = document.getElementById('q');
   if (q) q.addEventListener('input', function () {
     var t = this.value.toLowerCase();
@@ -195,33 +393,43 @@ ${filas ? `<div class="caja"><table>
 </script>
 </body></html>`;
 
-  return new Response(html, {
-    headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store',
-               'x-robots-tag': 'noindex, nofollow' },
-  });
+  return conSeguridad(new Response(html, {
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
+      // El panel no carga NADA de afuera: ni imágenes, ni tipografías, ni
+      // scripts. Y el único bloque de código que hay lleva un permiso de un
+      // solo uso (el "nonce", distinto en cada visita). Si algún día se
+      // colara un <script> dentro del texto de un contacto, no tendría ese
+      // permiso y el navegador no lo ejecutaría.
+      'content-security-policy':
+        "default-src 'none'; " +
+        "style-src 'nonce-" + nonce + "'; script-src 'nonce-" + nonce + "'; " +
+        "form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
+    },
+  }));
 }
 
 // ---------------------------------------------------------------- csv
 async function exportarCsv(request, env) {
-  if (!autorizado(request, env)) return pedirClave();
+  const paso = await guardiaPanel(request, env);
+  if (paso) return paso;
 
   const { results } = await env.DB.prepare(
     `SELECT creado, nombre, email, tipo, medida, mensaje, origen FROM leads ORDER BY id DESC`
   ).all();
 
   // Excel en español abre bien el punto y coma. El BOM evita que rompa los acentos.
-  const celda = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+  const celda = (v) => '"' + neutralizar(v).replace(/"/g, '""') + '"';
   const filas = [['Fecha', 'Nombre', 'Email', 'Necesita', 'Medida', 'Mensaje', 'Origen']]
     .concat((results || []).map((r) => [r.creado, r.nombre, r.email, r.tipo, r.medida, r.mensaje, r.origen]))
     .map((f) => f.map(celda).join(';')).join('\r\n');
 
-  return new Response('﻿' + filas, {
+  return conSeguridad(new Response('﻿' + filas, {
     headers: {
       'content-type': 'text/csv; charset=utf-8',
       'content-disposition': 'attachment; filename="contactos-pixel-labs.csv"',
-      'cache-control': 'no-store',
     },
-  });
+  }));
 }
 
 // ---------------------------------------------------------------- ruteo
@@ -229,11 +437,29 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (url.pathname === '/api/lead')       return guardarLead(request, env);
-    if (url.pathname === '/panel')          return verPanel(request, env);
-    if (url.pathname === '/panel/lista.csv') return exportarCsv(request, env);
+    try {
+      if (url.pathname === '/api/lead') return guardarLead(request, env);
 
-    // El resto lo sirve el sitio estático de siempre.
-    return env.ASSETS.fetch(request);
+      // El panel sólo se mira. Nada de POST, PUT ni DELETE contra él.
+      if (url.pathname === '/panel' || url.pathname === '/panel/lista.csv') {
+        if (request.method !== 'GET' && request.method !== 'HEAD') {
+          return conSeguridad(new Response('Método no permitido', {
+            status: 405, headers: { 'allow': 'GET, HEAD', 'content-type': 'text/plain; charset=utf-8' },
+          }));
+        }
+        return url.pathname === '/panel' ? verPanel(request, env) : exportarCsv(request, env);
+      }
+
+      // El resto lo sirve el sitio estático de siempre.
+      return env.ASSETS.fetch(request);
+    } catch (e) {
+      // Red de seguridad: si algo explota, el detalle va al registro de
+      // Cloudflare, nunca a la pantalla del visitante. Un stack trace le
+      // dice a un atacante qué versión y qué estructura tenemos.
+      console.error('error no previsto en', url.pathname, e && e.stack || e);
+      return conSeguridad(new Response('Algo falló de nuestro lado.', {
+        status: 500, headers: { 'content-type': 'text/plain; charset=utf-8' },
+      }));
+    }
   },
 };

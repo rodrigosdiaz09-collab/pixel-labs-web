@@ -434,7 +434,13 @@
   // "keepalive" es la parte importante: hace que el pedido llegue igual
   // aunque el navegador se vaya a WhatsApp en el mismo instante.
   // ---------------------------------------------------------
+  // Devuelve siempre { guardado: true/false, motivo: texto o null }.
+  // El "motivo" es un mensaje ya escrito para mostrarle a la persona cuando
+  // el servidor frenó el envío a propósito (por ejemplo, si mandó muchas
+  // consultas seguidas). Para cualquier otra falla vuelve en null y se usa
+  // el texto genérico de siempre.
   function guardarContacto(datos) {
+    var falla = { guardado: false, motivo: null };
     try {
       return fetch('/api/lead', {
         method: 'POST',
@@ -445,11 +451,15 @@
         // Ojo: que responda 200 no significa que haya guardado. Si el campo
         // trampa venía lleno, el servidor contesta ok pero con guardado:false.
         // Hay que mirar ese dato, si no mostramos un éxito que no ocurrió.
-        return r.json().then(function (j) { return !!(j && j.guardado); })
-                       .catch(function () { return false; });
-      }).catch(function () { return false; });
+        return r.json().then(function (j) {
+          return {
+            guardado: !!(j && j.guardado),
+            motivo: (j && typeof j.mensaje === 'string') ? j.mensaje : null
+          };
+        }).catch(function () { return falla; });
+      }).catch(function () { return falla; });
     } catch (err) {
-      return Promise.resolve(false);
+      return Promise.resolve(falla);
     }
   }
 
@@ -508,10 +518,11 @@
       // 3) El aviso arranca neutro y se ajusta cuando sabemos si se guardó.
       //    Así nunca prometemos algo que no pasó.
       avisar(contactForm, 'Se abre WhatsApp con todo escrito.');
-      guardando.then(function (ok) {
-        avisar(contactForm, ok
+      guardando.then(function (res) {
+        avisar(contactForm, res.guardado
           ? 'Listo. Te guardamos la consulta, así que te escribimos aunque se te cierre WhatsApp.'
-          : 'Se abre WhatsApp con todo escrito. Mandá el mensaje para que nos llegue.');
+          : (res.motivo
+             || 'Se abre WhatsApp con todo escrito. Mandá el mensaje para que nos llegue.'));
       });
     });
   }
@@ -533,9 +544,9 @@
         mensaje: d.get('cuando') || '',
         pl_ref:  d.get('pl_ref') || '',
         origen:  'novedades'
-      }).then(function (ok) {
+      }).then(function (res) {
         if (btn) { btn.disabled = false; btn.textContent = 'Avisame'; }
-        if (ok) {
+        if (res.guardado) {
           track('novedades_alta', { pagina: document.title });
           novForm.reset();
           avisar(novForm, 'Anotado. Te escribimos cuando haya novedades, sin llenarte la casilla.');
@@ -543,7 +554,7 @@
           // Puede pasar si todavía no está conectada la base o si se cortó
           // internet. En vez de dejarlo en la nada, le damos la vía directa.
           avisar(novForm,
-            'No pudimos anotarte desde acá.', true,
+            res.motivo || 'No pudimos anotarte desde acá.', true,
             '¡Hola Pixel Labs! Quiero que me avisen cuando haya novedades. Mi mail es: ' +
             (d.get('email') || '') + '. Lo mío es para: ' + (d.get('cuando') || 'más adelante'));
         }

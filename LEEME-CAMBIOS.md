@@ -1,5 +1,29 @@
 # Pixel Labs — qué cambió en esta tanda
 
+## 0. Seguridad de la base de contactos
+
+Cerré 7 agujeros. El detalle completo está en **`LEEME-CONTACTOS.md`**, al
+final. El resumen:
+
+1. **El CSV podía ejecutar fórmulas de Excel.** Era el peor de todos, y no
+   atacaba a la web: te atacaba a vos, cuando abrías el archivo de contactos.
+2. **Tope de 8 consultas cada 10 minutos** por persona. Antes te podían
+   inundar la base.
+3. **Tope de 10 claves erradas cada 15 minutos** en el panel. Antes se podían
+   probar contraseñas toda la noche.
+4. El formulario ahora **sólo acepta envíos desde tu sitio**.
+5. Los errores de la base **ya no le cuentan al visitante** cómo está armada.
+6. **Tope de 16 KB** por envío.
+7. El panel **tenía cero cabeceras de seguridad** — el archivo `_headers` sólo
+   cubre los archivos estáticos, no lo que genera el worker.
+
+**Para vos no cambia nada y no tenés que correr ningún comando.** La tabla que
+necesitan los topes 2 y 3 se crea sola la primera vez.
+
+Sí quedan **3 cosas que sólo podés hacer vos** (contraseña larga, Bot Fight
+Mode y bajar el CSV de vez en cuando): están explicadas al final de
+`LEEME-CONTACTOS.md`.
+
 ## 1. Productos: las categorías van primero
 
 Antes, al entrar a Productos había que bajar **3 pantallas y media** para
@@ -72,7 +96,7 @@ VS Code en la carpeta del sitio y pegá esto, **una línea por vez**:
 git fetch origin
 git reset origin/main
 git add -A
-git commit -m "categorias primero y precio en el probador"
+git commit -m "seguridad de la base, categorias primero y precio en el probador"
 git push
 ```
 
@@ -95,7 +119,10 @@ En 1 o 2 minutos Cloudflare termina de publicar y el cambio está en
 - El link de WhatsApp lleva el precio adentro del mensaje.
 - Las 7 páginas cargan sin errores de JavaScript, sin scroll horizontal y sin
   imágenes rotas, a 390 px y a 1440 px.
-- Las 28 pruebas del formulario de contacto y del panel siguen pasando.
+- **55 pruebas del servidor** (eran 28): las de siempre más 27 nuevas, una por
+  cada agujero cerrado. Incluyen que el freno no te bloquee a vos, que quien
+  se pase igual reciba el link de WhatsApp, y que las fórmulas del CSV queden
+  neutralizadas.
 - Los botones de medida siguen midiendo más de 44 px (se tocan bien con el dedo).
 - El bloque de precio anuncia el cambio a los lectores de pantalla
   (`aria-live`), así que una persona ciega también se entera del precio nuevo.
