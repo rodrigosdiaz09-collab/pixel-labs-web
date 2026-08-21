@@ -310,6 +310,98 @@
   }
 
   // ---------------------------------------------------------
+<<<<<<< HEAD
+  // PRODUCTOS — portada de categorías y filtro
+  //
+  // La página tiene dos estados:
+  //   "portada"   → se ven las 7 fichas, ninguna categoría.
+  //   "categoría" → se ve una sola categoría y la barra pegada arriba.
+  // Sin JavaScript no pasa nada de esto y se ven todas las secciones
+  // seguidas, como antes: el contenido siempre está en el HTML.
+  // ---------------------------------------------------------
+  var catButtons = $$('.cat-tabs button');
+  var catSections = $$('[data-section]');
+  var catPortada = $('#catPortada');
+  var catBarra = $('#catBarra');
+  var catVolver = $('#catVolver');
+
+  function mostrarCategoria(cat, irAlPrincipio) {
+    if (catPortada) catPortada.hidden = (cat !== null);
+    if (catBarra) catBarra.hidden = (cat === null);
+
+    catSections.forEach(function (s) {
+      s.style.display = (cat === null) ? 'none'
+                      : (cat === 'Todos' || s.dataset.section === cat) ? '' : 'none';
+    });
+    catButtons.forEach(function (b) {
+      b.classList.toggle('active', cat !== null && b.dataset.cat === cat);
+    });
+
+    // Que el contenido nuevo quede visible: los reveals que ya pasaron de
+    // largo nunca se disparan, y la pieza quedaría invisible.
+    if (cat !== null) {
+      catSections.forEach(function (s) {
+        if (s.style.display === 'none') return;
+        $$('[data-reveal]', s).forEach(function (e) { e.classList.add('is-in'); });
+        $$('.engrave', s).forEach(function (e) { e.classList.add('is-on'); });
+      });
+    }
+
+    if (irAlPrincipio && catBarra) {
+      var y = catBarra.getBoundingClientRect().top + window.pageYOffset - 70;
+      window.scrollTo({ top: Math.max(y, 0), behavior: 'smooth' });
+    }
+  }
+
+  // Las fichas de la portada
+  $$('.cat-card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      var cat = card.dataset.ir;
+      mostrarCategoria(cat, true);
+      track('filtrar_categoria', { categoria: cat, desde: 'portada' });
+    });
+  });
+
+  if (catVolver) {
+    catVolver.addEventListener('click', function () {
+      mostrarCategoria(null, false);
+      if (catPortada) {
+        var y = catPortada.getBoundingClientRect().top + window.pageYOffset - 70;
+        window.scrollTo({ top: Math.max(y, 0), behavior: 'smooth' });
+      }
+    });
+  }
+
+  // Estado inicial. Si alguien llega con una dirección tipo
+  // productos.html#mascotas (el visor y el catálogo enlazan así), se abre
+  // directo esa categoría en vez de la portada.
+  if (catPortada) {
+    var hash = (window.location.hash || '').replace('#', '').toLowerCase();
+    var destino = null;
+    if (hash) {
+      catSections.forEach(function (s) {
+        var nombre = (s.dataset.section || '').toLowerCase()
+                       .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        if (s.id === hash || nombre === hash) destino = s.dataset.section;
+      });
+    }
+    mostrarCategoria(destino, false);
+  }
+
+  catButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      catButtons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var cat = btn.dataset.cat;
+      if (catPortada) { mostrarCategoria(cat, false); }
+      catSections.forEach(function (s) {
+        s.style.display = (cat === 'Todos' || s.dataset.section === cat) ? '' : 'none';
+      });
+      track('filtrar_categoria', { categoria: cat });
+    });
+  });
+
+=======
   // PRODUCTOS — filtro por categoría
   // ---------------------------------------------------------
   var catButtons = $$('.cat-tabs button');
@@ -326,6 +418,7 @@
     });
   });
 
+>>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="wa.me"]');
     if (!a) return;
@@ -429,8 +522,14 @@
   // ---------------------------------------------------------
   // "AVISAME CUANDO..." — para el que mira pero todavía no compra
   // ---------------------------------------------------------
+<<<<<<< HEAD
+  // Hay uno por página (Productos, Ideas y Contacto), así que se recorren
+  // todos en vez de buscar un id único.
+  $$('[data-avisame]').forEach(function (novForm) {
+=======
   var novForm = $('#novedadesForm');
   if (novForm) {
+>>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
     novForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var d = new FormData(novForm);
@@ -445,7 +544,11 @@
       }).then(function (ok) {
         if (btn) { btn.disabled = false; btn.textContent = 'Avisame'; }
         if (ok) {
+<<<<<<< HEAD
+          track('novedades_alta', { pagina: document.title });
+=======
           track('novedades_alta', {});
+>>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
           novForm.reset();
           avisar(novForm, 'Anotado. Te escribimos cuando haya novedades, sin llenarte la casilla.');
         } else {
@@ -458,7 +561,11 @@
         }
       });
     });
+<<<<<<< HEAD
+  });
+=======
   }
+>>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
 
 
   // ---------------------------------------------------------
@@ -513,6 +620,17 @@
 
     var filtrar = function () {
       var q = norm(finder.value.trim());
+<<<<<<< HEAD
+
+      // Buscar atraviesa las categorías, así que hay que salir de la portada.
+      // Al borrar la búsqueda se vuelve a las fichas.
+      if (catPortada) {
+        if (q && !catPortada.hidden) mostrarCategoria('Todos', false);
+        else if (!q && catBarra && !catBarra.hidden) { mostrarCategoria(null, false); return; }
+      }
+
+=======
+>>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
       var visibles = 0;
       allItems.forEach(function (el) {
         var ok = !q || el._hay.indexOf(q) > -1;
