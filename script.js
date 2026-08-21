@@ -310,7 +310,6 @@
   }
 
   // ---------------------------------------------------------
-<<<<<<< HEAD
   // PRODUCTOS — portada de categorías y filtro
   //
   // La página tiene dos estados:
@@ -401,24 +400,6 @@
     });
   });
 
-=======
-  // PRODUCTOS — filtro por categoría
-  // ---------------------------------------------------------
-  var catButtons = $$('.cat-tabs button');
-  var catSections = $$('[data-section]');
-  catButtons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      catButtons.forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-      var cat = btn.dataset.cat;
-      catSections.forEach(function (s) {
-        s.style.display = (cat === 'Todos' || s.dataset.section === cat) ? '' : 'none';
-      });
-      track('filtrar_categoria', { categoria: cat });
-    });
-  });
-
->>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="wa.me"]');
     if (!a) return;
@@ -522,14 +503,9 @@
   // ---------------------------------------------------------
   // "AVISAME CUANDO..." — para el que mira pero todavía no compra
   // ---------------------------------------------------------
-<<<<<<< HEAD
   // Hay uno por página (Productos, Ideas y Contacto), así que se recorren
   // todos en vez de buscar un id único.
   $$('[data-avisame]').forEach(function (novForm) {
-=======
-  var novForm = $('#novedadesForm');
-  if (novForm) {
->>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
     novForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var d = new FormData(novForm);
@@ -544,11 +520,7 @@
       }).then(function (ok) {
         if (btn) { btn.disabled = false; btn.textContent = 'Avisame'; }
         if (ok) {
-<<<<<<< HEAD
           track('novedades_alta', { pagina: document.title });
-=======
-          track('novedades_alta', {});
->>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
           novForm.reset();
           avisar(novForm, 'Anotado. Te escribimos cuando haya novedades, sin llenarte la casilla.');
         } else {
@@ -561,11 +533,7 @@
         }
       });
     });
-<<<<<<< HEAD
   });
-=======
-  }
->>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
 
 
   // ---------------------------------------------------------
@@ -620,7 +588,6 @@
 
     var filtrar = function () {
       var q = norm(finder.value.trim());
-<<<<<<< HEAD
 
       // Buscar atraviesa las categorías, así que hay que salir de la portada.
       // Al borrar la búsqueda se vuelve a las fichas.
@@ -629,8 +596,6 @@
         else if (!q && catBarra && !catBarra.hidden) { mostrarCategoria(null, false); return; }
       }
 
-=======
->>>>>>> 1e7aea42fb3b41c5ad96b28db534a61418c3dfd6
       var visibles = 0;
       allItems.forEach(function (el) {
         var ok = !q || el._hay.indexOf(q) > -1;
