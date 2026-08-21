@@ -371,6 +371,12 @@
     });
   }
 
+  // La portada viene oculta desde el HTML a propósito: si este archivo no
+  // llegara a cargar (o quedara una versión vieja), las fichas no aparecen y
+  // la página funciona como siempre, con todas las secciones a la vista.
+  // Recién acá, que ya sabemos que el código nuevo está corriendo, se activa.
+  if (catPortada) catPortada.hidden = false;
+
   // Estado inicial. Si alguien llega con una dirección tipo
   // productos.html#mascotas (el visor y el catálogo enlazan así), se abre
   // directo esa categoría en vez de la portada.
