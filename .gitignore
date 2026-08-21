@@ -1,0 +1,8 @@
+# Carpeta temporal de wrangler (se crea sola al probar en local)
+.wrangler/
+node_modules/
+.DS_Store
+
+# Nunca subir claves
+.dev.vars
+.env
