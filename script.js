@@ -371,6 +371,16 @@
     });
   }
 
+  // La franja de arriba que baja al probador. El salto lo hace el navegador
+  // solo (es un ancla de verdad); acá sólo se anota para poder ver en GTM
+  // cuánta gente la usa, que es lo que dice si valió la pena moverlo abajo.
+  var atajoProb = $('.atajo-probador');
+  if (atajoProb) {
+    atajoProb.addEventListener('click', function () {
+      track('probador_atajo', { desde: catPortada && catPortada.hidden ? 'categoria' : 'portada' });
+    });
+  }
+
   // La portada viene oculta desde el HTML a propósito: si este archivo no
   // llegara a cargar (o quedara una versión vieja), las fichas no aparecen y
   // la página funciona como siempre, con todas las secciones a la vista.
@@ -673,6 +683,10 @@
           cerrar();
           var b = document.querySelector('.tryon-thumb[data-i="' + iProb + '"]');
           if (b) b.click();
+          // El probador ahora está DEBAJO del catálogo, así que este salto
+          // baja en vez de subir. Funciona igual: scrollIntoView no depende
+          // del orden, y el separador del header lo pone el
+          // scroll-padding-top que hay en `html`.
           var sec = document.querySelector('#probador');
           if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
@@ -810,6 +824,27 @@
     // la altura a la que se cuelga un cuadro de verdad.
     var pos = { x: 50, y: 26 };   // en % de la escena
 
+    // ---------------------------------------------------------
+    // PRECIOS ORIENTATIVOS  ← ESTO ES LO QUE TENÉS QUE ACTUALIZAR
+    //
+    // La clave es el lado más largo en centímetros; el valor, el precio
+    // "desde" en pesos. Es el único lugar del sitio donde hay precios.
+    //
+    // Última actualización: agosto 2026.
+    // Con la inflación conviene revisarlo cada dos o tres meses: si queda
+    // viejo, es peor que no tener precio. Cambiá el número y listo.
+    // ---------------------------------------------------------
+    var PRECIOS = { 25: 7000, 38: 12000, 50: 30000, 80: 60000 };
+
+    var precioN = $('#tryPrecioN');
+
+    function pesos(n) {
+      return '$' + n.toLocaleString('es-AR');
+    }
+    function precioDe(medida) {
+      return PRECIOS[medida] || null;
+    }
+
     function norm2(t) {
       return (t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
@@ -845,9 +880,18 @@
       var nm = $('#tryNombre');
       if (nm) nm.textContent = p.n;
       pieceImg.alt = p.n + ' sobre la pared';
+
+      // Precio orientativo de la medida elegida
+      var precio = precioDe(cm);
+      if (precioN) precioN.textContent = precio ? pesos(precio) : 'consultar';
+
+      // El mensaje lleva la medida y el precio que la persona vio, así no hay
+      // sorpresas de ninguno de los dos lados.
       waBtn.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(
         '¡Hola Pixel Labs! Probé "' + p.n + '" en el probador de la web, en ' +
-        piece.dataset.size + '. ¿Me pasan precio y plazo?');
+        piece.dataset.size + '.' +
+        (precio ? ' Vi que arranca en ' + pesos(precio) + '.' : '') +
+        ' ¿Me confirman precio y plazo?');
     }
 
     thumbs.addEventListener('click', function (e) {
@@ -869,7 +913,7 @@
       b.classList.add('on');
       cm = +b.dataset.cm;
       pintar();
-      track('probador_medida', { medida: cm });
+      track('probador_medida', { medida: cm, precio: precioDe(cm) || 0 });
     });
 
     // pared de ejemplo / tu foto

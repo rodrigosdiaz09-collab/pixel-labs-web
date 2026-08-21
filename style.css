@@ -1581,3 +1581,74 @@ main, .site-header, .site-footer, .announce, .ticker { position: relative; z-ind
   .cat-barra { top: 0; gap: 0.4rem; }
   .cat-volver { padding: 0.55rem 0.6rem; font-size: 0.6rem; }
 }
+
+/* =============================================================
+   PRECIO ORIENTATIVO EN EL PROBADOR
+   Los valores están en script.js (PRECIOS). Acá solo el aspecto.
+   ============================================================= */
+.tryon-precio {
+  margin-top: 0.9rem; padding: 0.75rem 0.9rem;
+  border: 1px solid var(--line); border-left: 2px solid var(--gold);
+  background: rgba(201, 162, 75, 0.06);
+}
+.tryon-precio-n {
+  display: block; font-size: 0.78rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.tryon-precio-n b {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 400;
+  color: var(--gold-light); letter-spacing: 0.02em; text-transform: none;
+  display: inline-block; margin-left: 0.35rem; vertical-align: -2px;
+  font-variant-numeric: tabular-nums;
+}
+.tryon-precio-d {
+  display: block; margin-top: 0.35rem; font-size: 0.72rem;
+  line-height: 1.45; color: var(--ink-soft);
+}
+
+/* =============================================================
+   ATAJO AL PROBADOR
+   Franja fina debajo del título. El probador está abajo de todo
+   (para que las categorías se vean apenas entrás), así que esto lo
+   mantiene a un toque de distancia sin ocupar media pantalla.
+   ============================================================= */
+.atajo-probador {
+  display: flex; align-items: center; gap: 0.85rem;
+  max-width: 1300px; margin: 0 auto; padding: 0.9rem 5%;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  background: rgba(201, 162, 75, 0.05);
+  color: var(--ink); text-decoration: none;
+  position: relative; z-index: 2;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.atajo-probador:hover,
+.atajo-probador:focus-visible {
+  background: rgba(201, 162, 75, 0.11);
+  border-color: var(--gold-dim);
+}
+.atajo-ico {
+  flex: 0 0 auto; display: grid; place-items: center;
+  width: 34px; height: 34px; color: var(--gold);
+  border: 1px solid var(--line); border-radius: 2px;
+}
+.atajo-ico svg { width: 19px; height: 19px; }
+.atajo-txt {
+  flex: 1 1 auto; font-size: 0.94rem; line-height: 1.4; color: var(--ink-soft);
+}
+.atajo-txt b { color: var(--ink); font-weight: 500; }
+.atajo-flecha {
+  flex: 0 0 auto; color: var(--gold); font-size: 1.05rem;
+  transition: transform 0.25s ease;
+}
+.atajo-probador:hover .atajo-flecha { transform: translateX(4px); }
+
+/* Nada de scroll-margin-top acá. Arriba de todo, en `html`, ya hay un
+   scroll-padding-top de 102px que separa del header a TODOS los saltos del
+   sitio. Si le agrego otro margen al probador, se suman y queda 80px más
+   abajo de lo que corresponde. */
+
+@media (max-width: 560px) {
+  .atajo-probador { gap: 0.7rem; padding: 0.85rem 5%; }
+  .atajo-txt { font-size: 0.87rem; }
+  .atajo-txt b { display: block; }
+}
