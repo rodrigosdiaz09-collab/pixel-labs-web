@@ -1,0 +1,31 @@
+ARREGLAR EL CONFLICTO DE GIT
+============================
+
+1. Descomprimí este zip DENTRO de la carpeta del sitio
+   (la que tiene index.html).
+
+   Te tienen que quedar ahí adentro:
+       arreglar.mjs
+       archivos/   (una carpeta)
+
+2. Abrí la terminal en esa carpeta.
+   En VS Code:  menú Terminal → Nueva terminal
+
+3. Escribí:
+
+       node arreglar.mjs
+
+Eso resuelve los 3 archivos en conflicto y cierra el merge.
+Al terminar te dice cuáles son los comandos que siguen.
+
+
+¿QUÉ HACE EXACTAMENTE?
+----------------------
+- Copia la versión correcta de los archivos que están en conflicto.
+- Revisa que no haya quedado ningún archivo con marcas <<<<<<< =======
+- Los marca como resueltos y cierra el merge.
+
+NO borra nada tuyo, NO hace push y NO toca otras ramas.
+Si algo no cuadra, se detiene y te explica qué pasa en vez de seguir.
+
+Si te equivocaste de carpeta, te lo avisa y no hace nada.

@@ -2,7 +2,6 @@
 
 Esto se hace **una sola vez**. Después funciona solo.
 
-<<<<<<< HEAD
 Hasta que lo hagas, el sitio anda igual que siempre: el formulario abre
 WhatsApp como antes. Lo único que falta es que además guarde el contacto.
 
@@ -32,61 +31,11 @@ si ya está hecho, no rompe nada.
 Al terminar te va a decir que faltan los dos comandos de abajo.
 
 ## Paso 3 — Elegir la contraseña del panel
-=======
-Hasta que termines estos pasos, el sitio anda igual que siempre, pero el
-formulario no guarda nada: solo abre WhatsApp.
-
-Todos los comandos se escriben parado en la carpeta del sitio
-(la misma donde está `wrangler.jsonc`).
-
----
-
-## Paso 1 — Crear la base
-
-```bash
-npx wrangler d1 create pixel-labs-leads
-```
-
-Al terminar te va a mostrar algo así:
-
-```
-[[d1_databases]]
-binding = "DB"
-database_name = "pixel-labs-leads"
-database_id = "a1b2c3d4-5678-90ab-cdef-1234567890ab"
-```
-
-**Copiá ese `database_id`.**
-
-## Paso 2 — Pegar el id en la configuración
-
-Abrí `wrangler.jsonc` y reemplazá el texto
-`PEGAR_ACA_EL_ID_QUE_TE_DA_CLOUDFLARE` por el id que copiaste.
-Tiene que quedar entre comillas, así:
-
-```jsonc
-"database_id": "a1b2c3d4-5678-90ab-cdef-1234567890ab"
-```
-
-## Paso 3 — Crear la tabla
-
-```bash
-npx wrangler d1 execute pixel-labs-leads --remote --file=worker/schema.sql
-```
-
-Te va a pedir confirmación. Poné que sí.
-
-## Paso 4 — Elegir la clave del panel
-
-Es la contraseña para entrar a ver los contactos. Elegí una que no uses
-en otro lado.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
 
 ```bash
 npx wrangler secret put PANEL_CLAVE
 ```
 
-<<<<<<< HEAD
 Te la pide por teclado y **no se ve mientras la escribís**. Es normal, no
 está trabado. Escribila y apretá Enter.
 
@@ -95,16 +44,6 @@ está trabado. Escribila y apretá Enter.
 > y poné una nueva.
 
 ## Paso 4 — Publicar
-=======
-Te la pide por teclado y **no se ve mientras la escribís**. Es normal.
-Apretá Enter cuando termines.
-
-> Esta clave no queda guardada en ningún archivo del proyecto, así que
-> anotala donde guardes tus contraseñas. Si te la olvidás, corré el mismo
-> comando de nuevo y poné una nueva.
-
-## Paso 5 — Publicar
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
 
 ```bash
 npx wrangler deploy
@@ -118,21 +57,12 @@ Listo.
 
 Entrá a **https://pixellabs.com.ar/panel**
 
-<<<<<<< HEAD
 El navegador te pide usuario y contraseña:
 
 - **Usuario:** cualquier cosa (no se usa, poné `pixel`)
 - **Contraseña:** la del paso 3
 
 Ahí está la lista, el buscador y el botón **Descargar para Excel**.
-=======
-El navegador te va a pedir usuario y contraseña:
-
-- **Usuario:** cualquier cosa (no se usa, poné `pixel`)
-- **Contraseña:** la que pusiste en el paso 4
-
-Ahí vas a ver la lista, un buscador y el botón **Descargar para Excel**.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
 
 ---
 
@@ -156,7 +86,6 @@ Antes, si alguien completaba el formulario y no llegaba a mandar el mensaje
 de WhatsApp, ese contacto se perdía para siempre.
 
 Ahora **primero se guarda y después se abre WhatsApp**. Aunque cierre la
-<<<<<<< HEAD
 ventana en el acto, el contacto ya está. Está probado: se simuló a alguien
 cerrando la pestaña en el mismo instante de apretar enviar, y el dato quedó.
 
@@ -179,18 +108,12 @@ Falta el paso 3. Ojo: después de poner el secreto hay que volver a hacer
 npx wrangler tail
 ```
 Muestra en vivo lo que ocurre. Cerralo con Ctrl+C.
-=======
-ventana en el acto, el contacto ya está en tu base. Está probado: se simuló
-a alguien cerrando la pestaña en el mismo instante de apretar enviar, y el
-dato quedó igual.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
 
 ---
 
 ## Preguntas que te van a surgir
 
 **¿Cuánto cuesta?**
-<<<<<<< HEAD
 Nada. El plan gratuito de Cloudflare D1 incluye 5 GB y 5 millones de lecturas
 por día. Vas a usar una fracción mínima.
 
@@ -206,31 +129,3 @@ incluido vos. Está hecho así a propósito.
 Hay un campo invisible que las personas nunca ven. Si viene completo, el
 servidor descarta el envío y responde como si todo hubiera salido bien, para
 que el robot no siga probando.
-=======
-Nada. El plan gratuito de Cloudflare D1 incluye 5 GB y 5 millones de
-lecturas por día. Vas a estar usando una fracción mínima de eso.
-
-**¿Y si quiero mandarles un mail a todos?**
-Bajá el CSV con el botón del panel y subilo a cualquier servicio de envío
-(Brevo y Mailchimp tienen plan gratis). Cuando llegues a ese punto, avisame
-y lo vemos.
-
-**¿Alguien puede entrar al panel sin la clave?**
-No. Y si nunca configurás `PANEL_CLAVE`, el panel queda cerrado para todos,
-incluido vos. Está hecho a propósito así: sin clave, nadie entra.
-
-**¿Y los robots que llenan formularios?**
-Hay un campo invisible que las personas nunca ven. Si viene completo, el
-servidor descarta el envío sin guardarlo y responde como si todo hubiera
-salido bien, para que el robot no siga probando.
-
-**Me equivoqué en algo y no anda.**
-El sitio no se rompe: si la base falla, el formulario igual abre WhatsApp
-como antes. Para ver qué pasó:
-
-```bash
-npx wrangler tail
-```
-
-Eso muestra en vivo lo que va pasando en el servidor.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83

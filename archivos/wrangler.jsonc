@@ -18,7 +18,6 @@
   },
 
   // Base de datos de contactos.
-<<<<<<< HEAD
   //
   // NO EDITES ESTO A MANO. Corré una sola vez, en esta carpeta:
   //     node configurar-base.mjs
@@ -26,20 +25,11 @@
   // le corresponde. Mientras diga "FALTA-CONFIGURAR", el deploy va a
   // fallar con un error de "database not found", y está bien que falle:
   // es el aviso de que todavía no corriste el script.
-=======
-  // El "database_id" te lo da Cloudflare cuando corrés:
-  //     npx wrangler d1 create pixel-labs-leads
-  // Copiá ese id acá abajo y recién después hacé el deploy.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "pixel-labs-leads",
-<<<<<<< HEAD
       "database_id": "FALTA-CONFIGURAR-CORRE-node-configurar-base.mjs"
-=======
-      "database_id": "local-test-id"
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
     }
   ]
 }
