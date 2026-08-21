@@ -18,21 +18,14 @@
   },
 
   // ── BASE DE CONTACTOS ─────────────────────────────────────────────
-  // Está DESACTIVADA a propósito: así el sitio publica sin errores
-  // aunque la base todavía no exista.
-  //
-  // Para activarla corré, en esta carpeta:
-  //     node configurar-base.mjs
-  //
-  // Ese script crea la base, descomenta las líneas de abajo y les pone
-  // el identificador que corresponde. No hace falta que lo edites a mano.
-  //
-  // "d1_databases": [
-  //   {
-  //     "binding": "DB",
-  //     "database_name": "pixel-labs-leads",
-  //     "database_id": "lo-completa-el-script"
-  //   }
-  // ]
+  // Conectada a la base "pixel-labs-leads" de tu cuenta de Cloudflare.
+  // Si algún día querés publicar sin base, comentá estas líneas.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "pixel-labs-leads",
+      "database_id": "1c3cc052-9823-4eb1-a265-7b08892f1186"
+    }
+  ],
   "observability": { "enabled": true }
 }
