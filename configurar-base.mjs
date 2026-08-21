@@ -89,29 +89,88 @@ if (!id) {
 }
 
 // ---------------------------------------------------------------- 2. config
-paso(`Escribiendo el identificador en ${CONFIG}`);
+paso(`Activando la base en ${CONFIG}`);
 const original = readFileSync(CONFIG, 'utf8');
+let actualizado = original;
 
-// Se reemplaza solo el valor, con lo cual los comentarios del archivo quedan igual.
-const actualizado = original.replace(
-  /("database_id"\s*:\s*")([^"]*)(")/,
-  (_, a, viejo, b) => {
-    if (viejo === id) nota('Ya estaba puesto, lo dejo como está.');
-    else nota(`Antes decía: ${viejo || '(vacío)'}`);
-    return a + id + b;
+const yaActiva = /^\s*"d1_databases"\s*:/m.test(original);
+
+if (yaActiva) {
+  // Ya estaba activa: solo se actualiza el identificador.
+  actualizado = original.replace(
+    /("database_id"\s*:\s*")([^"]*)(")/,
+    (_, a, viejo, b) => {
+      if (viejo === id) nota('Ya estaba puesta y con el id correcto.');
+      else nota(`El identificador anterior era: ${viejo || '(vacío)'}`);
+      return a + id + b;
+    }
+  );
+} else {
+  // Está comentada: se reemplaza el bloque entero por la versión activa.
+  const BLOQUE = `  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "${NOMBRE_BASE}",
+      "database_id": "${id}"
+    }
+  ],`;
+
+  // ¿Queda algo antes o después? De eso depende dónde va la coma, así que
+  // se prueban las dos formas y se usa la que resulte en un archivo válido.
+  const legible = (txt) => {
+    try {
+      const limpio = txt.replace(/^\s*\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+      return !!JSON.parse(limpio).d1_databases;
+    } catch { return false; }
+  };
+
+  const comentado = /^[ \t]*\/\/[ \t]*"d1_databases"[\s\S]*?^[ \t]*\/\/[ \t]*\][ \t]*$/m;
+  let listo = false;
+
+  if (comentado.test(original)) {
+    for (const variante of [BLOQUE, BLOQUE.replace(/,$/, '')]) {
+      const intento = original.replace(comentado, variante);
+      if (legible(intento)) { actualizado = intento; listo = true; break; }
+    }
+    if (listo) nota('Estaba desactivada; la activé.');
   }
-);
 
-if (actualizado === original && !original.includes(id)) {
-  console.error(`\n${c.mal}No encontré la línea "database_id" en ${CONFIG}.${c.fin}`);
-  console.error(`Agregá esto a mano dentro de d1_databases:  "database_id": "${id}"\n`);
+  if (!listo) {
+    // Plan B: insertarlo justo antes de la llave final.
+    const i = original.lastIndexOf('}');
+    if (i >= 0) {
+      const antes = original.slice(0, i).replace(/\s*$/, '');
+      const coma = antes.endsWith(',') ? '' : ',';
+      const intento = antes + coma + '\n\n' + BLOQUE.replace(/,$/, '') + '\n}\n';
+      if (legible(intento)) { actualizado = intento; listo = true; nota('La agregué al final del archivo.'); }
+    }
+  }
+
+  if (!listo) {
+    console.error(`\n${c.mal}No pude activar la base automáticamente.${c.fin}`);
+    console.error(`Agregá esto a mano en ${CONFIG}, adentro de la llave principal:\n`);
+    console.error(`${BLOQUE}\n`);
+    process.exit(1);
+  }
+}
+
+// Antes de guardar, comprobamos que siga siendo un archivo legible.
+try {
+  const limpio = actualizado.replace(/^\s*\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+  const cfg = JSON.parse(limpio);
+  if (!cfg.d1_databases?.[0]?.database_id) throw new Error('quedó sin identificador');
+  if (cfg.d1_databases[0].database_id !== id) throw new Error('el identificador no coincide');
+} catch (e) {
+  console.error(`\n${c.mal}El archivo habría quedado mal (${e.message}). No lo toqué.${c.fin}`);
+  console.error(`Agregá esto a mano en ${CONFIG}, antes de la última llave:\n`);
+  console.error(`  "d1_databases": [{ "binding": "DB", "database_name": "${NOMBRE_BASE}", "database_id": "${id}" }]\n`);
   process.exit(1);
 }
 
 if (actualizado !== original) {
   copyFileSync(CONFIG, CONFIG + '.respaldo');
   writeFileSync(CONFIG, actualizado);
-  bien(`Guardado. (Copia del anterior en ${CONFIG}.respaldo)`);
+  bien(`Guardado y verificado. (Copia del anterior en ${CONFIG}.respaldo)`);
 } else {
   bien('Sin cambios.');
 }
@@ -132,9 +191,12 @@ try {
 
 // ---------------------------------------------------------------- final
 console.log(`\n${c.ok}Base configurada.${c.fin}\n`);
-console.log('Te faltan dos comandos, y estos te los tiene que pedir a vos:\n');
+console.log('Ahora subilo, que es lo que publica el sitio:\n');
+console.log(`  ${c.dato}git add wrangler.jsonc${c.fin}`);
+console.log(`  ${c.dato}git commit -m "Conecta la base de contactos"${c.fin}`);
+console.log(`  ${c.dato}git push${c.fin}`);
+console.log('     Cloudflare arranca el build solo. Miralo en Workers & Pages → Builds.\n');
+console.log(`Cuando el build salga en verde, poné la contraseña del panel:\n`);
 console.log(`  ${c.dato}npx wrangler secret put PANEL_CLAVE${c.fin}`);
-console.log('     La contraseña para entrar al panel. No se ve mientras la escribís: es normal.\n');
-console.log(`  ${c.dato}npx wrangler deploy${c.fin}`);
-console.log('     Publica el sitio.\n');
-console.log(`Después entrá a ${c.dato}https://pixellabs.com.ar/panel${c.fin} — usuario: cualquiera, contraseña: la que pusiste.\n`);
+console.log('     No se ve mientras la escribís: es normal.\n');
+console.log(`Y listo: ${c.dato}https://pixellabs.com.ar/panel${c.fin} — usuario: cualquiera.\n`);

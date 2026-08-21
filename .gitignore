@@ -6,3 +6,9 @@ node_modules/
 # Nunca subir claves
 .dev.vars
 .env
+
+# Ayudantes de instalación: sirven una vez y no hacen falta en el repositorio
+arreglar.mjs
+archivos/
+LEEME-PRIMERO.txt
+wrangler.jsonc.respaldo

@@ -2,7 +2,6 @@
 
 Esto se hace **una sola vez**. Después funciona solo.
 
-<<<<<<< HEAD
 Hasta que lo hagas, el sitio anda igual que siempre: el formulario abre
 WhatsApp como antes. Lo único que falta es que además guarde el contacto.
 
@@ -11,106 +10,65 @@ En VS Code: menú Terminal → Nueva terminal.
 
 ---
 
-## Paso 1 — Conectarte a Cloudflare
+## Importante: cómo se publica tu sitio
+
+Tenés Cloudflare conectado a GitHub (Workers Builds). Eso significa que
+**cada `git push` publica el sitio solo**. No hace falta que corras
+`npx wrangler deploy` en tu computadora: lo corre Cloudflare.
+
+Por eso el identificador de la base tiene que quedar **committeado y subido**.
+Si lo tenés bien en tu máquina pero no lo subiste, el build de Cloudflare
+sigue fallando.
+
+---
+
+## Paso 1 — Conectarte a Cloudflare (en tu computadora)
 
 ```bash
 npx wrangler login
 ```
 
-Se abre el navegador y te pide autorizar. Si ya lo hiciste antes, salteá este paso.
+Se abre el navegador y te pide autorizar. Si ya lo hiciste antes, salteá esto.
 
-## Paso 2 — Configurar la base (un solo comando)
+## Paso 2 — Crear la base
 
 ```bash
 node configurar-base.mjs
 ```
 
-Esto hace todo solo: crea la base, escribe el identificador en
-`wrangler.jsonc` y crea la tabla. Lo podés correr las veces que quieras;
-si ya está hecho, no rompe nada.
+Crea la base, escribe el identificador en `wrangler.jsonc` y crea la tabla.
 
-Al terminar te va a decir que faltan los dos comandos de abajo.
+> **Alternativa sin terminal:** en el panel de Cloudflare, entrá a
+> *Storage & Databases → D1 → Create*, ponele de nombre `pixel-labs-leads`,
+> y copiá el *Database ID* que te muestra. Pegalo en `wrangler.jsonc`
+> reemplazando `FALTA-CONFIGURAR-CORRE-node-configurar-base.mjs`.
 
-## Paso 3 — Elegir la contraseña del panel
-=======
-Hasta que termines estos pasos, el sitio anda igual que siempre, pero el
-formulario no guarda nada: solo abre WhatsApp.
-
-Todos los comandos se escriben parado en la carpeta del sitio
-(la misma donde está `wrangler.jsonc`).
-
----
-
-## Paso 1 — Crear la base
+## Paso 3 — Subirlo (esto es lo que publica)
 
 ```bash
-npx wrangler d1 create pixel-labs-leads
+git add wrangler.jsonc
+git commit -m "Conecta la base de contactos"
+git push
 ```
 
-Al terminar te va a mostrar algo así:
+Cloudflare va a arrancar un build solo. Miralo en *Workers & Pages →
+pixel-labs-web → Builds*. Esta vez tiene que dar verde.
 
-```
-[[d1_databases]]
-binding = "DB"
-database_name = "pixel-labs-leads"
-database_id = "a1b2c3d4-5678-90ab-cdef-1234567890ab"
-```
+## Paso 4 — La contraseña del panel
 
-**Copiá ese `database_id`.**
-
-## Paso 2 — Pegar el id en la configuración
-
-Abrí `wrangler.jsonc` y reemplazá el texto
-`PEGAR_ACA_EL_ID_QUE_TE_DA_CLOUDFLARE` por el id que copiaste.
-Tiene que quedar entre comillas, así:
-
-```jsonc
-"database_id": "a1b2c3d4-5678-90ab-cdef-1234567890ab"
-```
-
-## Paso 3 — Crear la tabla
-
-```bash
-npx wrangler d1 execute pixel-labs-leads --remote --file=worker/schema.sql
-```
-
-Te va a pedir confirmación. Poné que sí.
-
-## Paso 4 — Elegir la clave del panel
-
-Es la contraseña para entrar a ver los contactos. Elegí una que no uses
-en otro lado.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
+Recién cuando el build salió bien (porque el Worker tiene que existir):
 
 ```bash
 npx wrangler secret put PANEL_CLAVE
 ```
 
-<<<<<<< HEAD
-Te la pide por teclado y **no se ve mientras la escribís**. Es normal, no
-está trabado. Escribila y apretá Enter.
-
-> No queda guardada en ningún archivo del proyecto, así que anotala donde
-> guardes tus contraseñas. Si te la olvidás, corré el mismo comando de nuevo
-> y poné una nueva.
-
-## Paso 4 — Publicar
-=======
 Te la pide por teclado y **no se ve mientras la escribís**. Es normal.
-Apretá Enter cuando termines.
 
-> Esta clave no queda guardada en ningún archivo del proyecto, así que
-> anotala donde guardes tus contraseñas. Si te la olvidás, corré el mismo
-> comando de nuevo y poné una nueva.
+> **Alternativa sin terminal:** panel de Cloudflare → *Workers & Pages* →
+> `pixel-labs-web` → *Settings* → *Variables and Secrets* → *Add*,
+> tipo **Secret**, nombre `PANEL_CLAVE`, y el valor que elijas.
 
-## Paso 5 — Publicar
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
-
-```bash
-npx wrangler deploy
-```
-
-Listo.
+Los secretos toman efecto al toque, no hace falta volver a publicar.
 
 ---
 
@@ -118,21 +76,12 @@ Listo.
 
 Entrá a **https://pixellabs.com.ar/panel**
 
-<<<<<<< HEAD
 El navegador te pide usuario y contraseña:
 
 - **Usuario:** cualquier cosa (no se usa, poné `pixel`)
 - **Contraseña:** la del paso 3
 
 Ahí está la lista, el buscador y el botón **Descargar para Excel**.
-=======
-El navegador te va a pedir usuario y contraseña:
-
-- **Usuario:** cualquier cosa (no se usa, poné `pixel`)
-- **Contraseña:** la que pusiste en el paso 4
-
-Ahí vas a ver la lista, un buscador y el botón **Descargar para Excel**.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
 
 ---
 
@@ -156,7 +105,6 @@ Antes, si alguien completaba el formulario y no llegaba a mandar el mensaje
 de WhatsApp, ese contacto se perdía para siempre.
 
 Ahora **primero se guarda y después se abre WhatsApp**. Aunque cierre la
-<<<<<<< HEAD
 ventana en el acto, el contacto ya está. Está probado: se simuló a alguien
 cerrando la pestaña en el mismo instante de apretar enviar, y el dato quedó.
 
@@ -164,8 +112,20 @@ cerrando la pestaña en el mismo instante de apretar enviar, y el dato quedó.
 
 ## Si algo falla
 
-**`database not found` o `Couldn't find DB database`**
-No corriste el paso 2, o falló. Corré `node configurar-base.mjs` y mirá qué dice.
+**El build de Cloudflare falla en "Deploying"**
+Entrá al build, desplegá la sección *Deploying* y leé el error.
+El más común es `Couldn't find a D1 DB` o `database not found`: significa que
+`wrangler.jsonc` pide una base que no existe, o que el identificador todavía
+dice `FALTA-CONFIGURAR`. Hacé los pasos 2 y 3.
+
+**Necesito que el sitio se publique YA, aunque la base no ande**
+Abrí `wrangler.jsonc` y borrá el bloque `"d1_databases": [ ... ]` entero
+(desde la coma que lo separa de `assets` hasta el corchete de cierre).
+Subilo y el sitio publica igual: el formulario va a abrir WhatsApp como
+siempre, solo que sin guardar el contacto. Después lo volvés a poner.
+
+**`database not found` corriendo el script en tu computadora**
+Corré `node configurar-base.mjs` y mirá qué dice.
 
 **`You are not logged in`**
 Falta el paso 1: `npx wrangler login`.
@@ -179,18 +139,12 @@ Falta el paso 3. Ojo: después de poner el secreto hay que volver a hacer
 npx wrangler tail
 ```
 Muestra en vivo lo que ocurre. Cerralo con Ctrl+C.
-=======
-ventana en el acto, el contacto ya está en tu base. Está probado: se simuló
-a alguien cerrando la pestaña en el mismo instante de apretar enviar, y el
-dato quedó igual.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
 
 ---
 
 ## Preguntas que te van a surgir
 
 **¿Cuánto cuesta?**
-<<<<<<< HEAD
 Nada. El plan gratuito de Cloudflare D1 incluye 5 GB y 5 millones de lecturas
 por día. Vas a usar una fracción mínima.
 
@@ -206,31 +160,3 @@ incluido vos. Está hecho así a propósito.
 Hay un campo invisible que las personas nunca ven. Si viene completo, el
 servidor descarta el envío y responde como si todo hubiera salido bien, para
 que el robot no siga probando.
-=======
-Nada. El plan gratuito de Cloudflare D1 incluye 5 GB y 5 millones de
-lecturas por día. Vas a estar usando una fracción mínima de eso.
-
-**¿Y si quiero mandarles un mail a todos?**
-Bajá el CSV con el botón del panel y subilo a cualquier servicio de envío
-(Brevo y Mailchimp tienen plan gratis). Cuando llegues a ese punto, avisame
-y lo vemos.
-
-**¿Alguien puede entrar al panel sin la clave?**
-No. Y si nunca configurás `PANEL_CLAVE`, el panel queda cerrado para todos,
-incluido vos. Está hecho a propósito así: sin clave, nadie entra.
-
-**¿Y los robots que llenan formularios?**
-Hay un campo invisible que las personas nunca ven. Si viene completo, el
-servidor descarta el envío sin guardarlo y responde como si todo hubiera
-salido bien, para que el robot no siga probando.
-
-**Me equivoqué en algo y no anda.**
-El sitio no se rompe: si la base falla, el formulario igual abre WhatsApp
-como antes. Para ver qué pasó:
-
-```bash
-npx wrangler tail
-```
-
-Eso muestra en vivo lo que va pasando en el servidor.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83

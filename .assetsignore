@@ -20,10 +20,7 @@ node_modules
 # Cosas que solo sirven para el editor, no para el sitio publicado.
 jsconfig.json
 tipos
-<<<<<<< HEAD
 
 # Script de instalación: no va al sitio publicado.
 configurar-base.mjs
 wrangler.jsonc.respaldo
-=======
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83

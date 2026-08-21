@@ -1454,3 +1454,5 @@ main, .site-header, .site-footer, .announce, .ticker { position: relative; z-ind
   .avisame-fila { grid-template-columns: 1fr; align-items: stretch; }
   .avisame-fila .btn { width: 100%; }
 }
+.form-aviso a { color: var(--gold-light); text-decoration: underline; text-underline-offset: 3px; }
+.form-aviso.mal a { color: #F0C9B4; }

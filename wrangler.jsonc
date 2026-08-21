@@ -17,29 +17,22 @@
     "run_worker_first": ["/api/*", "/panel", "/panel/*"]
   },
 
-  // Base de datos de contactos.
-<<<<<<< HEAD
+  // ── BASE DE CONTACTOS ─────────────────────────────────────────────
+  // Está DESACTIVADA a propósito: así el sitio publica sin errores
+  // aunque la base todavía no exista.
   //
-  // NO EDITES ESTO A MANO. Corré una sola vez, en esta carpeta:
+  // Para activarla corré, en esta carpeta:
   //     node configurar-base.mjs
-  // Ese script crea la base y escribe acá abajo el identificador que
-  // le corresponde. Mientras diga "FALTA-CONFIGURAR", el deploy va a
-  // fallar con un error de "database not found", y está bien que falle:
-  // es el aviso de que todavía no corriste el script.
-=======
-  // El "database_id" te lo da Cloudflare cuando corrés:
-  //     npx wrangler d1 create pixel-labs-leads
-  // Copiá ese id acá abajo y recién después hacé el deploy.
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "pixel-labs-leads",
-<<<<<<< HEAD
-      "database_id": "FALTA-CONFIGURAR-CORRE-node-configurar-base.mjs"
-=======
-      "database_id": "local-test-id"
->>>>>>> 4386ada81ebe186ea8a934d5248018ef46ce0d83
-    }
-  ]
+  //
+  // Ese script crea la base, descomenta las líneas de abajo y les pone
+  // el identificador que corresponde. No hace falta que lo edites a mano.
+  //
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "pixel-labs-leads",
+  //     "database_id": "lo-completa-el-script"
+  //   }
+  // ]
+  "observability": { "enabled": true }
 }

@@ -357,7 +357,7 @@
     }
   }
 
-  function avisar(form, texto, esError) {
+  function avisar(form, texto, esError, waTexto) {
     var box = $('.form-aviso', form);
     if (!box) {
       box = document.createElement('p');
@@ -365,6 +365,17 @@
       form.appendChild(box);
     }
     box.textContent = texto;
+    // Si algo falló, no dejamos a la persona en un callejón sin salida:
+    // se le ofrece WhatsApp, que siempre funciona.
+    if (waTexto) {
+      box.appendChild(document.createTextNode(' '));
+      var a = document.createElement('a');
+      a.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(waTexto);
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'Escribinos por WhatsApp';
+      box.appendChild(a);
+    }
     box.classList.toggle('mal', !!esError);
     box.classList.add('on');
   }
@@ -378,7 +389,7 @@
       // 1) Primero se guarda. No esperamos la respuesta a propósito:
       //    si esperáramos, el navegador tomaría la ventana de WhatsApp
       //    como un pop-up no pedido y la bloquearía.
-      guardarContacto({
+      var guardando = guardarContacto({
         nombre:  d.get('nombre')  || '',
         email:   d.get('email')   || '',
         tipo:    d.get('tipo')    || '',
@@ -398,7 +409,14 @@
       track('contacto_whatsapp', { origen: 'formulario', destino: d.get('tipo') || '' });
       window.open('https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(texto), '_blank');
 
-      avisar(contactForm, 'Listo. Te guardamos la consulta y te escribimos aunque se te cierre WhatsApp.');
+      // 3) El aviso arranca neutro y se ajusta cuando sabemos si se guardó.
+      //    Así nunca prometemos algo que no pasó.
+      avisar(contactForm, 'Se abre WhatsApp con todo escrito.');
+      guardando.then(function (ok) {
+        avisar(contactForm, ok
+          ? 'Listo. Te guardamos la consulta, así que te escribimos aunque se te cierre WhatsApp.'
+          : 'Se abre WhatsApp con todo escrito. Mandá el mensaje para que nos llegue.');
+      });
     });
   }
 
@@ -425,7 +443,12 @@
           novForm.reset();
           avisar(novForm, 'Anotado. Te escribimos cuando haya novedades, sin llenarte la casilla.');
         } else {
-          avisar(novForm, 'No pudimos guardarlo. Probá de nuevo o escribinos por WhatsApp.', true);
+          // Puede pasar si todavía no está conectada la base o si se cortó
+          // internet. En vez de dejarlo en la nada, le damos la vía directa.
+          avisar(novForm,
+            'No pudimos anotarte desde acá.', true,
+            '¡Hola Pixel Labs! Quiero que me avisen cuando haya novedades. Mi mail es: ' +
+            (d.get('email') || '') + '. Lo mío es para: ' + (d.get('cuando') || 'más adelante'));
         }
       });
     });
