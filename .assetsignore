@@ -23,4 +23,5 @@ tipos
 
 # Script de instalación: no va al sitio publicado.
 configurar-base.mjs
+poner-al-dia.mjs
 wrangler.jsonc.respaldo

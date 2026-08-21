@@ -567,14 +567,37 @@
   // CUENTA REGRESIVA (barra de anuncio)
   // ---------------------------------------------------------
   $$('.count-down').forEach(function (el) {
-    var end = new Date(el.getAttribute('data-deadline')).getTime();
-    if (isNaN(end)) return;
+    // Se cuentan DÍAS DE CALENDARIO, no bloques de 24 horas.
+    //
+    // Antes se hacía Math.ceil sobre la diferencia en milisegundos contra las
+    // 23:59 del día límite, y devolvía siempre un día de más: el 21 de agosto
+    // decía "faltan 46 días" cuando al 5 de octubre faltaban 45.
+    //
+    // Y se lee la fecha SUELTA del atributo (2026-10-05), sin la hora ni el
+    // huso horario. "Cerramos el 5 de octubre" es un día del almanaque, no un
+    // instante: si se convierte a la hora local del visitante, uno en España
+    // ve un número y uno en México ve otro.
+    var f = (el.getAttribute('data-deadline') || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!f) return;
+    var fin = { a: +f[1], m: +f[2] - 1, d: +f[3] };
+
+    function diaDe(a, m, d) { return Math.floor(Date.UTC(a, m, d) / 86400000); }
+
     function tick() {
-      var d = Math.ceil((end - Date.now()) / 86400000);
-      if (d > 1) el.textContent = '· faltan ' + d + ' días';
-      else if (d === 1) el.textContent = '· último día';
-      else { el.textContent = ''; }
+      var hoy = new Date();
+      var d = diaDe(fin.a, fin.m, fin.d) - diaDe(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+      if (d > 1) { el.textContent = '· faltan ' + d + ' días'; return; }
+      if (d === 1) { el.textContent = '· último día'; return; }
+      if (d === 0) { el.textContent = '· cierra hoy'; return; }
+
+      // Ya pasó la fecha. Antes se vaciaba el contador pero LA BARRA SEGUÍA
+      // ARRIBA, anunciando para siempre una fecha vencida. Ahora se esconde
+      // sola: el aviso desaparece el día que deja de ser cierto, sin que
+      // nadie tenga que acordarse de sacarlo.
+      el.textContent = '';
+      document.body.classList.add('announce-off');
     }
+
     tick();
     setInterval(tick, 3600000);
   });
@@ -605,7 +628,7 @@
     var noRes = $('#noResults');
     var clearBtn = $('.finder-clear');
 
-    // saca acentos: "mandala" tiene que encontrar "Mándala"
+    // saca acentos: "colibri" tiene que encontrar "Colibrí"
     function norm(t) {
       return (t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
@@ -804,13 +827,18 @@
   // ---------------------------------------------------------
   var stage = $('#tryStage');
   if (stage) {
-    // Generado desde el catálogo: 26 piezas con recorte transparente.
+    // Generado desde el catálogo. El contador de abajo (#tryCount) los cuenta
+    // solos, así que no hay un número escrito acá que se pueda quedar viejo.
+    // Para sumar una pieza hace falta un PNG con fondo transparente en
+    // images/probador/ y una línea acá: f = nombre del archivo sin .png,
+    // n = el nombre EXACTO del catálogo, r = ancho dividido alto del PNG.
     // Solo cuadros de Deco: son los que tienen sentido colgados en una pared.
     var PIEZAS = [
       { f: 'mujer-con-flores', n: "Mujer con Flores", c: 'Deco', r: 0.7371 },
       { f: 'cuadro-para-manicuras', n: "Cuadro para Manicuras", c: 'Deco', r: 0.7581 },
       { f: 'mate-y-signos-vitales', n: "Mate y Signos Vitales", c: 'Deco', r: 2.1831 },
       { f: 'charly-garcia', n: "Charly García", c: 'Deco', r: 0.6145 },
+      { f: 'indio-solari', n: "Indio Solari", c: 'Deco', r: 1.0 },
       { f: 'frase-vive-ama-suena', n: "Frase Vive, Ama, Sueña", c: 'Deco', r: 0.8177 },
       { f: 'fases-lunares', n: "Fases Lunares", c: 'Deco', r: 2.9665 },
       { f: 'paz-y-armonia', n: "Paz y Armonía", c: 'Deco', r: 1.2455 },
@@ -847,7 +875,14 @@
     // ---------------------------------------------------------
     var PRECIOS = { 25: 7000, 38: 12000, 50: 30000, 80: 60000 };
 
+    // Lo más grande que corta el láser de una sola vez, en centímetros.
+    // Sale del área de trabajo que publica el sitio: 355 × 390 mm.
+    // Arriba de esto la pieza se hace en secciones que encastran, y el
+    // probador lo avisa en vez de dejar que el visitante crea que sale entera.
+    var CORTE_MAX_CM = 39;
+
     var precioN = $('#tryPrecioN');
+    var avisoPartes = $('#tryPartes');
 
     function pesos(n) {
       return '$' + n.toLocaleString('es-AR');
@@ -896,12 +931,18 @@
       var precio = precioDe(cm);
       if (precioN) precioN.textContent = precio ? pesos(precio) : 'consultar';
 
+      // Aviso de piezas en secciones, sólo cuando corresponde
+      var enPartes = cm > CORTE_MAX_CM;
+      if (avisoPartes) avisoPartes.hidden = !enPartes;
+
       // El mensaje lleva la medida y el precio que la persona vio, así no hay
-      // sorpresas de ninguno de los dos lados.
+      // sorpresas de ninguno de los dos lados. Si va en partes, también lo
+      // dice: es mejor que se entere acá y no cuando abre la caja.
       waBtn.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(
         '¡Hola Pixel Labs! Probé "' + p.n + '" en el probador de la web, en ' +
         piece.dataset.size + '.' +
         (precio ? ' Vi que arranca en ' + pesos(precio) + '.' : '') +
+        (enPartes ? ' Entiendo que en esta medida va en partes que encastran.' : '') +
         ' ¿Me confirman precio y plazo?');
     }
 

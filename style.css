@@ -490,7 +490,7 @@ section { padding: 4rem 5% 6rem; max-width: 1300px; margin: 0 auto; position: re
 .service-row:hover::before { transform: scaleY(1); }
 .service-icon { width: 46px; height: 46px; color: var(--gold); transition: transform 0.6s var(--ease); }
 .service-row:hover .service-icon { transform: rotate(-8deg) scale(1.1); }
-.service-row h3 { font-size: 1.7rem; margin-bottom: 0.5rem; }
+.service-row h2, .service-row h3 { font-size: 1.7rem; margin-bottom: 0.5rem; }
 .service-row p { color: var(--ink-soft); max-width: 62ch; margin: 0; }
 .service-row .price-hint {
   display: inline-block; margin-top: 0.7rem; font-size: 0.7rem; letter-spacing: 0.14em;
@@ -498,7 +498,7 @@ section { padding: 4rem 5% 6rem; max-width: 1300px; margin: 0 auto; position: re
 }
 @media (max-width: 700px) {
   .service-row { grid-template-columns: 1fr; gap: 1rem; padding: 1.6rem 1.4rem; }
-  .service-row h3 { font-size: 1.35rem; }
+  .service-row h2, .service-row h3 { font-size: 1.35rem; }
 }
 
 /* =============================================================
@@ -580,7 +580,7 @@ section { padding: 4rem 5% 6rem; max-width: 1300px; margin: 0 auto; position: re
   transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
 .gallery-item:hover .gallery-overlay, .gallery-item:focus-within .gallery-overlay { opacity: 1; transform: none; }
-.gallery-overlay h4 { font-family: var(--font-display); color: var(--gold-light); font-size: 1.15rem; margin: 0 0 0.35rem; font-weight: 500; }
+.gallery-overlay h3, .gallery-overlay h4 { font-family: var(--font-display); color: var(--gold-light); font-size: 1.15rem; margin: 0 0 0.35rem; font-weight: 500; }
 .gallery-overlay a {
   font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink);
   border-bottom: 1px solid var(--gold); width: fit-content; padding-bottom: 2px; transition: color 0.3s;
@@ -590,7 +590,7 @@ section { padding: 4rem 5% 6rem; max-width: 1300px; margin: 0 auto; position: re
 /* en touch el overlay se ve siempre: sin hover no hay descubrimiento */
 @media (hover: none) {
   .gallery-overlay { opacity: 1; transform: none; background: linear-gradient(to top, rgba(10,9,8,0.92), transparent 55%); }
-  .gallery-overlay h4 { font-size: 0.9rem; }
+  .gallery-overlay h3, .gallery-overlay h4 { font-size: 0.9rem; }
   .gallery-item { transform: none !important; }
 
   /* Con el dedo hace falta blanco de 44 px: el enlace medía 20 y se fallaba
@@ -1334,7 +1334,7 @@ main, .site-header, .site-footer, .announce, .ticker { position: relative; z-ind
 }
 .note-card:hover { border-color: var(--gold-dim); transform: translateY(-5px); }
 .note-kicker { font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.7rem; }
-.note-card h3 { font-size: 1.5rem; line-height: 1.15; margin-bottom: 0.7rem; }
+.note-card h2, .note-card h3 { font-size: 1.5rem; line-height: 1.15; margin-bottom: 0.7rem; }
 .note-card p { color: var(--ink-soft); font-size: 0.92rem; margin: 0 0 0.9rem; }
 .note-card p:last-of-type { margin-bottom: 0; }
 .note-card ul { color: var(--ink-soft); font-size: 0.92rem; padding-left: 1.1rem; margin: 0 0 0.9rem; }
@@ -1652,3 +1652,12 @@ main, .site-header, .site-footer, .announce, .ticker { position: relative; z-ind
   .atajo-txt { font-size: 0.87rem; }
   .atajo-txt b { display: block; }
 }
+
+/* Aviso de que la pieza va en secciones (medidas arriba de 39 cm). */
+.tryon-partes {
+  margin: 0.8rem 0 0; padding: 0.6rem 0.8rem;
+  border-left: 2px solid var(--gold-dim);
+  background: rgba(201, 162, 75, 0.04);
+  font-size: 0.8rem; line-height: 1.5; color: var(--ink-soft);
+}
+.tryon-partes b { color: var(--ink); font-weight: 500; }
