@@ -280,6 +280,12 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
 
 <section class="contact-grid">
   <form id="contactForm" data-reveal="left">
+    <!-- Campo trampa: no se ve ni se puede tabular. Los robots lo completan
+         igual, y así el servidor los descarta sin molestar a nadie. -->
+    <div class="trampa" aria-hidden="true">
+      <label for="web">No completar</label>
+      <input type="text" id="web" name="web" tabindex="-1" autocomplete="off">
+    </div>
     <div class="form-field">
       <label for="nombre">Cómo te llamás</label>
       <input type="text" id="nombre" name="nombre" required autocomplete="name">
@@ -308,10 +314,8 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
       <textarea id="mensaje" name="mensaje" required placeholder="Para cuándo lo necesitás, para quién es, si tenés una foto de referencia…"></textarea>
     </div>
     <button type="submit" class="btn btn-solid spark-hover">Enviar por WhatsApp</button>
-    <p class="form-note">Al enviar se abre WhatsApp con todo escrito. No hace falta que repitas nada.</p>
-    <!-- ⚠️ Este formulario abre WhatsApp pero NO guarda el email en ningún lado.
-         Si querés armar una base de contactos, hay que conectarlo a un Google Sheet
-         o a un servicio de formularios desde el Worker. -->
+    <p class="form-note">Al enviar se abre WhatsApp con todo escrito. Tu consulta nos queda
+      guardada igual, así que si se te cierra la ventana no perdiste nada.</p>
   </form>
 
   <div data-reveal="right">
@@ -378,6 +382,45 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
     <div class="faq-a"><p>No publicamos lista de precios porque cada pieza es distinta: cambia el tamaño, el material y el detalle del calado. Decinos qué pieza te gustó y de qué medida —el probador de arriba te ayuda a decidirla— y te pasamos el valor exacto el mismo día. Nunca vas a pagar nada antes de tener el precio cerrado y el diseño aprobado.</p></div>
   </div>
 </div>
+</section>
+
+<div class="hr-divider"></div>
+
+<!-- Para el que mira ahora pero compra en tres meses: si no le dejamos
+     dónde anotarse, se pierde. Esto lo guarda en la misma base. -->
+<section class="avisame" aria-labelledby="t-avisame">
+  <div class="section-head centrado" data-reveal>
+    <p class="eyebrow centered">¿Todavía no es el momento?</p>
+    <h2 id="t-avisame" data-engrave>Dejanos tu mail y te avisamos</h2>
+    <p class="lede">Muchos nos escriben en octubre por algo que vieron en julio. Si te gustó
+      algo pero lo tuyo es más adelante, anotate y te escribimos cuando se acerque la fecha.
+      No mandamos publicidad todas las semanas: avisamos cuando hay diseños nuevos o cierra una agenda.</p>
+  </div>
+  <form id="novedadesForm" class="avisame-form" data-reveal>
+    <div class="trampa" aria-hidden="true">
+      <label for="web2">No completar</label>
+      <input type="text" id="web2" name="web" tabindex="-1" autocomplete="off">
+    </div>
+    <div class="avisame-fila">
+      <div class="form-field">
+        <label for="novEmail">Tu email</label>
+        <input type="email" id="novEmail" name="email" required autocomplete="email" placeholder="nombre@correo.com">
+      </div>
+      <div class="form-field">
+        <label for="novCuando">¿Para cuándo, más o menos?</label>
+        <select id="novCuando" name="cuando">
+          <option>Todavía no sé</option>
+          <option>Día de la Madre</option>
+          <option>Fin de año / Navidad</option>
+          <option>Un cumpleaños o fiesta de 15</option>
+          <option>Para mi local o negocio</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-solid spark-hover">Avisame</button>
+    </div>
+    <p class="form-note">Solo guardamos tu mail y para cuándo lo necesitás. Te podés dar de baja
+      respondiendo cualquier mensaje.</p>
+  </form>
 </section>
 
 <section class="cta-final">

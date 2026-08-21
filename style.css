@@ -1194,16 +1194,26 @@ main, .site-header, .site-footer, .announce, .ticker { position: relative; z-ind
 .tryon-stage.has-photo .tryon-photo { display: block; }
 .tryon-stage.has-photo .tryon-room { display: none; }
 .tryon-stage.has-photo .tryon-hint { color: var(--ink); background: rgba(12,11,9,0.72); border-color: var(--line); }
+/* Con la foto del cliente no sabemos si la pared es clara u oscura, así que la
+   pieza lleva un filo de luz muy tenue además de la sombra: la despega tanto de
+   una pared blanca como de una oscura, sin taparle el calado. */
+.tryon-stage.has-photo .tryon-piece {
+  filter: drop-shadow(0 0 1px rgba(255,246,230,0.5))
+          drop-shadow(1px 2px 3px rgba(0,0,0,0.42))
+          drop-shadow(3px 8px 14px rgba(0,0,0,0.38));
+}
 .tryon-room { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 .tryon-piece {
-  position: absolute; left: 50%; top: 42%;
+  position: absolute; left: 50%; top: 26%;
   transform: translate(-50%, -50%);
   will-change: left, top, width;
-  /* sobre pared oscura la pieza negra necesita un borde de luz para leerse */
-  filter: drop-shadow(0 0 1px rgba(231,205,143,0.55))
-          drop-shadow(0 1px 0 rgba(231,205,143,0.28))
-          drop-shadow(0 14px 22px rgba(0,0,0,0.6));
+  /* Sombra proyectada, como la de un cuadro colgado: corrida abajo y a la
+     derecha, siguiendo la luz de la escena. Antes había un halo dorado porque
+     la pared era oscura y la pieza negra no se veía; sobre pared clara no hace
+     falta, y sin el halo se aprecia el calado fino. */
+  filter: drop-shadow(1px 2px 2px rgba(40,30,18,0.28))
+          drop-shadow(3px 7px 11px rgba(40,30,18,0.28));
 }
 .tryon-piece img { width: 100%; height: auto; display: block; pointer-events: none; }
 .tryon-piece::after {
@@ -1408,3 +1418,39 @@ main, .site-header, .site-footer, .announce, .ticker { position: relative; z-ind
 
 /* bajada un punto más chica que la normal */
 .lede-sm { font-size: 0.95rem; }
+
+/* =============================================================
+   FORMULARIOS: CAMPO TRAMPA, AVISOS Y BLOQUE "AVISAME"
+   ============================================================= */
+
+/* El campo trampa tiene que ser invisible para la persona pero existir
+   para el robot. Por eso NO se usa display:none: varios robots detectan
+   eso y lo saltean. Se lo saca de la vista y del foco. */
+.trampa {
+  position: absolute !important; left: -9999px !important;
+  width: 1px; height: 1px; overflow: hidden;
+}
+
+.form-aviso {
+  margin: 0.9rem 0 0; font-size: 0.82rem; line-height: 1.5;
+  color: var(--gold-light); border-left: 2px solid var(--gold);
+  padding: 0.5rem 0.8rem; background: rgba(201, 162, 75, 0.07);
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.form-aviso.on { opacity: 1; transform: none; }
+.form-aviso.mal { color: #E9B7A2; border-left-color: #C2704D; background: rgba(194, 112, 77, 0.09); }
+
+.avisame-form { max-width: 780px; margin: 0 auto; }
+.avisame-fila {
+  display: grid; grid-template-columns: 1.4fr 1.1fr auto;
+  gap: 0.9rem; align-items: end;
+}
+.avisame-fila .form-field { margin: 0; }
+.avisame-fila .btn { white-space: nowrap; height: 46px; }
+.avisame .form-note { text-align: center; margin-top: 1rem; }
+
+@media (max-width: 760px) {
+  .avisame-fila { grid-template-columns: 1fr; align-items: stretch; }
+  .avisame-fila .btn { width: 100%; }
+}

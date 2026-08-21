@@ -338,11 +338,57 @@
   // ---------------------------------------------------------
   // FORMULARIO DE CONTACTO → WHATSAPP
   // ---------------------------------------------------------
+  // ---------------------------------------------------------
+  // GUARDAR EL CONTACTO
+  // Manda los datos a /api/lead, que los escribe en la base.
+  // "keepalive" es la parte importante: hace que el pedido llegue igual
+  // aunque el navegador se vaya a WhatsApp en el mismo instante.
+  // ---------------------------------------------------------
+  function guardarContacto(datos) {
+    try {
+      return fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos),
+        keepalive: true
+      }).then(function (r) { return r.ok; }).catch(function () { return false; });
+    } catch (err) {
+      return Promise.resolve(false);
+    }
+  }
+
+  function avisar(form, texto, esError) {
+    var box = $('.form-aviso', form);
+    if (!box) {
+      box = document.createElement('p');
+      box.className = 'form-aviso';
+      form.appendChild(box);
+    }
+    box.textContent = texto;
+    box.classList.toggle('mal', !!esError);
+    box.classList.add('on');
+  }
+
   var contactForm = $('#contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var d = new FormData(contactForm);
+
+      // 1) Primero se guarda. No esperamos la respuesta a propósito:
+      //    si esperáramos, el navegador tomaría la ventana de WhatsApp
+      //    como un pop-up no pedido y la bloquearía.
+      guardarContacto({
+        nombre:  d.get('nombre')  || '',
+        email:   d.get('email')   || '',
+        tipo:    d.get('tipo')    || '',
+        medida:  d.get('medida')  || '',
+        mensaje: d.get('mensaje') || '',
+        web:     d.get('web')     || '',
+        origen:  'formulario'
+      });
+
+      // 2) Y recién ahí se abre WhatsApp, dentro del mismo clic.
       var texto =
         '¡Hola Pixel Labs! Soy ' + (d.get('nombre') || '') + '.\n' +
         'Tipo de proyecto: ' + (d.get('tipo') || '') + '\n' +
@@ -351,6 +397,37 @@
         'Mi email: ' + (d.get('email') || '');
       track('contacto_whatsapp', { origen: 'formulario', destino: d.get('tipo') || '' });
       window.open('https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(texto), '_blank');
+
+      avisar(contactForm, 'Listo. Te guardamos la consulta y te escribimos aunque se te cierre WhatsApp.');
+    });
+  }
+
+  // ---------------------------------------------------------
+  // "AVISAME CUANDO..." — para el que mira pero todavía no compra
+  // ---------------------------------------------------------
+  var novForm = $('#novedadesForm');
+  if (novForm) {
+    novForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var d = new FormData(novForm);
+      var btn = $('button', novForm);
+      if (btn) { btn.disabled = true; btn.textContent = 'Guardando…'; }
+
+      guardarContacto({
+        email:   d.get('email') || '',
+        mensaje: d.get('cuando') || '',
+        web:     d.get('web') || '',
+        origen:  'novedades'
+      }).then(function (ok) {
+        if (btn) { btn.disabled = false; btn.textContent = 'Avisame'; }
+        if (ok) {
+          track('novedades_alta', {});
+          novForm.reset();
+          avisar(novForm, 'Anotado. Te escribimos cuando haya novedades, sin llenarte la casilla.');
+        } else {
+          avisar(novForm, 'No pudimos guardarlo. Probá de nuevo o escribinos por WhatsApp.', true);
+        }
+      });
     });
   }
 
@@ -611,7 +688,9 @@
     var piece = $('#tryPiece'), pieceImg = $('#tryPieceImg');
     var thumbs = $('#tryThumbs'), waBtn = $('#tryWa');
     var actual = 0, cm = 38, paredCm = 300;
-    var pos = { x: 50, y: 40 };   // en % de la escena
+    // 26% deja la pieza colgada por encima del respaldo del sofá, que es
+    // la altura a la que se cuelga un cuadro de verdad.
+    var pos = { x: 50, y: 26 };   // en % de la escena
 
     function norm2(t) {
       return (t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');

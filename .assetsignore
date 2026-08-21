@@ -1,8 +1,22 @@
 # Archivos que NO se publican, aunque estén en la carpeta.
 # (Cloudflare Workers sube todo lo que hay en "directory" salvo lo que liste acá.)
 LEEME-CAMBIOS.md
+LEEME-CONTACTOS.md
 README.md
 wrangler.jsonc
 .assetsignore
 .git
 .gitignore
+
+# El código del servidor. Wrangler lo compila igual porque está declarado
+# en "main"; esta línea solo evita que quede colgado como archivo público
+# en pixellabs.com.ar/worker/index.js
+worker
+node_modules
+
+# Carpeta temporal que crea wrangler al probar en local.
+.wrangler
+
+# Cosas que solo sirven para el editor, no para el sitio publicado.
+jsconfig.json
+tipos

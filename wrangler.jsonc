@@ -1,8 +1,31 @@
 {
   "name": "pixel-labs-web",
+  "main": "worker/index.js",
   "compatibility_date": "2026-08-01",
+
+  // El sitio de siempre. Cloudflare sirve estos archivos solo; el código
+  // del worker únicamente entra cuando la dirección no es un archivo
+  // (o sea: /api/lead y /panel).
   "assets": {
     "directory": "./",
-    "not_found_handling": "404-page"
-  }
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+
+    // Estas dos direcciones las atiende el código sí o sí. Sin esta línea,
+    // /panel podría caer en la página de error 404 antes de llegar al worker,
+    // porque el navegador la pide como si fuera una página normal.
+    "run_worker_first": ["/api/*", "/panel", "/panel/*"]
+  },
+
+  // Base de datos de contactos.
+  // El "database_id" te lo da Cloudflare cuando corrés:
+  //     npx wrangler d1 create pixel-labs-leads
+  // Copiá ese id acá abajo y recién después hacé el deploy.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "pixel-labs-leads",
+      "database_id": "local-test-id"
+    }
+  ]
 }
