@@ -37,4 +37,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://pixellabs.com.ar/sitemap.xml
+Sitemap: https://www.pixellabs.com.ar/sitemap.xml
