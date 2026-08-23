@@ -1,5 +1,55 @@
 # Pixel Labs — qué cambió en esta tanda
 
+## Google Search Console: los 79 productos no válidos
+
+**Era un error mío.** Cada uno de los 79 productos llevaba un bloque `offers`
+(oferta) **sin el precio adentro**. Google exige que si mandás `offers`,
+adentro vaya el precio sí o sí. Por eso marcaba los 79 como no válidos.
+
+Los avisos amarillos que ves debajo (*"Falta el campo aggregateRating"*,
+*"Falta el campo review"*) **no son el problema**: dicen "(opcional)" y son
+sugerencias. El crítico era el precio faltante.
+
+### Por qué no le puse precio y ya
+
+Sería el arreglo fácil y sería un error:
+
+- Los precios que tenemos son **por medida**, y sólo para cuadros.
+- Los souvenirs van **por cantidad**, con mínimo de 10.
+- La página **no muestra precio en cada ficha**.
+
+Google penaliza justamente eso: que el precio de los datos no coincida con lo
+que ve la persona en la página. Poner $7.000 en las 79 fichas sería inventar.
+
+### Qué hice
+
+Dejé de declararlos como "Producto" y pasé a declarar lo que de verdad son:
+una **lista de piezas** con nombre, foto y categoría. Es válido, no da ningún
+error, y Google la sigue usando para entender el catálogo y para la búsqueda
+de imágenes.
+
+**No perdés nada**: sin precio ni reseñas, esos productos nunca iban a
+calificar para los resultados con precio. Sólo generaban 79 errores.
+
+Aproveché y revisé **todo el sitio** con el mismo criterio: había 4 casos más
+del mismo tipo en Inicio (los servicios del negocio también estaban declarados
+como ofertas sin precio). Ahora dicen que son **servicios**, que es lo que son.
+Hoy Google no te los marcaba, pero era el mismo error esperando.
+
+**Resultado: cero ofertas sin precio en las 7 páginas.**
+
+### Si algún día querés los resultados con precio
+
+Hace falta que la página muestre un "desde $X" en cada ficha. Si en algún
+momento lo querés, avisame y volvemos a Producto con ofertas de verdad: ahí sí
+califica, y el precio aparecería en Google debajo del resultado.
+
+### Cuándo lo vas a ver corregido
+
+Subí el cambio y en Search Console entrá al informe, tocá **VALIDAR
+CORRECCIÓN**. Google reprocesa la página en unos días. El número de elementos
+no válidos tiene que bajar de 79 a 0.
+
 ## Revisión completa: 18 defectos corregidos
 
 Los tres que más importaban:
@@ -165,7 +215,7 @@ VS Code en la carpeta del sitio y pegá esto, **una línea por vez**:
 git fetch origin
 git reset origin/main
 git add -A
-git commit -m "18 defectos corregidos, seguridad, categorias primero y precio"
+git commit -m "arreglo los 79 productos no validos de Search Console"
 git push
 ```
 

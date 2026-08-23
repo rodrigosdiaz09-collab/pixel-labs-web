@@ -64,7 +64,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Pixel Labs",
-  "image": "https://pixellabs.com.ar/favicon-512.png",
+  "url": "https://pixellabs.com.ar/",
+  "image": [
+    "https://pixellabs.com.ar/images/taller.jpg",
+    "https://pixellabs.com.ar/favicon-512.png"
+  ],
   "description": "Estudio de grabado y corte láser en madera, acrílico y cuero. Cuadros, souvenirs, cartelería y regalos personalizados, con envíos a todo el país.",
   "address": {"@type": "PostalAddress", "addressLocality": "San Vicente", "addressRegion": "Buenos Aires", "addressCountry": "AR"},
   "areaServed": "AR",
@@ -72,12 +76,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "email": "rodrigo.s.diaz09@gmail.com",
   "sameAs": ["https://instagram.com/PixelLabs.ar"],
   "priceRange": "$$",
-  "makesOffer": [
-    {"@type": "Offer", "name": "Cuadros y deco en corte láser a medida"},
-    {"@type": "Offer", "name": "Retratos de mascota a partir de una foto"},
-    {"@type": "Offer", "name": "Souvenirs personalizados para eventos"},
-    {"@type": "Offer", "name": "Cartelería y regalos corporativos con logo"}
-  ]
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios de Pixel Labs",
+    "itemListElement": [
+      {"@type": "Service", "name": "Cuadros y deco en corte láser a medida"},
+      {"@type": "Service", "name": "Retratos de mascota a partir de una foto"},
+      {"@type": "Service", "name": "Souvenirs personalizados para eventos"},
+      {"@type": "Service", "name": "Cartelería y regalos corporativos con logo"}
+    ]
+  }
 }
 </script>
 </head>
