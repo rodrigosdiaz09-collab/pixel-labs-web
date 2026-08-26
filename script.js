@@ -839,6 +839,7 @@
       { f: 'mate-y-signos-vitales', n: "Mate y Signos Vitales", c: 'Deco', r: 2.1831 },
       { f: 'charly-garcia', n: "Charly García", c: 'Deco', r: 0.6145 },
       { f: 'indio-solari', n: "Indio Solari", c: 'Deco', r: 1.0 },
+      { f: 'colibri-en-circulo', n: "Colibrí en Círculo", c: 'Deco', r: 1.0542 },
       { f: 'frase-vive-ama-suena', n: "Frase Vive, Ama, Sueña", c: 'Deco', r: 0.8177 },
       { f: 'fases-lunares', n: "Fases Lunares", c: 'Deco', r: 2.9665 },
       { f: 'paz-y-armonia', n: "Paz y Armonía", c: 'Deco', r: 1.2455 },
