@@ -626,6 +626,87 @@ section { padding: 4rem 5% 6rem; max-width: 1300px; margin: 0 auto; position: re
 }
 
 /* =============================================================
+   NOVEDADES — la vidriera de la portada
+   No reusa .gallery-item: ese lleva el rótulo ENCIMA de la foto y
+   en celular está siempre visible, así que el nombre caía sobre la
+   pieza. Acá las fotos son grandes y están arriba de todo, así que
+   el texto va debajo, en su propio renglón.
+   ============================================================= */
+.nov-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.nov-item { position: relative; min-width: 0; }
+.nov-link {
+  display: flex; flex-direction: column; height: 100%;
+  text-decoration: none; color: inherit;
+  background: rgba(28, 25, 20, 0.30);
+  backdrop-filter: blur(14px) saturate(125%);
+  -webkit-backdrop-filter: blur(14px) saturate(125%);
+  border: 1px solid var(--line);
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.5s var(--ease);
+}
+.nov-link:hover, .nov-link:focus-visible {
+  border-color: var(--gold-dim); box-shadow: 0 18px 44px rgba(0,0,0,0.5);
+}
+
+/* Las fotos son ambientes reales (una pared de ladrillo, un quincho), no
+   piezas recortadas sobre fondo liso: por eso van a sangre con object-fit
+   cover en vez del contain con margen que usa el resto de las galerías.
+   Con contain quedaban dos franjas negras arriba y abajo de cada tarjeta. */
+.nov-foto { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; }
+.nov-foto img, .nov-foto .nov-video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: grayscale(14%) brightness(0.9);
+  transition: transform 0.7s var(--ease), filter 0.7s ease;
+}
+.nov-link:hover .nov-foto img, .nov-link:hover .nov-foto .nov-video {
+  transform: scale(1.05); filter: grayscale(0%) brightness(1);
+}
+
+.nov-pie { display: flex; flex-direction: column; gap: 0.3rem; padding: 0.8rem 0.9rem 0.9rem; }
+.nov-n {
+  font-family: var(--font-display); color: var(--gold-light);
+  font-size: 1.1rem; line-height: 1.15; font-weight: 500;
+}
+.nov-ver {
+  font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--ink-soft); transition: color 0.3s;
+}
+.nov-link:hover .nov-ver { color: var(--gold); }
+
+/* El sello sale escrito con hidden y lo enciende el JS si la pieza todavía
+   está dentro de los 8 días. La segunda regla tiene que existir: .nov-sello
+   fija un display propio y sin ella le ganaría al hidden del HTML, con lo
+   cual el sello quedaría prendido para siempre. */
+.nov-sello {
+  position: absolute; top: 0; left: 0; z-index: 3;
+  display: inline-block;
+  padding: 0.3rem 0.7rem 0.28rem;
+  background: var(--gold); color: #17130A;
+  font-family: var(--font-body); font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; line-height: 1;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+  pointer-events: none;
+}
+.nov-sello[hidden] { display: none; }
+
+@media (max-width: 860px) { .nov-grid { gap: 0.7rem; } }
+
+/* En celular la pieza más nueva ocupa el ancho completo y las otras dos van
+   abajo en dos columnas. Con tres tarjetas a 2 columnas quedaba una huérfana
+   sola en la segunda fila; así además lo más nuevo se destaca, que es
+   justamente para lo que existe la sección. */
+@media (max-width: 560px) {
+  .nov-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+  .nov-item:first-child { grid-column: 1 / -1; }
+  .nov-item:first-child .nov-foto { aspect-ratio: 16 / 10; }
+  .nov-item:first-child .nov-n { font-size: 1.25rem; }
+  .nov-n { font-size: 0.95rem; }
+  .nov-ver { font-size: 0.55rem; letter-spacing: 0.12em; }
+  .nov-pie { padding: 0.6rem 0.65rem 0.7rem; }
+  .nov-sello { font-size: 0.55rem; padding: 0.26rem 0.55rem 0.24rem; }
+}
+
+/* =============================================================
    PRECIOS ORIENTATIVOS
    ============================================================= */
 .precios-ref { scroll-margin-top: 110px; }

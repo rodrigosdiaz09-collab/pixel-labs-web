@@ -79,9 +79,20 @@
     });
   }
 
-  var current = window.location.pathname.split('/').pop() || 'index.html';
+  // Qué página es ésta, normalizada. "/productos", "/productos.html" y
+  // "/productos/" son todas la misma: Cloudflare sirve la primera y redirige
+  // las otras dos. Los links del sitio van sin .html (ver el comentario de
+  // build.py), pero alguien puede llegar con la dirección vieja desde un
+  // favorito o desde un resultado de Google, y el menú tiene que marcar la
+  // solapa igual. Por eso se compara el nombre pelado, no el href literal.
+  function pagina(u) {
+    var p = (u || '').split('#')[0].split('?')[0];
+    p = p.replace(/\/+$/, '').replace(/^.*\//, '').replace(/\.html$/i, '');
+    return p || 'index';
+  }
+  var current = pagina(window.location.pathname);
   $$('.main-nav a').forEach(function (a) {
-    if (a.getAttribute('href') === current) a.classList.add('active');
+    if (pagina(a.getAttribute('href')) === current) a.classList.add('active');
   });
 
   // ---------------------------------------------------------
@@ -1038,6 +1049,61 @@
   }
 
   // ---------------------------------------------------------
+  // NOVEDADES — el sello "Nuevo" se apaga solo a los 8 días
+  // ---------------------------------------------------------
+  // El HTML sale con el sello apagado y con la fecha de publicación puesta
+  // en data-fecha. Acá se enciende únicamente si la pieza todavía está
+  // dentro del plazo. La cuenta la hace el navegador del visitante, así que
+  // la portada se despinta sola aunque no volvamos a publicar en meses.
+  // La tarjeta NO se borra: lo que vence es el sello. Si algún día hacés que
+  // desaparezca la tarjeta entera, la portada queda con un hueco la primera
+  // semana que no subas nada.
+  var DIAS_NUEVO = 8;
+  $$('.nov-sello[data-fecha]').forEach(function (sello) {
+    var t = (sello.getAttribute('data-fecha') || '').split('-');
+    if (t.length !== 3) return;
+    // Las dos fechas se normalizan a medianoche UTC antes de restar. Si se
+    // compara new Date('2026-09-08') contra Date.now() en crudo, el
+    // resultado se corre según el huso del que entra y el sello se apagaría
+    // un día antes en España y un día después en México.
+    var pub = Date.UTC(+t[0], +t[1] - 1, +t[2]);
+    var h = new Date();
+    var dias = Math.floor((Date.UTC(h.getFullYear(), h.getMonth(), h.getDate()) - pub) / 86400000);
+    if (dias >= -1 && dias < DIAS_NUEVO) sello.hidden = false;
+  });
+
+  // Los clips de las novedades arrancan recién cuando entran en pantalla y
+  // se frenan al salir. Nunca en autoplay desde que carga la página: tres
+  // videos corriendo de entrada le comen datos y batería al que entra desde
+  // el celular, que es de donde viene casi todo el tráfico de Instagram.
+  var novVideos = $$('video[data-nov-video]');
+  if (novVideos.length) {
+    var con = navigator.connection || {};
+    var ahorro = con.saveData === true || /(^|-)2g$/.test(con.effectiveType || '');
+    if (reduce || ahorro) {
+      // Con "reducir movimiento" o con ahorro de datos no se descarga el mp4:
+      // queda el poster, que es la misma foto de la pieza.
+      novVideos.forEach(function (v) { v.removeAttribute('data-nov-video'); });
+    } else if ('IntersectionObserver' in window) {
+      var iov = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) {
+            if (v.preload === 'none') v.preload = 'auto';
+            var pr = v.play();
+            // El navegador puede negarse a reproducir; si pasa queda el
+            // poster y listo. Sin este catch salta un error sin manejar.
+            if (pr && pr.catch) pr.catch(function () {});
+          } else if (!v.paused) {
+            v.pause();
+          }
+        });
+      }, { threshold: 0.25 });
+      novVideos.forEach(function (v) { iov.observe(v); });
+    }
+  }
+
+  // ---------------------------------------------------------
   // TRANSICIÓN ENTRE PÁGINAS
   // ---------------------------------------------------------
   var wipe = $('.wipe');
@@ -1047,8 +1113,14 @@
       if (!a) return;
       var href = a.getAttribute('href') || '';
       if (a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-      if (!/\.html$/.test(href) || /^https?:/i.test(href)) return;
-      if (href.split('/').pop() === current) return;
+      // Antes esto exigía que el href terminara en .html. Los links internos
+      // ahora van sin extensión ("/productos"), así que con aquella condición
+      // la transición dejó de aparecer en todo el sitio. Ahora se acepta lo
+      // que arranque con "/" y no sea un archivo: /images/x.jpg y /style.css
+      // quedan afuera, /productos y /productos#probador entran.
+      if (/^https?:/i.test(href) || href.charAt(0) !== '/') return;
+      if (/\.[a-z0-9]+$/i.test(href.split('#')[0])) return;
+      if (pagina(href) === current) return;
       e.preventDefault();
       wipe.classList.add('is-on');
       setTimeout(function () { window.location.href = href; }, 380);
