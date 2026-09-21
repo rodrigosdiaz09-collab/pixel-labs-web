@@ -20,6 +20,8 @@ interface Window {
    * indexOf() para saber si la pieza que estás mirando se puede probar.
    */
   PROBADOR_NOMBRES?: string[];
+  /** Selecciona una pieza disponible sin depender del filtro de miniaturas. */
+  probarPieza?: (nombre: string) => boolean;
 }
 
 /** Lo que le llega al worker desde Cloudflare (base de datos, archivos, clave). */

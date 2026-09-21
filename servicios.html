@@ -47,7 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=20260921-1">
 
 <!-- ===================== MEDICIÓN =====================
      Pegá acá tu GA4 y tu Píxel de Meta. El resto ya está cableado:
@@ -195,7 +195,7 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
     <a href="/nosotros">Nosotros</a>
     <a href="/contacto">Contacto</a>
   </nav>
-  <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
+  <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-controls="mainNav" aria-expanded="false">☰</button>
 </header>
 
 <main id="main">
@@ -306,10 +306,13 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
       <p class="lb-cat" id="lbCat"></p>
       <h3 class="lb-title" id="lbTitle">Detalle de la pieza</h3>
       <p class="lb-desc" id="lbDesc"></p>
+      <p class="lb-assurance">Boceto aprobado por vos · Envíos a todo el país</p>
       <a class="btn btn-solid spark-hover" id="lbWa" href="#" target="_blank" rel="noopener">Cotizar esta pieza</a>
       <button class="btn spark-hover" type="button" id="lbPick">Agregar a mi selección</button>
       <button class="btn spark-hover" type="button" id="lbTry" hidden>Verla en mi pared</button>
-      <button class="btn spark-hover" type="button" id="lbShare" hidden>Compartir</button>
+      <button class="btn spark-hover" type="button" id="lbShare" hidden>Compartir pieza</button>
+      <input class="lb-link" id="lbLink" type="text" readonly hidden aria-label="Enlace de esta pieza">
+      <p class="lb-status" id="lbStatus" role="status" aria-live="polite"></p>
     </div>
   </div>
 </div>
@@ -351,6 +354,6 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
   </p>
 </footer>
 
-<script src="script.js"></script>
+<script src="script.js?v=20260921-1"></script>
 </body>
 </html>

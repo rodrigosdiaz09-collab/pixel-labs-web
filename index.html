@@ -47,7 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=20260921-1">
 
 <!-- ===================== MEDICIÓN =====================
      Pegá acá tu GA4 y tu Píxel de Meta. El resto ya está cableado:
@@ -228,7 +228,7 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
     <a href="/nosotros">Nosotros</a>
     <a href="/contacto">Contacto</a>
   </nav>
-  <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
+  <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-controls="mainNav" aria-expanded="false">☰</button>
 </header>
 
 <main id="main">
@@ -237,18 +237,19 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
   <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
   <div class="hero-content">
     <p class="eyebrow">Grabado y corte láser · San Vicente, Buenos Aires</p>
-    <h1 data-engrave>La luz corta.<span class="accent">Vos decidís dónde.</span></h1>
-    <p class="lede">Cuadros, souvenirs y cartelería en madera, acrílico y cuero. Por el láser cada trabajo pasa una sola vez, así que lo hacemos bien la primera. Envíos a todo el país.</p>
+    <h1 data-engrave>Cuadros y regalos.<span class="accent">Con tu historia.</span></h1>
+    <p class="lede">Personalizamos cuadros, souvenirs y carteles en madera, acrílico y cuero. Vos aprobás el diseño; nosotros lo hacemos y te lo enviamos a cualquier punto del país.</p>
     <div class="hero-actions">
       <a href="/productos" class="btn btn-solid spark-hover">Ver el catálogo</a>
       <a href="https://wa.me/542224642172?text=%C2%A1Hola%20Pixel%20Labs%21%20Tengo%20una%20idea%20y%20quiero%20cotizarla." target="_blank" rel="noopener" class="btn spark-hover">Cotizar mi idea</a>
     </div>
-    <p class="hero-joke">Cortamos por lo sano. Literal, literalmente.</p>
+    <p class="hero-joke">La luz corta. Vos decidís dónde.</p>
   </div>
   <div class="hero-tag">
     <video autoplay muted loop playsinline preload="none" poster="images/logo-hero.png" aria-hidden="true" tabindex="-1">
       <source src="images/logo-hero.mp4" type="video/mp4">
     </video>
+    <p class="hero-tag-caption">Así empieza cada pieza</p>
   </div>
   <div class="hero-scroll" aria-hidden="true">Seguí bajando</div>
 </section>
@@ -286,43 +287,43 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
   <div class="section-head" data-reveal>
     <p class="eyebrow">Recién salido del láser</p>
     <h2 id="t-novedades" data-engrave>Novedades</h2>
-    <p class="lede">Lo último que hicimos, con la fecha puesta. Todo lo que ves acá ya está
-    en el catálogo, al lado de los otros 79 diseños.</p>
+    <p class="lede">Tres ideas para empezar. Abrí la pieza que te guste para verla en detalle;
+    en el catálogo te esperan 82 diseños para personalizar.</p>
   </div>
   <div class="nov-grid">
     <article class="nov-item" data-reveal="zoom">
-      <a class="nov-link" href="/productos">
+      <a class="nov-link" href="/productos?pieza=cuadro-coleccionista-6-mundiales">
         <span class="nov-foto">
           <span class="nov-sello" data-fecha="2026-09-15" hidden>Nuevo</span>
           <img src="images/thumb/cuadro-coleccionista-6-mundiales.webp" width="560" height="560" decoding="async" alt="Cuadro para coleccionistas con seis espacios para pegar las figuritas de los mundiales 2006 a 2026 — Pixel Labs" loading="lazy">
         </span>
         <span class="nov-pie">
           <span class="nov-n">Cuadro Coleccionista 6 Mundiales</span>
-          <span class="nov-ver">Ver en el catálogo</span>
+          <span class="nov-ver">Ver esta pieza</span>
         </span>
       </a>
     </article>
     <article class="nov-item" data-reveal="zoom" style="--d:110ms">
-      <a class="nov-link" href="/productos">
+      <a class="nov-link" href="/productos?pieza=cuadro-mascota-gato-desde-foto">
         <span class="nov-foto">
           <span class="nov-sello" data-fecha="2026-09-15" hidden>Nuevo</span>
           <img src="images/thumb/cuadro-mascota-gato-desde-foto.webp" width="560" height="560" decoding="async" alt="Retrato de un gato grabado a láser en madera junto a la foto original que se usó de modelo — Pixel Labs" loading="lazy">
         </span>
         <span class="nov-pie">
           <span class="nov-n">Retrato de Gato desde una Foto</span>
-          <span class="nov-ver">Ver en el catálogo</span>
+          <span class="nov-ver">Ver esta pieza</span>
         </span>
       </a>
     </article>
     <article class="nov-item" data-reveal="zoom" style="--d:220ms">
-      <a class="nov-link" href="/productos">
+      <a class="nov-link" href="/productos?pieza=carteleria-quincho-nombre">
         <span class="nov-foto">
           <span class="nov-sello" data-fecha="2026-09-08" hidden>Nuevo</span>
           <img src="images/thumb/carteleria-quincho-nombre.webp" width="560" height="560" decoding="async" alt="Cartel de quincho en madera con el nombre de la familia en corte láser — Pixel Labs" loading="lazy">
         </span>
         <span class="nov-pie">
           <span class="nov-n">Cartel de Quincho</span>
-          <span class="nov-ver">Ver en el catálogo</span>
+          <span class="nov-ver">Ver esta pieza</span>
         </span>
       </a>
     </article>
@@ -438,10 +439,10 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
 
 <section class="pt-2">
   <div class="stats">
-    <div class="stat" data-reveal><span class="stat-n" data-count="82" data-suffix="">0</span><span class="stat-l">Diseños en catálogo</span></div>
-    <div class="stat" data-reveal style="--d:80ms"><span class="stat-n" data-count="3">0</span><span class="stat-l">Materiales que dominamos</span></div>
-    <div class="stat" data-reveal style="--d:160ms"><span class="stat-n" data-count="24">0</span><span class="stat-l">Provincias y CABA con envío</span></div>
-    <div class="stat" data-reveal style="--d:240ms"><span class="stat-n" data-count="100" data-suffix="%">0</span><span class="stat-l">Diseños aprobados por vos</span></div>
+    <div class="stat" data-reveal><span class="stat-n" data-count="82" data-suffix="">82</span><span class="stat-l">Diseños en catálogo</span></div>
+    <div class="stat" data-reveal style="--d:80ms"><span class="stat-n" data-count="3">3</span><span class="stat-l">Materiales que dominamos</span></div>
+    <div class="stat" data-reveal style="--d:160ms"><span class="stat-n" data-count="24">24</span><span class="stat-l">Provincias y CABA con envío</span></div>
+    <div class="stat" data-reveal style="--d:240ms"><span class="stat-n" data-count="100" data-suffix="%">100%</span><span class="stat-l">Diseños aprobados por vos</span></div>
   </div>
 </section>
 
@@ -567,10 +568,13 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
       <p class="lb-cat" id="lbCat"></p>
       <h3 class="lb-title" id="lbTitle">Detalle de la pieza</h3>
       <p class="lb-desc" id="lbDesc"></p>
+      <p class="lb-assurance">Boceto aprobado por vos · Envíos a todo el país</p>
       <a class="btn btn-solid spark-hover" id="lbWa" href="#" target="_blank" rel="noopener">Cotizar esta pieza</a>
       <button class="btn spark-hover" type="button" id="lbPick">Agregar a mi selección</button>
       <button class="btn spark-hover" type="button" id="lbTry" hidden>Verla en mi pared</button>
-      <button class="btn spark-hover" type="button" id="lbShare" hidden>Compartir</button>
+      <button class="btn spark-hover" type="button" id="lbShare" hidden>Compartir pieza</button>
+      <input class="lb-link" id="lbLink" type="text" readonly hidden aria-label="Enlace de esta pieza">
+      <p class="lb-status" id="lbStatus" role="status" aria-live="polite"></p>
     </div>
   </div>
 </div>
@@ -612,6 +616,6 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
   </p>
 </footer>
 
-<script src="script.js"></script>
+<script src="script.js?v=20260921-1"></script>
 </body>
 </html>

@@ -21,13 +21,12 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   // ---------------------------------------------------------
-  // PRELOADER — se va apenas carga, y como máximo en 1,2 s
+  // La entrada acompaña la página sin esperar imágenes ni el video.
   // ---------------------------------------------------------
   var boot = $('.boot');
   if (boot) {
     var closeBoot = function () { boot.classList.add('is-done'); };
-    window.addEventListener('load', function () { setTimeout(closeBoot, 200); });
-    setTimeout(closeBoot, 1200);
+    requestAnimationFrame(closeBoot);
   }
 
   // ---------------------------------------------------------
@@ -64,19 +63,40 @@
   var navToggle = $('#navToggle');
   var mainNav = $('#mainNav');
   if (navToggle && mainNav) {
-    navToggle.addEventListener('click', function () {
-      var open = mainNav.classList.toggle('open');
-      document.body.classList.toggle('is-locked', open);
+    var mobileNav = window.matchMedia('(max-width: 900px)');
+    function menu(open, devolverFoco) {
+      open = open && mobileNav.matches;
+      mainNav.classList.toggle('open', open);
+      if (header) header.classList.toggle('menu-open', open);
+      mainNav.inert = mobileNav.matches && !open;
+      document.body.classList.toggle('is-locked', open || !!$('#lightbox.on'));
       navToggle.textContent = open ? '✕' : '☰';
+      navToggle.setAttribute('aria-expanded', String(open));
       navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      if (devolverFoco) navToggle.focus();
+    }
+    navToggle.addEventListener('click', function () {
+      menu(!mainNav.classList.contains('open'));
     });
     $$('a', mainNav).forEach(function (a) {
       a.addEventListener('click', function () {
-        mainNav.classList.remove('open');
-        document.body.classList.remove('is-locked');
-        navToggle.textContent = '☰';
+        menu(false);
       });
     });
+    document.addEventListener('keydown', function (e) {
+      if (!mainNav.classList.contains('open')) return;
+      if (e.key === 'Escape') { e.preventDefault(); menu(false, true); }
+      if (e.key === 'Tab') {
+        var links = $$('a', mainNav), first = links[0];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); navToggle.focus();
+        } else if (!e.shiftKey && document.activeElement === navToggle) {
+          e.preventDefault(); first.focus();
+        }
+      }
+    });
+    mobileNav.addEventListener('change', function () { menu(false); });
+    menu(false);
   }
 
   // Qué página es ésta, normalizada. "/productos", "/productos.html" y
@@ -92,7 +112,10 @@
   }
   var current = pagina(window.location.pathname);
   $$('.main-nav a').forEach(function (a) {
-    if (pagina(a.getAttribute('href')) === current) a.classList.add('active');
+    if (pagina(a.getAttribute('href')) === current) {
+      a.classList.add('active');
+      a.setAttribute('aria-current', 'page');
+    }
   });
 
   // ---------------------------------------------------------
@@ -101,6 +124,9 @@
   $$('[data-engrave]').forEach(function (el) {
     if (el.dataset.engraved) return;
     el.dataset.engraved = '1';
+    // Una sola frase para tecnologías de asistencia, aunque la animación
+    // dibuje cada letra por separado.
+    el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
     function walk(node, box) {
       Array.prototype.slice.call(node.childNodes).forEach(function (n) {
         if (n.nodeType === 3) {
@@ -129,6 +155,7 @@
     }
     var frag = document.createElement('span');
     frag.className = 'engrave';
+    frag.setAttribute('aria-hidden', 'true');
     walk(el, frag);
     el.innerHTML = '';
     el.appendChild(frag);
@@ -220,16 +247,7 @@
       });
     });
 
-    // Botones magnéticos
-    $$('.btn').forEach(function (b) {
-      b.addEventListener('mousemove', function (e) {
-        var r = b.getBoundingClientRect();
-        var dx = (e.clientX - (r.left + r.width / 2)) * 0.15;
-        var dy = (e.clientY - (r.top + r.height / 2)) * 0.2;
-        b.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
-      });
-      b.addEventListener('mouseleave', function () { b.style.transform = ''; });
-    });
+    // Los botones quedan quietos: el área que se ve es la que se puede tocar.
   }
 
   // ---------------------------------------------------------
@@ -335,6 +353,24 @@
   var catBarra = $('#catBarra');
   var catVolver = $('#catVolver');
 
+  function limpiarBusqueda() {
+    clearTimeout(deb);
+    var input = $('#finder');
+    if (input) input.value = '';
+    $$('.gallery-item.is-hidden').forEach(function (card) { card.classList.remove('is-hidden'); });
+    var empty = $('#noResults'), clear = $('.finder-clear');
+    if (empty) empty.classList.remove('on');
+    if (clear) clear.classList.remove('on');
+  }
+
+  function urlCategoria(cat) {
+    var url = new URL(window.location.href);
+    url.searchParams.delete('pieza');
+    var section = catSections.find(function (s) { return s.dataset.section === cat; });
+    url.hash = section ? section.id : '';
+    window.history.replaceState(window.history.state, '', url);
+  }
+
   function mostrarCategoria(cat, irAlPrincipio) {
     if (catPortada) catPortada.hidden = (cat !== null);
     if (catBarra) catBarra.hidden = (cat === null);
@@ -344,8 +380,17 @@
                       : (cat === 'Todos' || s.dataset.section === cat) ? '' : 'none';
     });
     catButtons.forEach(function (b) {
-      b.classList.toggle('active', cat !== null && b.dataset.cat === cat);
+      var active = cat !== null && b.dataset.cat === cat;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', String(active));
     });
+    var count = $('#finderCount');
+    if (count) {
+      var total = $$('.gallery-item[data-name]').filter(function (card) {
+        return cat === null || cat === 'Todos' || card.closest('[data-section]').dataset.section === cat;
+      }).length;
+      count.textContent = total + (total === 1 ? ' pieza' : ' piezas');
+    }
 
     // Que el contenido nuevo quede visible: los reveals que ya pasaron de
     // largo nunca se disparan, y la pieza quedaría invisible.
@@ -358,8 +403,8 @@
     }
 
     if (irAlPrincipio && catBarra) {
-      var y = catBarra.getBoundingClientRect().top + window.pageYOffset - 70;
-      window.scrollTo({ top: Math.max(y, 0), behavior: 'smooth' });
+      var y = catBarra.getBoundingClientRect().top + window.pageYOffset - (header ? header.offsetHeight : 70);
+      window.scrollTo({ top: Math.max(y, 0), behavior: reduce ? 'auto' : 'smooth' });
     }
   }
 
@@ -367,14 +412,18 @@
   $$('.cat-card').forEach(function (card) {
     card.addEventListener('click', function () {
       var cat = card.dataset.ir;
+      limpiarBusqueda();
       mostrarCategoria(cat, true);
+      urlCategoria(cat);
       track('filtrar_categoria', { categoria: cat, desde: 'portada' });
     });
   });
 
   if (catVolver) {
     catVolver.addEventListener('click', function () {
+      limpiarBusqueda();
       mostrarCategoria(null, false);
+      urlCategoria(null);
       if (catPortada) {
         var y = catPortada.getBoundingClientRect().top + window.pageYOffset - 70;
         window.scrollTo({ top: Math.max(y, 0), behavior: 'smooth' });
@@ -416,13 +465,10 @@
 
   catButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      catButtons.forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
       var cat = btn.dataset.cat;
+      limpiarBusqueda();
       if (catPortada) { mostrarCategoria(cat, false); }
-      catSections.forEach(function (s) {
-        s.style.display = (cat === 'Todos' || s.dataset.section === cat) ? '' : 'none';
-      });
+      urlCategoria(cat);
       track('filtrar_categoria', { categoria: cat });
     });
   });
@@ -431,8 +477,8 @@
     var a = e.target.closest && e.target.closest('a[href*="wa.me"]');
     if (!a) return;
     track('contacto_whatsapp', {
-      origen: document.title,
-      destino: (a.textContent || '').trim().slice(0, 60) || 'boton'
+      origen: a.id === 'trayGo' ? 'seleccion multiple' : document.title,
+      destino: a.id === 'trayGo' ? $('#trayN').textContent + ' piezas' : (a.textContent || '').trim().slice(0, 60) || 'boton'
     });
   });
 
@@ -653,8 +699,14 @@
       // Buscar atraviesa las categorías, así que hay que salir de la portada.
       // Al borrar la búsqueda se vuelve a las fichas.
       if (catPortada) {
-        if (q && !catPortada.hidden) mostrarCategoria('Todos', false);
-        else if (!q && catBarra && !catBarra.hidden) { mostrarCategoria(null, false); return; }
+        if (!q) {
+          limpiarBusqueda();
+          mostrarCategoria(null, false);
+          urlCategoria(null);
+          return;
+        }
+        mostrarCategoria('Todos', false);
+        urlCategoria('Todos');
       }
 
       var visibles = 0;
@@ -673,15 +725,17 @@
       if (noRes) noRes.classList.toggle('on', visibles === 0);
       if (clearBtn) clearBtn.classList.toggle('on', !!q);
       if (q) {
-        catButtons.forEach(function (b) { b.classList.remove('active'); });
-        if (catButtons[0]) catButtons[0].classList.add('active');
+        catButtons.forEach(function (b, i) {
+          b.classList.toggle('active', i === 0);
+          b.setAttribute('aria-pressed', String(i === 0));
+        });
       }
     };
 
     var deb;
     finder.addEventListener('input', function () { clearTimeout(deb); deb = setTimeout(filtrar, 120); });
     if (clearBtn) clearBtn.addEventListener('click', function () { finder.value = ''; filtrar(); finder.focus(); });
-    if (counter) counter.textContent = allItems.length + ' piezas';
+    // mostrarCategoria ya calculó el total correspondiente a la URL inicial.
   }
 
   // ---------------------------------------------------------
@@ -693,6 +747,19 @@
         lbDesc = $('#lbDesc'), lbWa = $('#lbWa'), lbPick = $('#lbPick'), lbShare = $('#lbShare');
     var visibles = [], idx = 0, lastFocus = null;
 
+    function enlacePieza(card) {
+      var url = new URL(window.location.href);
+      url.searchParams.set('pieza', card.dataset.slug);
+      url.hash = '';
+      return url.href;
+    }
+
+    function controlesVisor() {
+      return $$('button, a[href], input', lb).filter(function (el) {
+        return !el.hidden && !el.disabled && el.getClientRects().length;
+      });
+    }
+
     function abrir(card) {
       visibles = $$('.gallery-item[data-name]').filter(function (el) {
         return !el.classList.contains('is-hidden') && el.offsetParent !== null;
@@ -700,9 +767,10 @@
       idx = visibles.indexOf(card);
       if (idx < 0) { visibles = [card]; idx = 0; }
       pintar();
-      lastFocus = document.activeElement;
+      lastFocus = $('.gallery-open', card) || document.activeElement;
       lb.classList.add('on');
       document.body.classList.add('is-locked');
+      lb.inert = false;
       $('.lb-close').focus();
       track('ver_pieza', { pieza: card.dataset.name });
     }
@@ -716,32 +784,42 @@
       var n = todas.indexOf(c) + 1;
       lbCat.textContent = (c.dataset.catname || 'Catálogo') +
         '  ·  N.º de corte ' + String(n).padStart(3, '0') + '/' + String(todas.length).padStart(3, '0');
-      lbDesc.textContent = 'Se hace a medida: elegís tamaño, material y terminación. Decinos cuál te gustó y te pasamos el valor exacto.';
+      lbDesc.textContent = c.dataset.description || 'Se hace a medida: elegís tamaño, material y terminación. Decinos cuál te gustó y te pasamos el valor exacto.';
       lbWa.href = c.dataset.wa;
       lb._card = c;
+      var status = $('#lbStatus'), linkField = $('#lbLink');
+      if (status) status.textContent = '';
+      if (linkField) { linkField.hidden = true; linkField.value = enlacePieza(c); }
+      if (lbShare) lbShare.textContent = navigator.share ? 'Compartir pieza' : 'Copiar enlace';
+      window.history.replaceState(window.history.state, '', enlacePieza(c));
       var ver = $('#lbTry');
       if (ver) {
         // OJO: no llamar a esta variable "idx": pisa la del carrusel de arriba.
         var iProb = (window.PROBADOR_NOMBRES || []).indexOf(c.dataset.name);
-        ver.hidden = iProb < 0;
+        ver.hidden = iProb < 0 || !window.probarPieza;
+        ver.disabled = ver.hidden;
         ver.onclick = function () {
+          // Nunca cerrar ni cambiar de pieza si este modelo no tiene recorte.
+          if (ver.hidden || ver.disabled || !window.probarPieza || !window.probarPieza(c.dataset.name)) return;
           cerrar();
-          var b = document.querySelector('.tryon-thumb[data-i="' + iProb + '"]');
-          if (b) b.click();
           // El probador ahora está DEBAJO del catálogo, así que este salto
           // baja en vez de subir. Funciona igual: scrollIntoView no depende
           // del orden, y el separador del header lo pone el
           // scroll-padding-top que hay en `html`.
           var sec = document.querySelector('#probador');
-          if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (sec) sec.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
         };
       }
       sincroPick();
     }
     function cerrar() {
       lb.classList.remove('on');
+      lb.inert = true;
       document.body.classList.remove('is-locked');
-      if (lastFocus) lastFocus.focus();
+      var url = new URL(window.location.href);
+      url.searchParams.delete('pieza');
+      window.history.replaceState(window.history.state, '', url);
+      if (lastFocus && lastFocus.getClientRects().length) lastFocus.focus({ preventScroll: true });
     }
     function mover(n) { if (!visibles.length) return; idx = (idx + n + visibles.length) % visibles.length; pintar(); }
 
@@ -758,24 +836,60 @@
     lb.addEventListener('click', function (e) { if (e.target === lb) cerrar(); });
     document.addEventListener('keydown', function (e) {
       if (!lb.classList.contains('on')) return;
-      if (e.key === 'Escape') cerrar();
-      if (e.key === 'ArrowLeft') mover(-1);
-      if (e.key === 'ArrowRight') mover(1);
+      if (e.key === 'Escape') { e.preventDefault(); cerrar(); }
+      if (e.key === 'Tab') {
+        var controls = controlesVisor(), first = controls[0], last = controls[controls.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+      if (e.target.tagName === 'INPUT') return;
+      if (e.key === 'ArrowLeft') { e.preventDefault(); mover(-1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); mover(1); }
     });
     // deslizar en celular
     var tx = 0;
-    lb.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; }, { passive: true });
-    lb.addEventListener('touchend', function (e) {
+    var lbFigure = $('.lb-fig', lb);
+    lbFigure.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; }, { passive: true });
+    lbFigure.addEventListener('touchend', function (e) {
       var dx = e.changedTouches[0].clientX - tx;
       if (Math.abs(dx) > 55) mover(dx < 0 ? 1 : -1);
     }, { passive: true });
 
-    if (navigator.share && lbShare) {
+    if (lbShare) {
       lbShare.hidden = false;
       lbShare.addEventListener('click', function () {
-        navigator.share({ title: 'Pixel Labs — ' + lbTitle.textContent, url: location.href }).catch(function () {});
+        if (!lb._card) return;
+        var url = enlacePieza(lb._card), status = $('#lbStatus'), field = $('#lbLink');
+        function manual() {
+          if (field) { field.value = url; field.hidden = false; field.focus(); field.select(); }
+          if (status) status.textContent = 'Copiá este enlace para compartir la pieza.';
+        }
+        function copiar() {
+          if (!navigator.clipboard || !navigator.clipboard.writeText) { manual(); return; }
+          navigator.clipboard.writeText(url).then(function () {
+            if (status) status.textContent = 'Enlace copiado. Abre directamente esta pieza.';
+          }).catch(manual);
+        }
+        if (navigator.share) {
+          navigator.share({ title: 'Pixel Labs — ' + lbTitle.textContent, url: url }).catch(function (err) {
+            if (err.name !== 'AbortError') copiar();
+          });
+        } else copiar();
       });
     }
+    lb.inert = true;
+    function abrirDesdeURL() {
+      var slug = new URL(window.location.href).searchParams.get('pieza');
+      if (!slug) { if (lb.classList.contains('on')) cerrar(); return; }
+      var card = $$('.gallery-item[data-slug]').find(function (c) { return c.dataset.slug === slug; });
+      if (!card) return;
+      limpiarBusqueda();
+      mostrarCategoria(card.closest('[data-section]').dataset.section, false);
+      abrir(card);
+    }
+    // Se ejecuta cuando también están preparados los recortes del probador.
+    requestAnimationFrame(abrirDesdeURL);
+    window.addEventListener('popstate', abrirDesdeURL);
   }
 
   // ---------------------------------------------------------
@@ -784,12 +898,25 @@
   var tray = $('#tray');
   if (tray) {
     var elegidas = [];
+    try {
+      var guardadas = JSON.parse(sessionStorage.getItem('pixelLabsSeleccion') || '[]');
+      if (Array.isArray(guardadas)) elegidas = guardadas.filter(function (n, i, lista) {
+        return typeof n === 'string' && n.length <= 160 && lista.indexOf(n) === i;
+      }).slice(0, 82);
+    } catch (err) { /* La selección sigue funcionando si el navegador bloquea storage. */ }
+    var piezasCatalogo = $$('.gallery-item[data-name]');
+    if (piezasCatalogo.length) elegidas = elegidas.filter(function (n) {
+      return piezasCatalogo.some(function (c) { return c.dataset.name === n; });
+    });
     var trayN = $('#trayN'), trayTitle = $('#trayTitle'), trayGo = $('#trayGo');
 
     function refrescar() {
       trayN.textContent = elegidas.length;
       trayTitle.textContent = elegidas.length === 1 ? 'pieza elegida' : 'piezas elegidas';
       tray.classList.toggle('on', elegidas.length > 0);
+      tray.inert = elegidas.length === 0;
+      document.body.classList.toggle('has-selection', elegidas.length > 0);
+      try { sessionStorage.setItem('pixelLabsSeleccion', JSON.stringify(elegidas)); } catch (err) {}
       var msg = '¡Hola Pixel Labs! Me interesan estas piezas del catálogo:\n\n' +
         elegidas.map(function (n, i) { return (i + 1) + '. ' + n; }).join('\n') +
         '\n\n¿Me pasan precio y plazo?';
@@ -797,7 +924,11 @@
       $$('.gallery-item[data-name]').forEach(function (c) {
         var on = elegidas.indexOf(c.dataset.name) > -1;
         var b = $('.pick', c);
-        if (b) { b.classList.toggle('on', on); b.textContent = on ? '✓' : '+'; }
+        if (b) {
+          b.classList.toggle('on', on); b.textContent = on ? '✓' : '+';
+          b.setAttribute('aria-pressed', String(on));
+          b.setAttribute('aria-label', (on ? 'Quitar de mi selección: ' : 'Agregar a mi selección: ') + c.dataset.name);
+        }
       });
       sincroPick();
     }
@@ -811,6 +942,7 @@
         if (!lb._card || !lbPick) return;
         var on = elegidas.indexOf(lb._card.dataset.name) > -1;
         lbPick.textContent = on ? 'Quitar de mi selección' : 'Agregar a mi selección';
+        lbPick.setAttribute('aria-pressed', String(on));
       };
       lbPick.addEventListener('click', function () { alternar(lb._card.dataset.name); });
     }
@@ -821,9 +953,8 @@
       alternar(b.closest('.gallery-item').dataset.name);
     });
     $('#trayClear').addEventListener('click', function () { elegidas = []; refrescar(); });
-    trayGo.addEventListener('click', function () {
-      track('contacto_whatsapp', { origen: 'seleccion multiple', destino: elegidas.length + ' piezas' });
-    });
+    // El listener general de enlaces registra una sola conversión por clic.
+    refrescar();
   }
 
 
@@ -913,7 +1044,7 @@
         if (q && norm2(p.n + ' ' + p.c).indexOf(q) < 0) return '';
         visibles++;
         return '<button class="tryon-thumb' + (i === actual ? ' on' : '') + '" type="button" data-i="' + i + '" ' +
-               'title="' + p.n + '" aria-label="' + p.n + '">' +
+               'title="' + p.n + '" aria-label="' + p.n + '" aria-pressed="' + (i === actual) + '">' +
                '<img src="images/probador/' + p.f + '.png" alt="" loading="lazy"></button>';
       }).join('');
       var c = $('#tryCount');
@@ -961,8 +1092,9 @@
     thumbs.addEventListener('click', function (e) {
       var b = e.target.closest('.tryon-thumb');
       if (!b) return;
-      $$('.tryon-thumb', thumbs).forEach(function (x) { x.classList.remove('on'); });
+      $$('.tryon-thumb', thumbs).forEach(function (x) { x.classList.remove('on'); x.setAttribute('aria-pressed', 'false'); });
       b.classList.add('on');
+      b.setAttribute('aria-pressed', 'true');
       actual = +b.dataset.i;
       pintar();
       var nombreSel = $('#tryNombre');
@@ -973,8 +1105,9 @@
     $('#trySizes').addEventListener('click', function (e) {
       var b = e.target.closest('.tryon-size');
       if (!b) return;
-      $$('.tryon-size', $('#trySizes')).forEach(function (x) { x.classList.remove('on'); });
+      $$('.tryon-size', $('#trySizes')).forEach(function (x) { x.classList.remove('on'); x.setAttribute('aria-pressed', 'false'); });
       b.classList.add('on');
+      b.setAttribute('aria-pressed', 'true');
       cm = +b.dataset.cm;
       pintar();
       track('probador_medida', { medida: cm, precio: precioDe(cm) || 0 });
@@ -1031,6 +1164,16 @@
 
     pintar();
     window.PROBADOR_NOMBRES = PIEZAS.map(function (x) { return x.n; });
+    window.probarPieza = function (nombre) {
+      var indice = window.PROBADOR_NOMBRES.indexOf(nombre);
+      if (indice < 0) return false;
+      actual = indice;
+      if (findEl) findEl.value = '';
+      pintarThumbs('');
+      pintar();
+      track('probador_pieza', { pieza: nombre });
+      return true;
+    };
   }
 
 
@@ -1123,7 +1266,7 @@
       if (pagina(href) === current) return;
       e.preventDefault();
       wipe.classList.add('is-on');
-      setTimeout(function () { window.location.href = href; }, 380);
+      setTimeout(function () { window.location.href = href; }, 140);
     });
     window.addEventListener('pageshow', function () { wipe.classList.remove('is-on'); });
   }
