@@ -902,7 +902,7 @@
       var guardadas = JSON.parse(sessionStorage.getItem('pixelLabsSeleccion') || '[]');
       if (Array.isArray(guardadas)) elegidas = guardadas.filter(function (n, i, lista) {
         return typeof n === 'string' && n.length <= 160 && lista.indexOf(n) === i;
-      }).slice(0, 82);
+      }).slice(0, 89);
     } catch (err) { /* La selección sigue funcionando si el navegador bloquea storage. */ }
     var piezasCatalogo = $$('.gallery-item[data-name]');
     if (piezasCatalogo.length) elegidas = elegidas.filter(function (n) {
