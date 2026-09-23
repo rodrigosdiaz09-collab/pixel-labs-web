@@ -1,0 +1,145 @@
+{
+  "pages": [
+    {
+      "page": "index",
+      "width": 1440,
+      "status": 200,
+      "checked": 126,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "productos",
+      "width": 1440,
+      "status": 200,
+      "checked": 82,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "servicios",
+      "width": 1440,
+      "status": 200,
+      "checked": 53,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "ideas",
+      "width": 1440,
+      "status": 200,
+      "checked": 117,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "nosotros",
+      "width": 1440,
+      "status": 200,
+      "checked": 44,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "contacto",
+      "width": 1440,
+      "status": 200,
+      "checked": 66,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "404",
+      "width": 1440,
+      "status": 200,
+      "checked": 26,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "index",
+      "width": 390,
+      "status": 200,
+      "checked": 121,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "productos",
+      "width": 390,
+      "status": 200,
+      "checked": 77,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "servicios",
+      "width": 390,
+      "status": 200,
+      "checked": 48,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "ideas",
+      "width": 390,
+      "status": 200,
+      "checked": 112,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "nosotros",
+      "width": 390,
+      "status": 200,
+      "checked": 39,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "contacto",
+      "width": 390,
+      "status": 200,
+      "checked": 61,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "page": "404",
+      "width": 390,
+      "status": 200,
+      "checked": 21,
+      "failures": [],
+      "overflow": false
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Abrir categoría",
+      "visible": true
+    },
+    {
+      "name": "Ficha de producto",
+      "visible": true,
+      "checked": 174,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "name": "Menú móvil",
+      "expanded": "true",
+      "checked": 165,
+      "failures": [],
+      "overflow": false
+    },
+    {
+      "name": "Seleccionar pieza",
+      "visible": true
+    },
+    {
+      "name": "Vaciar selección",
+      "hidden": true
+    }
+  ],
+  "errors": []
+}

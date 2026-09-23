@@ -1,0 +1,169 @@
+/* PixelLabs — paleta del monograma PL.
+   Cargar DESPUÉS de style.css. Los alias --gold conservan compatibilidad
+   con el catálogo y el probador; el ámbar se reserva para acentos. */
+:root {
+  color-scheme: light;
+  --bg: #F7F4ED;
+  --bg-raised: #FFFFFF;
+  --bg-light: #EDF2F0;
+  --bg-light-raised: #E4ECE9;
+  --ink: #20383D;
+  --ink-soft: #4E6065;
+  --ink-on-light: #20383D;
+  --ink-on-light-soft: #4E6065;
+  --brand: #244B52;
+  --brand-hover: #17383F;
+  --amber: #D8A34E;
+  --amber-surface: #F4E5C8;
+  --gold: var(--brand);
+  --gold-light: var(--brand-hover);
+  --gold-deep: var(--brand-hover);
+  --gold-dim: rgba(36, 75, 82, .42);
+  --line: #C1CECA;
+  --line-on-light: #B2C2BD;
+  --control-line: #71888B;
+  --wa: #176B48;
+  --font-display: 'Jost', system-ui, sans-serif;
+  --font-body: 'Jost', system-ui, sans-serif;
+}
+
+body { background: var(--bg); background-attachment: scroll; font-weight: 400; }
+h1, h2, h3 { color: var(--brand); }
+button, input, select, textarea { font-family: var(--font-body); }
+::selection { background: var(--brand); color: #FFFFFF; }
+.grain, .vignette { display: none; }
+.blueprint svg { opacity: .13; }
+.hero-canvas { opacity: .12; }
+.boot, .wipe { background: var(--bg); }
+.boot-bar { background: var(--line); }
+.boot-bar::after, .scan-progress, .wipe::after { background: var(--amber); box-shadow: none; }
+.cursor-dot { background: var(--amber); box-shadow: none; }
+.cursor-ring { border-color: var(--brand); }
+body.cursor-hot .cursor-ring { background: rgba(36,75,82,.06); }
+::-webkit-scrollbar-track { background: var(--bg-light); }
+::-webkit-scrollbar-thumb { background: var(--brand); border-color: var(--bg-light); }
+
+/* Fondos opacos: la animación de la máquina queda detrás del contenido. */
+.site-header, .site-header.is-stuck { background: var(--bg); border-color: var(--line); }
+.site-header { position: sticky; }
+.main-nav a { color: var(--ink-soft); font-weight: 500; }
+.brand { font-weight: 600; }
+.brand-mark { border-radius: 0; object-fit: contain; width: 42px; height: 42px; }
+.brand:hover .brand-mark { transform: none; box-shadow: none; }
+.announce { background: var(--amber-surface); color: var(--ink); animation: none; }
+.announce a, .count-down { border-color: var(--ink-soft); }
+.announce-close { color: var(--ink); }
+.ticker { background: var(--bg-light); }
+.trust-item, .spec { background: var(--bg-raised); }
+.trust-item:hover, .spec:hover { background: var(--bg-light); }
+.service-row, .step, .gallery-item, .nov-link, .price-card, .price-extra,
+.stat, .quote, .contact-info-row, #contactForm, .note-card, .story,
+.machine-list, .cat-card, .tryon-thumb, .tryon-size {
+  background: var(--bg-raised);
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+.service-row:hover, .cat-card:hover, .cat-card:focus-visible { background: var(--bg-light); }
+.section-glass, .section-light, .catalog-help { background: var(--bg-light); }
+.section-glass::before { background: none; }
+.section-glass::after { background: var(--amber); opacity: 1; }
+.gallery-item:hover, .nov-link:hover, .nov-link:focus-visible {
+  box-shadow: 0 10px 24px rgba(32,56,61,.12);
+}
+.gallery-item::before, .price-card::after { display: none; }
+.gallery-open, .about-media, .cat-card-img, .story figure, .lb-fig { background: var(--bg-light); }
+.gallery-overlay, .gallery-open-label, .cat-barra, .fab-label,
+.tray, .lb-inner, .stories-nav button { background: var(--bg-raised); }
+.gallery-open-label { color: var(--brand); border-color: var(--control-line); }
+.gallery-overlay h3, .gallery-overlay h4, .nov-n, .cat-card-n { font-weight: 500; }
+.cat-card-img img { opacity: 1; }
+.nov-foto img, .nov-foto .nov-video, .story img { filter: none; }
+.story figure::after, .about-media::after { background: none; }
+.nov-sello { background: var(--amber-surface); color: var(--ink); box-shadow: none; }
+.step-n { color: var(--brand); -webkit-text-stroke: 0; }
+.step:hover .step-n { color: var(--brand-hover); }
+.hero-joke, .machine-note, .footer-copy .joke { opacity: 1; }
+.hero-tag img, .hero-tag video { filter: none; }
+.hero::after { background: linear-gradient(90deg, transparent, var(--amber), transparent); box-shadow: none; }
+.spark-hover::after { background: var(--amber); box-shadow: none; }
+.spark-divider svg { color: var(--amber); }
+
+/* Controles: petróleo con texto claro; foco visible también con teclado. */
+.btn { color: var(--brand); border-color: var(--brand); font-weight: 500; }
+.btn-solid, .btn:hover, .btn:focus-visible { color: #FFFFFF; }
+.btn-solid { background: var(--brand); }
+.btn::before, .btn-solid::before { background: var(--brand-hover); }
+.btn:hover, .btn:focus-visible { box-shadow: 0 4px 14px rgba(36,75,82,.16); }
+.btn-wa { border-color: var(--wa); color: var(--wa); }
+.btn-wa:hover, .btn-wa:focus-visible { color: #FFFFFF; }
+.btn-wa::before { background: var(--wa); }
+.fab { color: #FFFFFF; box-shadow: 0 6px 18px rgba(32,56,61,.2); }
+.fab:hover { box-shadow: 0 8px 24px rgba(32,56,61,.25); }
+.fab-label { color: var(--ink); }
+.cat-tabs button, .cat-volver, .tryon-size, .tryon-group > h3 { font-weight: 500; }
+.cat-tabs button.active { font-weight: 600; }
+.cat-volver, .tryon-size, .stories-nav button, .nav-toggle { border-color: var(--control-line); }
+.pick { background: #FFFFFF; color: var(--brand); border-color: var(--control-line); }
+.pick.on, .tryon-size.on, .price-badge, .quote-av { color: #FFFFFF; background: var(--brand); }
+.pick:hover:not(.on) { background: var(--bg-light); }
+.tryon-thumb.on { background: var(--bg-light); border: 2px solid var(--brand); }
+.tryon-thumb img { filter: none; opacity: 1; }
+.tray { box-shadow: 0 8px 28px rgba(32,56,61,.18); }
+.tray:not(.on) { visibility: hidden; }
+a:focus-visible, button:focus-visible, input:focus-visible,
+textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--brand); outline-offset: 3px;
+}
+.gallery-open:focus-visible { outline-offset: -5px; }
+
+/* Formularios: no se depende de la opacidad para los textos auxiliares. */
+.form-field input, .form-field select, .form-field textarea,
+.finder input, .tryon-search input {
+  color: var(--ink); background-color: var(--bg-raised);
+  border-bottom-color: var(--control-line);
+}
+.form-field input, .form-field textarea, .form-field select { padding-inline: .6rem; }
+input::placeholder, textarea::placeholder,
+.finder input::placeholder, .tryon-search input::placeholder {
+  color: var(--ink-soft); opacity: 1;
+}
+.form-field label { color: var(--ink-soft); font-weight: 500; }
+.tryon-search input::-webkit-search-cancel-button { filter: none; }
+.form-aviso { color: var(--brand); background: var(--bg-light); border-color: var(--brand); }
+.form-aviso.mal { color: #8D2B21; background: #FFF0EB; border-color: #A43F2D; }
+.form-aviso.mal a { color: #8D2B21; }
+.tryon-precio, .tryon-partes { background: var(--bg-light); }
+.atajo-probador { background: var(--bg-light); }
+.atajo-probador:hover, .atajo-probador:focus-visible { background: var(--bg-light-raised); }
+
+/* Fichas y fotos: superficie clara para contenido, oscuro solo de telón. */
+.lightbox { background: rgba(23,40,44,.88); }
+.lb-close, .lb-nav, .lb-nav:hover {
+  color: #FFFFFF; background: var(--brand-hover); border-color: #FFFFFF;
+}
+.lb-close:hover { color: #FFFFFF; background: var(--brand); }
+.lb-close:focus-visible, .lb-nav:focus-visible { outline-color: #FFFFFF; }
+.tryon-stage { background: var(--bg-light-raised); }
+.tryon-hint, .tryon-stage.has-photo .tryon-hint {
+  background: var(--brand-hover); color: #FFFFFF; border-color: var(--brand-hover);
+}
+.tryon-piece::after { color: #FFFFFF; background: var(--brand); }
+
+/* Pie petróleo: sus variables se invierten localmente, sin afectar tarjetas. */
+.site-footer {
+  --ink: #FFFFFF; --ink-soft: #DFE9E6;
+  --gold: #F0CA87; --gold-light: #F0CA87;
+  background: var(--brand-hover); color: var(--ink);
+}
+.footer-brand { font-weight: 500; }
+.footer-brand img { border-radius: 0; object-fit: contain; }
+.site-footer a:focus-visible { outline-color: #FFFFFF; }
+
+@media (max-width: 900px) {
+  .main-nav { background: var(--bg); visibility: hidden; }
+  .main-nav.open { visibility: visible; }
+  .main-nav a { color: var(--brand); }
+  .blueprint svg { opacity: .1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero::after { display: none; }
+}

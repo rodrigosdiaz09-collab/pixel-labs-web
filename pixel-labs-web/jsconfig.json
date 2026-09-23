@@ -1,0 +1,23 @@
+{
+  // Le dice a VS Code cómo tratar este proyecto.
+  //
+  // Sin este archivo, VS Code adivina, y si tenés activada la opción
+  // "checkJs" en tu configuración global te marca 23 errores falsos en
+  // script.js: son cosas que el editor no puede saber por sí solo, como
+  // que "dataLayer" lo crea Google Tag Manager desde el HTML.
+  //
+  // El sitio es JavaScript común de navegador, no un proyecto con
+  // compilación. No hay nada que compilar: los archivos se suben tal cual.
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "checkJs": false,
+    "strict": false,
+    "noImplicitAny": false,
+    "noEmit": true
+  },
+  "include": ["script.js", "worker/**/*.js", "tipos/*.d.ts"],
+  "exclude": ["node_modules", ".wrangler", "images"]
+}
